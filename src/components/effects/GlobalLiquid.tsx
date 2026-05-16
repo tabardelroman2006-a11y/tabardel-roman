@@ -105,7 +105,8 @@ export function GlobalLiquid() {
         )
       })
 
-      const imageAspect = texture.image.width / texture.image.height
+      const img = texture.image as { width: number; height: number }
+      const imageAspect = img.width / img.height
 
       const geometry = new THREE.PlaneGeometry(2, 2)
       const material = new THREE.ShaderMaterial({
