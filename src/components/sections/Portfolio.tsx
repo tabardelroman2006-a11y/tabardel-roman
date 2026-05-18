@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import Image from 'next/image'
 
 const projects = [
   {
@@ -9,24 +10,28 @@ const projects = [
     description: 'Site vitrine pour un club BMX local. Design dynamique, moderne et adapté à tous les supports.',
     url: 'https://livron-bmx-club.base44.app/',
     available: true,
+    image: '/images/bmx-livron.jpg',
   },
   {
     title: 'Chalet La Taiga',
     description: 'Site vitrine pour un chalet de montagne à Lans-en-Vercors. Ambiance chaleureuse, réservations et expérience premium.',
     url: 'https://chalet-taiga.fr/',
     available: true,
+    image: '',
   },
   {
     title: 'Bientôt disponible',
     description: 'Un nouveau projet en cours de finalisation.',
     url: '',
     available: false,
+    image: '',
   },
   {
     title: 'Bientôt disponible',
     description: 'Un nouveau projet en cours de finalisation.',
     url: '',
     available: false,
+    image: '',
   },
 ]
 
@@ -84,10 +89,20 @@ export function Portfolio() {
                   data-cursor-hover
                 >
                   <div className="flex items-start justify-between mb-6">
-                    <div
-                      className="w-full h-48 bg-stone-200 rounded-xl flex items-center justify-center"
-                    >
-                      <span className="text-xs text-muted">[Aperçu à fournir]</span>
+                    <div className="w-full h-48 rounded-xl overflow-hidden relative bg-stone-200">
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-xs text-muted">[Aperçu à fournir]</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex items-start justify-between">
