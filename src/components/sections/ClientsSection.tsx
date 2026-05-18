@@ -309,8 +309,12 @@ export function ClientsSection() {
               <stop offset="100%" stopColor="#f5f0e8" />
             </linearGradient>
             <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stopColor="#c8bfaa" />
-              <stop offset="100%" stopColor="#b5aa96" />
+              <stop offset="0%"   stopColor="#6b6b6b" />
+              <stop offset="100%" stopColor="#4a4a4a" />
+            </linearGradient>
+            <linearGradient id="sidewalk" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stopColor="#9a9a9a" />
+              <stop offset="100%" stopColor="#808080" />
             </linearGradient>
           </defs>
 
@@ -331,14 +335,17 @@ export function ClientsSection() {
           <Bird x={-50}  y={110} delay={8}  />
           <Bird x={-150} y={100} delay={12} />
 
-          {/* Sol / trottoir */}
-          <rect x="0" y={GROUND} width="980" height="60" fill="url(#ground)" />
-          {/* Ligne trottoir */}
-          <rect x="0" y={GROUND} width="980" height="3" fill="rgba(0,0,0,0.15)" />
-          {/* Marquages au sol */}
-          {Array.from({ length: 20 }, (_, i) => (
-            <rect key={i} x={40 + i * 48} y={GROUND + 18} width="28" height="5" rx="2" fill="rgba(255,255,255,0.3)" />
+          {/* Trottoir */}
+          <rect x="0" y={GROUND} width="980" height="14" fill="url(#sidewalk)" />
+          <rect x="0" y={GROUND + 13} width="980" height="2" fill="rgba(0,0,0,0.25)" />
+          {/* Route */}
+          <rect x="0" y={GROUND + 15} width="980" height="45" fill="url(#ground)" />
+          {/* Ligne centrale tiretée */}
+          {Array.from({ length: 22 }, (_, i) => (
+            <rect key={i} x={i * 46} y={GROUND + 35} width="28" height="4" rx="2" fill="rgba(255,255,255,0.7)" />
           ))}
+          {/* Bordure route */}
+          <rect x="0" y={GROUND + 58} width="980" height="2" fill="rgba(255,255,255,0.15)" />
 
           {/* Petits arbres décoratifs */}
           {[145, 310, 455, 616, 783, 950].map(x => (
