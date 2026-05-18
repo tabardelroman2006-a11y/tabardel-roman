@@ -55,7 +55,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${cormorant.variable} ${inter.variable}`}>
-      <body style={{ backgroundColor: '#0a0a0a', cursor: 'none', overflowX: 'hidden' }}>
+      <body style={{ backgroundColor: '#f2f2f0', cursor: 'none', overflowX: 'hidden' }}>
         {/* Canvas WebGL — image + effet liquide fusionnés */}
         <GlobalLiquid />
         <div style={{ position: 'relative', zIndex: 2 }}>
