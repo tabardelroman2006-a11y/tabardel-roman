@@ -34,16 +34,16 @@ export function Header() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
-        backgroundColor: scrolled ? 'rgba(10,10,10,0.80)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
+        backgroundColor: 'rgba(255,255,255,0.95)',
+        backdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(0,0,0,0.07)',
       }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
         <Link
           href="/"
           className="tracking-wide text-base"
-          style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em', color: '#ffffff' }}
+          style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em', color: '#1a1a1a' }}
         >
           Roman Tabardel
         </Link>
@@ -55,7 +55,7 @@ export function Header() {
               href={link.href}
               className="text-sm transition-colors"
               style={{
-                color: pathname === link.href ? '#ffffff' : 'rgba(255,255,255,0.55)',
+                color: pathname === link.href ? '#1a1a1a' : 'rgba(0,0,0,0.45)',
                 fontWeight: pathname === link.href ? 500 : 400,
               }}
             >
@@ -69,10 +69,9 @@ export function Header() {
             onClick={openDevis}
             className="px-4 py-2 text-sm rounded-lg transition-all"
             style={{
-              border: '1px solid rgba(255,255,255,0.3)',
-              color: '#ffffff',
-              backgroundColor: 'rgba(255,255,255,0.08)',
-              backdropFilter: 'blur(8px)',
+              border: '1px solid rgba(0,0,0,0.18)',
+              color: '#1a1a1a',
+              backgroundColor: 'rgba(0,0,0,0.04)',
             }}
           >
             Devis gratuit
@@ -81,7 +80,7 @@ export function Header() {
 
         <button
           className="md:hidden"
-          style={{ color: '#ffffff' }}
+          style={{ color: '#1a1a1a' }}
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Menu"
         >
