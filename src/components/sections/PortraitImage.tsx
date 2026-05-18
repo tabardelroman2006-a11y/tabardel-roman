@@ -13,7 +13,7 @@ export function PortraitImage() {
     >
       {!error ? (
         <Image
-          src="/images/roman-tabardel.jpg"
+          src="/images/portrait.jpg"
           alt="Roman Tabardel"
           fill
           className="object-cover"
