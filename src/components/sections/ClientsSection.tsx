@@ -83,10 +83,9 @@ function Buildings({ hovered, setHovered }: {
       <motion.g
         onMouseEnter={() => setHovered('restaurant')}
         onMouseLeave={() => setHovered(null)}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', transformOrigin: '75px 370px' }}
         animate={{ scale: isH('restaurant') ? 1.06 : 1 }}
         transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-        transformOrigin="75px 370px"
       >
         <rect x="25" y={g-160} width="100" height="160" fill={fill('restaurant')} rx="2" />
         <polygon points="15,210 75,148 135,210" fill={fill('restaurant')} />
@@ -112,10 +111,9 @@ function Buildings({ hovered, setHovered }: {
       <motion.g
         onMouseEnter={() => setHovered('artisan')}
         onMouseLeave={() => setHovered(null)}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', transformOrigin: '225px 370px' }}
         animate={{ scale: isH('artisan') ? 1.06 : 1 }}
         transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-        transformOrigin="225px 370px"
       >
         <rect x="162" y={g-130} width="126" height="130" fill={fill('artisan')} rx="2" />
         <polygon points="156,240 225,188 294,240" fill={fill('artisan')} />
@@ -141,10 +139,9 @@ function Buildings({ hovered, setHovered }: {
       <motion.g
         onMouseEnter={() => setHovered('coiffeur')}
         onMouseLeave={() => setHovered(null)}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', transformOrigin: '375px 370px' }}
         animate={{ scale: isH('coiffeur') ? 1.06 : 1 }}
         transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-        transformOrigin="375px 370px"
       >
         <rect x="318" y={g-155} width="114" height="155" fill={fill('coiffeur')} rx="2" />
         <rect x="314" y={g-162} width="122" height="12" fill={fill('coiffeur')} rx="2" />
@@ -176,10 +173,9 @@ function Buildings({ hovered, setHovered }: {
       <motion.g
         onMouseEnter={() => setHovered('immeuble')}
         onMouseLeave={() => setHovered(null)}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', transformOrigin: '525px 370px' }}
         animate={{ scale: isH('immeuble') ? 1.04 : 1 }}
         transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-        transformOrigin="525px 370px"
       >
         {/* Tour */}
         <rect x="478" y={g-280} width="96" height="280" fill={fill('immeuble')} rx="2" />
@@ -211,10 +207,9 @@ function Buildings({ hovered, setHovered }: {
       <motion.g
         onMouseEnter={() => setHovered('ecommerce')}
         onMouseLeave={() => setHovered(null)}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', transformOrigin: '695px 370px' }}
         animate={{ scale: isH('ecommerce') ? 1.06 : 1 }}
         transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-        transformOrigin="695px 370px"
       >
         <rect x="624" y={g-145} width="142" height="145" fill={fill('ecommerce')} rx="2" />
         <rect x="618" y={g-152} width="154" height="14" fill={fill('ecommerce')} rx="2" />
@@ -243,10 +238,9 @@ function Buildings({ hovered, setHovered }: {
       <motion.g
         onMouseEnter={() => setHovered('tpe')}
         onMouseLeave={() => setHovered(null)}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', transformOrigin: '865px 370px' }}
         animate={{ scale: isH('tpe') ? 1.06 : 1 }}
         transition={{ duration: 0.35, ease: [0.16,1,0.3,1] }}
-        transformOrigin="865px 370px"
       >
         <rect x="792" y={g-175} width="136" height="175" fill={fill('tpe')} rx="2" />
         <polygon points="786,195 860,138 934,195" fill={fill('tpe')} />
