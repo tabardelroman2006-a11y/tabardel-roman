@@ -49,10 +49,10 @@ export function MessageSection() {
           className="mt-10 max-w-2xl mx-auto leading-relaxed"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+            fontSize: 'clamp(1.4rem, 2.8vw, 2rem)',
             fontWeight: 400,
             fontStyle: 'italic',
-            color: 'rgba(26,26,26,0.5)',
+            color: 'rgba(26,26,26,0.75)',
           }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
