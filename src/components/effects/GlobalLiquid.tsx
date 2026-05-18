@@ -98,7 +98,7 @@ export function GlobalLiquid() {
       /* Chargement de la texture */
       const texture = await new Promise<Texture>((resolve, reject) => {
         new THREE.TextureLoader().load(
-          '/images/hero-photo.jpg',
+          '/images/bg-photo.jpg',
           (t) => { t.minFilter = THREE.LinearFilter; resolve(t) },
           undefined,
           reject
