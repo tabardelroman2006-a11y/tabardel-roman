@@ -44,6 +44,25 @@ export function MessageSection() {
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
         />
+
+        <motion.p
+          className="mt-10 max-w-2xl mx-auto leading-relaxed"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+            fontWeight: 400,
+            fontStyle: 'italic',
+            color: 'rgba(26,26,26,0.5)',
+          }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+        >
+          Je crée des sites web sur-mesure et optimise votre référencement naturel
+          pour que votre entreprise soit trouvée, reconnue, et choisie —
+          avant même que vos concurrents ne soient remarqués.
+        </motion.p>
       </div>
     </section>
   )
