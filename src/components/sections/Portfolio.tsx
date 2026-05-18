@@ -17,7 +17,7 @@ const projects = [
     description: 'Site vitrine pour un chalet de montagne à Lans-en-Vercors. Ambiance chaleureuse, réservations et expérience premium.',
     url: 'https://chalet-taiga.fr/',
     available: true,
-    image: '',
+    image: '/images/chalet-taiga.jpg',
   },
   {
     title: 'Bientôt disponible',
