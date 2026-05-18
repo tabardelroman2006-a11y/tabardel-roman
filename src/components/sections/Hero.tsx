@@ -15,8 +15,16 @@ export function Hero() {
       {/* Layout 2 colonnes */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-        {/* Colonne gauche — texte */}
-        <div>
+        {/* Colonne gauche — texte avec enveloppe frosted glass */}
+        <div
+          className="rounded-2xl p-8"
+          style={{
+            backgroundColor: 'rgba(255,255,255,0.45)',
+            backdropFilter: 'blur(18px)',
+            WebkitBackdropFilter: 'blur(18px)',
+            border: '1px solid rgba(255,255,255,0.6)',
+          }}
+        >
           <div className="overflow-hidden mb-5">
             <motion.h1
               style={{
@@ -66,6 +74,7 @@ export function Hero() {
             </button>
           </motion.div>
         </div>
+        {/* Fin enveloppe frosted glass */}
 
         {/* Colonne droite — photo */}
         <motion.div
