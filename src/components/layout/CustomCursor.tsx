@@ -43,8 +43,8 @@ export function CustomCursor() {
       ringY = lerp(ringY, mouseY, 0.10)
       currentScale = lerp(currentScale, targetScale, 0.12)
 
-      dot.style.transform  = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`
-      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%) scale(${currentScale})`
+      if (dot)  dot.style.transform  = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`
+      if (ring) ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%) scale(${currentScale})`
 
       rafId = requestAnimationFrame(animate)
     }
