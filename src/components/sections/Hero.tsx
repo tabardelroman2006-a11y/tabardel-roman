@@ -1,128 +1,189 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
+
+const stats = [
+  { num: '12+',  label: 'Projets livrés'     },
+  { num: '100%', label: 'Clients satisfaits'  },
+  { num: '3–4',  label: 'Semaines de délai'   },
+]
 
 export function Hero() {
   const { openDevis } = useModal()
-  const [imgError, setImgError] = useState(false)
 
   return (
-    <section className="relative w-full min-h-screen flex items-center overflow-hidden">
+    <section className="relative w-full min-h-screen flex flex-col justify-between pt-32 pb-14 overflow-hidden">
 
-      {/* Layout 2 colonnes */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      {/* Badge disponibilité */}
+      <motion.div
+        className="px-6 lg:px-16"
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      >
+        <span
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs tracking-[0.2em] uppercase"
+          style={{
+            border: '1px solid rgba(26,26,26,0.13)',
+            color: '#6B6B6B',
+            backgroundColor: 'rgba(255,255,255,0.7)',
+            backdropFilter: 'blur(10px)',
+          }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          Disponible pour de nouveaux projets
+        </span>
+      </motion.div>
 
-        {/* Colonne gauche — texte */}
-        <div>
-          <div className="overflow-hidden mb-5">
-            <motion.h1
+      {/* Titre monumental */}
+      <div className="px-6 lg:px-16 w-full">
+        <div className="overflow-hidden mb-2">
+          <motion.div
+            initial={{ y: '105%' }}
+            animate={{ y: '0%' }}
+            transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.18 }}
+          >
+            <h1
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)',
-                fontWeight: 400,
-                lineHeight: 1.1,
+                fontSize: 'clamp(4rem, 11.5vw, 11.5rem)',
+                fontWeight: 300,
+                lineHeight: 0.88,
                 color: '#1A1A1A',
-              }}
-              initial={{ y: '100%', opacity: 0 }}
-              animate={{ y: '0%', opacity: 1 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            >
-              Votre présence en ligne,{' '}
-              <span style={{ fontStyle: 'italic', color: 'rgba(26,26,26,0.55)' }}>
-                repensée.
-              </span>
-            </motion.h1>
-          </div>
-
-          <motion.p
-            style={{ color: 'rgba(26,26,26,0.6)' }}
-            className="text-lg max-w-md mb-10 leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
-          >
-            Création de sites web &amp; référencement naturel
-            pour les entrepreneurs qui veulent se démarquer.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.95 }}
-          >
-            <button
-              onClick={openDevis}
-              className="px-8 py-4 text-sm font-medium rounded-xl transition-all hover:scale-105"
-              style={{
-                backgroundColor: '#1A1A1A',
-                color: '#ffffff',
-                border: '1px solid transparent',
+                letterSpacing: '-0.025em',
               }}
             >
-              Demander un devis
-            </button>
+              Sites qui
+            </h1>
           </motion.div>
         </div>
 
-        {/* Colonne droite — photo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-          className="flex justify-center lg:justify-end"
-        >
-          <div
-            className="rounded-3xl overflow-hidden"
-            style={{
-              width: 'clamp(280px, 40vw, 500px)',
-              aspectRatio: '4/5',
-              position: 'relative',
-              boxShadow: '0 32px 80px rgba(0,0,0,0.15)',
-              border: '1px solid rgba(0,0,0,0.08)',
-            }}
+        <div className="overflow-hidden mb-2">
+          <motion.div
+            initial={{ y: '105%' }}
+            animate={{ y: '0%' }}
+            transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
           >
-            {!imgError ? (
-              <Image
-                src="/images/hero-photo.jpg"
-                alt="Setup Roman Tabardel"
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 90vw, 40vw"
-                onError={() => setImgError(true)}
-              />
-            ) : (
-              <div
-                className="w-full h-full flex items-center justify-center"
-                style={{ backgroundColor: 'rgba(0,0,0,0.04)' }}
-              >
-                <p className="text-xs text-center px-6" style={{ color: 'rgba(26,26,26,0.4)' }}>
-                  [Déposer hero-photo.jpg dans public/images/]
-                </p>
-              </div>
-            )}
-          </div>
-        </motion.div>
+            <h1
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(4rem, 11.5vw, 11.5rem)',
+                fontWeight: 300,
+                lineHeight: 0.88,
+                fontStyle: 'italic',
+                color: 'rgba(26,26,26,0.28)',
+                letterSpacing: '-0.025em',
+              }}
+            >
+              marquent
+            </h1>
+          </motion.div>
+        </div>
 
+        <div className="overflow-hidden">
+          <motion.div
+            initial={{ y: '105%' }}
+            animate={{ y: '0%' }}
+            transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1], delay: 0.38 }}
+          >
+            <h1
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(4rem, 11.5vw, 11.5rem)',
+                fontWeight: 300,
+                lineHeight: 0.88,
+                color: '#1A1A1A',
+                letterSpacing: '-0.025em',
+              }}
+            >
+              les esprits.
+            </h1>
+          </motion.div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Barre inférieure */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="px-6 lg:px-16 w-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
+        transition={{ duration: 1, delay: 0.9 }}
+      >
+        <div
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-8"
+          style={{ borderTop: '1px solid rgba(26,26,26,0.1)' }}
+        >
+          {/* Description */}
+          <p
+            className="max-w-xs text-sm leading-relaxed"
+            style={{ color: 'rgba(26,26,26,0.5)' }}
+          >
+            Création de sites web &amp; référencement naturel
+            pour les entrepreneurs qui veulent se démarquer.
+          </p>
+
+          {/* Stats */}
+          <div className="flex gap-10 lg:gap-16">
+            {stats.map(({ num, label }) => (
+              <div key={label}>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(1.6rem, 2.5vw, 2.5rem)',
+                    fontWeight: 300,
+                    color: '#1A1A1A',
+                    lineHeight: 1,
+                  }}
+                >
+                  {num}
+                </p>
+                <p className="text-xs mt-1.5 tracking-wider uppercase" style={{ color: 'rgba(26,26,26,0.4)' }}>
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <button
+            onClick={openDevis}
+            className="group flex items-center gap-3 text-sm font-medium transition-all duration-300 self-start lg:self-auto"
+            style={{
+              backgroundColor: '#1A1A1A',
+              color: '#ffffff',
+              padding: '16px 32px',
+              borderRadius: '100px',
+            }}
+            data-cursor-hover
+          >
+            Demander un devis
+            <ArrowUpRight
+              size={14}
+              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Indicateur scroll */}
+      <motion.div
+        className="absolute right-8 lg:right-16 bottom-14 flex flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
       >
         <motion.div
           className="w-px"
-          style={{ height: 44, backgroundColor: 'rgba(26,26,26,0.25)' }}
-          animate={{ scaleY: [1, 0.4, 1], opacity: [0.25, 0.6, 0.25] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ height: 48, backgroundColor: 'rgba(26,26,26,0.2)' }}
+          animate={{ scaleY: [1, 0.4, 1], opacity: [0.2, 0.5, 0.2] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <span className="text-xs tracking-widest uppercase" style={{ color: 'rgba(26,26,26,0.4)' }}>
+        <span
+          className="text-[9px] tracking-[0.3em] uppercase"
+          style={{ color: 'rgba(26,26,26,0.35)', writingMode: 'vertical-rl' }}
+        >
           Scroll
         </span>
       </motion.div>
