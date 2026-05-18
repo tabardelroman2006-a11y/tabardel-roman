@@ -12,14 +12,6 @@ export function Hero() {
   return (
     <section className="relative w-full min-h-screen flex items-center overflow-hidden">
 
-      {/* Vignette sombre sur les bords */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 30% 50%, transparent 40%, rgba(0,0,0,0.45) 100%)',
-        }}
-      />
-
       {/* Layout 2 colonnes */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
@@ -32,21 +24,21 @@ export function Hero() {
                 fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)',
                 fontWeight: 400,
                 lineHeight: 1.1,
-                color: '#ffffff',
+                color: '#1A1A1A',
               }}
               initial={{ y: '100%', opacity: 0 }}
               animate={{ y: '0%', opacity: 1 }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             >
               Votre présence en ligne,{' '}
-              <span style={{ fontStyle: 'italic', color: 'rgba(255,255,255,0.7)' }}>
+              <span style={{ fontStyle: 'italic', color: 'rgba(26,26,26,0.55)' }}>
                 repensée.
               </span>
             </motion.h1>
           </div>
 
           <motion.p
-            style={{ color: 'rgba(255,255,255,0.6)' }}
+            style={{ color: 'rgba(26,26,26,0.6)' }}
             className="text-lg max-w-md mb-10 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -65,10 +57,9 @@ export function Hero() {
               onClick={openDevis}
               className="px-8 py-4 text-sm font-medium rounded-xl transition-all hover:scale-105"
               style={{
-                backgroundColor: 'rgba(255,255,255,0.12)',
+                backgroundColor: '#1A1A1A',
                 color: '#ffffff',
-                border: '1px solid rgba(255,255,255,0.28)',
-                backdropFilter: 'blur(10px)',
+                border: '1px solid transparent',
               }}
             >
               Demander un devis
@@ -89,8 +80,8 @@ export function Hero() {
               width: 'clamp(280px, 40vw, 500px)',
               aspectRatio: '4/5',
               position: 'relative',
-              boxShadow: '0 32px 80px rgba(0,0,0,0.6)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              boxShadow: '0 32px 80px rgba(0,0,0,0.15)',
+              border: '1px solid rgba(0,0,0,0.08)',
             }}
           >
             {!imgError ? (
@@ -106,9 +97,9 @@ export function Hero() {
             ) : (
               <div
                 className="w-full h-full flex items-center justify-center"
-                style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}
+                style={{ backgroundColor: 'rgba(0,0,0,0.04)' }}
               >
-                <p className="text-xs text-center px-6" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                <p className="text-xs text-center px-6" style={{ color: 'rgba(26,26,26,0.4)' }}>
                   [Déposer hero-photo.jpg dans public/images/]
                 </p>
               </div>
@@ -127,11 +118,11 @@ export function Hero() {
       >
         <motion.div
           className="w-px"
-          style={{ height: 44, backgroundColor: 'rgba(255,255,255,0.35)' }}
-          animate={{ scaleY: [1, 0.4, 1], opacity: [0.35, 0.8, 0.35] }}
+          style={{ height: 44, backgroundColor: 'rgba(26,26,26,0.25)' }}
+          animate={{ scaleY: [1, 0.4, 1], opacity: [0.25, 0.6, 0.25] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         />
-        <span className="text-xs tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>
+        <span className="text-xs tracking-widest uppercase" style={{ color: 'rgba(26,26,26,0.4)' }}>
           Scroll
         </span>
       </motion.div>
