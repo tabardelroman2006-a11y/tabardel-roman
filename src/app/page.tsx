@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { Hero } from '@/components/sections/Hero'
-import { Marquee } from '@/components/ui/Marquee'
 import { MessageSection } from '@/components/sections/MessageSection'
 import { ClientsSection } from '@/components/sections/ClientsSection'
-import { Portfolio } from '@/components/sections/Portfolio'
 import { ReviewsSection } from '@/components/sections/ReviewsSection'
 
 export const metadata: Metadata = {
@@ -16,10 +15,25 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Marquee />
       <MessageSection />
+
+      {/* Carré image Pinterest */}
+      <div className="flex justify-center py-16">
+        <div
+          className="rounded-2xl overflow-hidden shadow-xl"
+          style={{ width: 280, height: 280, position: 'relative' }}
+        >
+          <Image
+            src="https://i1-c.pinimg.com/1200x/cd/d2/2a/cdd22ad2fb41eeb8a1c27946b76e5027.jpg"
+            alt="Inspiration"
+            fill
+            className="object-cover"
+            sizes="280px"
+          />
+        </div>
+      </div>
+
       <ClientsSection />
-      <Portfolio />
       <ReviewsSection />
     </>
   )
