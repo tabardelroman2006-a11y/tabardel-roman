@@ -4,7 +4,6 @@ import './globals.css'
 import { ModalProvider } from '@/context/ModalContext'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { CustomCursor } from '@/components/layout/CustomCursor'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { DevisModal } from '@/components/ui/DevisModal'
 
@@ -47,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ModalProvider>
           <SmoothScroll>
-            <CustomCursor />
             <Header />
             <main>{children}</main>
             <Footer />
