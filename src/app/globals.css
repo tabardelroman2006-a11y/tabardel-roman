@@ -1,39 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  /* Palette — semi-transparent pour laisser le fond topo apparaître */
-  --color-cream-50: rgb(250 250 248 / 0.84);
-  --color-cream-100: rgb(245 243 239 / 0.87);
-  --color-cream-200: rgb(237 233 225 / 0.90);
-  --color-charcoal: #1A1A1A;
-  --color-muted: #6B6B6B;
+  --color-parchment: #FAFAF8;
+  --color-warm-stone: #F7F5F0;
+  --color-obsidian: #1A1A1A;
+  --color-muted-slate: #6B6B6B;
+  --color-stone-border: #D6D3D1;
 
   /* Fonts */
-  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-display: var(--font-playfair), Georgia, serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
-
-  /* Easing */
-  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
 }
 
 *, *::before, *::after {
   box-sizing: border-box;
+  cursor: none !important;
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
+  background-color: #0a0a0a;
   color: #1A1A1A;
   font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+  cursor: none;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (pointer: coarse) {
+@media (max-width: 768px) {
   body { cursor: auto; }
+  *, *::before, *::after { cursor: auto !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -43,7 +45,34 @@ body {
   }
 }
 
-/* Scrollbar discrète */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(212, 207, 198, 0.6); border-radius: 2px; }
+/* Section divider */
+.section-divider {
+  height: 0.5px;
+  background-color: #D6D3D1;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #FAFAF8; }
+::-webkit-scrollbar-thumb { background: #D6D3D1; border-radius: 3px; }
+
+/* Selection */
+::selection {
+  background: #1A1A1A;
+  color: #FAFAF8;
+}
+
+/* Font utilities */
+.font-playfair { font-family: var(--font-playfair), Georgia, serif; }
+.font-inter    { font-family: var(--font-inter), system-ui, sans-serif; }
+
+/* Dark mode */
+.theme-dark body,
+.theme-dark .bg-white { background-color: #0d0d0d !important; }
+.theme-dark .bg-\[\#F7F5F0\] { background-color: #151515 !important; }
+.theme-dark h1, .theme-dark h2, .theme-dark h3,
+.theme-dark .text-\[\#1A1A1A\] { color: #f0ece6 !important; }
+.theme-dark .text-\[\#6B6B6B\] { color: #a8a39c !important; }
+.theme-dark .section-divider { background-color: #2e2e2e !important; }
+.theme-dark .border-\[\#D6D3D1\],
+.theme-dark .border-\[\#E8E4DE\] { border-color: #2e2e2e !important; }

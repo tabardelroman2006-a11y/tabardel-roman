@@ -1,99 +1,89 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { lerp } from '@/lib/utils'
+import { useEffect, useState } from 'react'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export function CustomCursor() {
-  const dotRef  = useRef<HTMLDivElement>(null)
-  const ringRef = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
+  const [isVisible, setIsVisible]   = useState(false)
+
+  const cursorX = useMotionValue(-100)
+  const cursorY = useMotionValue(-100)
+
+  const dotX  = useSpring(cursorX, { damping: 28, stiffness: 350 })
+  const dotY  = useSpring(cursorY, { damping: 28, stiffness: 350 })
+  const ringX = useSpring(cursorX, { damping: 38, stiffness: 180 })
+  const ringY = useSpring(cursorY, { damping: 38, stiffness: 180 })
 
   useEffect(() => {
-    if (window.matchMedia('(pointer: coarse)').matches) return
+    if (window.innerWidth <= 768) return
 
-    const dot  = dotRef.current
-    const ring = ringRef.current
-    if (!dot || !ring) return
-
-    let mouseX = 0, mouseY = 0
-    let ringX  = 0, ringY  = 0
-    let currentScale = 1
-    let targetScale  = 1
-    let rafId: number
-
-    const onMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-      if (!visible) setVisible(true)
+    const move = (e: MouseEvent) => {
+      cursorX.set(e.clientX)
+      cursorY.set(e.clientY)
+      if (!isVisible) setIsVisible(true)
     }
+    const enter = () => setIsHovering(true)
+    const leave = () => setIsHovering(false)
 
-    const onMouseEnter = (e: MouseEvent) => {
-      if ((e.target as HTMLElement).closest('a, button, [data-cursor-hover]')) {
-        targetScale = 2.2
-      }
+    window.addEventListener('mousemove', move)
+
+    const bind = () => {
+      document.querySelectorAll('a, button, [data-cursor-hover]').forEach(el => {
+        el.removeEventListener('mouseenter', enter)
+        el.removeEventListener('mouseleave', leave)
+        el.addEventListener('mouseenter', enter)
+        el.addEventListener('mouseleave', leave)
+      })
     }
-    const onMouseLeave = (e: MouseEvent) => {
-      if ((e.target as HTMLElement).closest('a, button, [data-cursor-hover]')) {
-        targetScale = 1
-      }
-    }
+    bind()
 
-    function animate() {
-      ringX = lerp(ringX, mouseX, 0.10)
-      ringY = lerp(ringY, mouseY, 0.10)
-      currentScale = lerp(currentScale, targetScale, 0.12)
-
-      if (dot)  dot.style.transform  = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`
-      if (ring) ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%) scale(${currentScale})`
-
-      rafId = requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    window.addEventListener('mousemove',  onMouseMove)
-    window.addEventListener('mouseover',  onMouseEnter)
-    window.addEventListener('mouseout',   onMouseLeave)
+    const obs = new MutationObserver(bind)
+    obs.observe(document.body, { childList: true, subtree: true })
 
     return () => {
-      cancelAnimationFrame(rafId)
-      window.removeEventListener('mousemove',  onMouseMove)
-      window.removeEventListener('mouseover',  onMouseEnter)
-      window.removeEventListener('mouseout',   onMouseLeave)
+      window.removeEventListener('mousemove', move)
+      obs.disconnect()
     }
-  }, [visible])
+  }, [cursorX, cursorY, isVisible])
 
   return (
     <>
-      {/* Petit point — suit le curseur instantanément */}
-      <div
-        ref={dotRef}
-        className="fixed top-0 left-0 z-[9999] pointer-events-none"
+      {/* Trailing ring */}
+      <motion.div
         style={{
-          width:           6,
-          height:          6,
-          borderRadius:    '50%',
-          backgroundColor: '#ffffff',
-          opacity:         visible ? 1 : 0,
-          transition:      'opacity 0.4s',
-          mixBlendMode:    'difference',
-          willChange:      'transform',
-        }}
-      />
-      {/* Grand anneau — suit avec retard (lerp) */}
-      <div
-        ref={ringRef}
-        className="fixed top-0 left-0 z-[9998] pointer-events-none"
-        style={{
-          width:        40,
-          height:       40,
+          position: 'fixed', top: 0, left: 0,
+          x: ringX, y: ringY,
+          translateX: '-50%', translateY: '-50%',
+          zIndex: 99999, pointerEvents: 'none',
           borderRadius: '50%',
-          border:       '1.5px solid #ffffff',
-          opacity:      visible ? 1 : 0,
-          transition:   'opacity 0.4s',
-          mixBlendMode: 'difference',
-          willChange:   'transform',
+          border: '1.5px solid rgba(255,255,255,0.7)',
         }}
+        animate={{
+          width:  isHovering ? 56 : 38,
+          height: isHovering ? 56 : 38,
+          opacity: isVisible ? (isHovering ? 0.9 : 0.6) : 0,
+          borderColor: isHovering ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.65)',
+        }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+      />
+      {/* White dot */}
+      <motion.div
+        style={{
+          position: 'fixed', top: 0, left: 0,
+          x: dotX, y: dotY,
+          translateX: '-50%', translateY: '-50%',
+          zIndex: 99999, pointerEvents: 'none',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(255,255,255,1)',
+          boxShadow: '0 0 8px rgba(255,255,255,0.5)',
+        }}
+        animate={{
+          width:  isHovering ? 10 : 7,
+          height: isHovering ? 10 : 7,
+          opacity: isVisible ? 1 : 0,
+        }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
       />
     </>
   )

@@ -1,20 +1,12 @@
 import type { Metadata } from 'next'
-import { Portfolio } from '@/components/sections/Portfolio'
-import { ServicesSection } from '@/components/sections/ServicesSection'
+import { ServicesPageContent } from '@/components/sections/ServicesPageContent'
 
 export const metadata: Metadata = {
-  title: 'Services & Réalisations',
+  title: 'Services & Réalisations — Roman Tabardel',
   description:
     'Création de sites web sur mesure, refonte, SEO et audit — découvrez nos réalisations.',
 }
 
 export default function ServicesPage() {
-  return (
-    <>
-      <div className="pt-16">
-        <Portfolio />
-        <ServicesSection />
-      </div>
-    </>
-  )
+  return <ServicesPageContent />
 }
