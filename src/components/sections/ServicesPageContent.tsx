@@ -72,26 +72,26 @@ export function ServicesPageContent() {
   const titleInView = useInView(titleRef, { once: true, margin: '-60px' })
 
   return (
-    <div className="pt-20 md:pt-24">
+    <div className="pt-20 md:pt-24 bg-white">
 
       {/* ── HERO ── */}
-      <section className="py-20 md:py-28 px-6 md:px-12 lg:px-20">
+      <section className="py-20 md:py-28 px-6 md:px-12 lg:px-20 bg-white">
         <div className="max-w-7xl mx-auto">
           <ScrollReveal>
-            <p className="font-inter text-xs tracking-[0.25em] text-white/60 uppercase mb-6">
+            <p className="font-inter text-xs tracking-[0.25em] text-[#6B6B6B] uppercase mb-6">
               Services & Réalisations
             </p>
           </ScrollReveal>
           <div ref={titleRef} className="overflow-hidden">
             <motion.h1
-              className="font-playfair text-5xl md:text-7xl lg:text-8xl text-white leading-[1.0]"
+              className="font-playfair text-5xl md:text-7xl lg:text-8xl text-[#1A1A1A] leading-[1.0]"
               initial={{ y: '100%', opacity: 0 }}
               animate={titleInView ? { y: '0%', opacity: 1 } : {}}
               transition={{ duration: 1.1, ease: [0.21, 0.47, 0.32, 0.98] }}
             >
               Le savoir-faire
               <br />
-              <em className="italic text-white/60">mis en œuvre.</em>
+              <em className="italic text-[#6B6B6B]">mis en œuvre.</em>
             </motion.h1>
           </div>
         </div>
@@ -100,21 +100,21 @@ export function ServicesPageContent() {
       <div className="section-divider mx-6 md:mx-12 lg:mx-20" />
 
       {/* ── PORTFOLIO ── */}
-      <section className="py-20 md:py-32 px-6 md:px-12 lg:px-20">
+      <section className="py-20 md:py-32 px-6 md:px-12 lg:px-20 bg-white">
         <div className="max-w-7xl mx-auto">
           <ScrollReveal>
             <div className="mb-16">
-              <p className="font-inter text-xs tracking-[0.25em] text-white/60 uppercase mb-4">
+              <p className="font-inter text-xs tracking-[0.25em] text-[#6B6B6B] uppercase mb-4">
                 Portfolio
               </p>
-              <h2 className="font-playfair text-4xl md:text-5xl text-white">Réalisations</h2>
+              <h2 className="font-playfair text-4xl md:text-5xl text-[#1A1A1A]">Réalisations</h2>
             </div>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {PORTFOLIO.map((project, i) => (
               <ScrollReveal key={project.title} delay={i * 0.1}>
-                <div className="group border border-white/20 hover:border-white/40 transition-all duration-300 overflow-hidden h-full flex flex-col bg-white/5 backdrop-blur-sm">
+                <div className="group border border-[#D6D3D1] hover:border-[#1A1A1A]/40 transition-all duration-300 overflow-hidden h-full flex flex-col bg-[#FAFAF8]">
                   <div className="relative overflow-hidden" style={{ height: 220 }}>
                     <Image
                       src={project.image}
@@ -127,18 +127,18 @@ export function ServicesPageContent() {
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                   </div>
                   <div className="p-6 flex flex-col flex-1">
-                    <p className="font-inter text-xs tracking-[0.15em] text-white/60 uppercase mb-2">
+                    <p className="font-inter text-xs tracking-[0.15em] text-[#6B6B6B] uppercase mb-2">
                       {project.category}
                     </p>
-                    <h3 className="font-playfair text-xl text-white mb-3">{project.title}</h3>
-                    <p className="font-inter text-sm text-white/60 leading-relaxed flex-1">
+                    <h3 className="font-playfair text-xl text-[#1A1A1A] mb-3">{project.title}</h3>
+                    <p className="font-inter text-sm text-[#6B6B6B] leading-relaxed flex-1">
                       {project.description}
                     </p>
                     <a
                       href={project.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-6 flex items-center gap-2 font-inter text-xs tracking-[0.15em] text-white uppercase border-b border-white/40 pb-0.5 w-fit hover:opacity-60 transition-opacity duration-200"
+                      className="mt-6 flex items-center gap-2 font-inter text-xs tracking-[0.15em] text-[#1A1A1A] uppercase border-b border-[#1A1A1A]/40 pb-0.5 w-fit hover:opacity-60 transition-opacity duration-200"
                     >
                       <ExternalLink size={12} />
                       Voir le site
@@ -151,9 +151,9 @@ export function ServicesPageContent() {
             {/* Coming soon slots */}
             {[1, 2, 3].map((i) => (
               <ScrollReveal key={i} delay={0.1 * (i + 1)}>
-                <div className="border border-dashed border-white/20 h-full flex flex-col items-center justify-center text-center p-12 min-h-[320px]">
-                  <p className="font-playfair text-lg italic text-white/25 mb-2">Prochainement</p>
-                  <p className="font-inter text-xs text-white/25 tracking-[0.15em] uppercase">
+                <div className="border border-dashed border-[#D6D3D1] h-full flex flex-col items-center justify-center text-center p-12 min-h-[320px]">
+                  <p className="font-playfair text-lg italic text-[#6B6B6B]/40 mb-2">Prochainement</p>
+                  <p className="font-inter text-xs text-[#6B6B6B]/40 tracking-[0.15em] uppercase">
                     En cours de réalisation
                   </p>
                 </div>
@@ -211,21 +211,21 @@ export function ServicesPageContent() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-24 md:py-32 px-6 md:px-12 lg:px-20">
+      <section className="py-24 md:py-32 px-6 md:px-12 lg:px-20 bg-[#F7F5F0]">
         <div className="max-w-3xl mx-auto text-center">
           <ScrollReveal>
-            <h2 className="font-playfair text-4xl md:text-5xl text-white mb-6 leading-tight">
+            <h2 className="font-playfair text-4xl md:text-5xl text-[#1A1A1A] mb-6 leading-tight">
               Votre prochain projet
               <br />
-              <em className="italic text-white/60">mérite le meilleur.</em>
+              <em className="italic text-[#6B6B6B]">mérite le meilleur.</em>
             </h2>
-            <p className="font-inter text-base text-white/60 mb-10 leading-relaxed">
+            <p className="font-inter text-base text-[#6B6B6B] mb-10 leading-relaxed">
               Discutons de vos objectifs et construisons ensemble une solution digitale à la
               hauteur de vos ambitions.
             </p>
             <button
               onClick={openDevis}
-              className="bg-white text-black font-inter text-sm tracking-widest uppercase px-12 py-4 rounded-full hover:bg-white/80 transition-colors duration-300"
+              className="bg-[#1A1A1A] text-white font-inter text-sm tracking-widest uppercase px-12 py-4 rounded-full hover:bg-[#333] transition-colors duration-300"
               data-cursor-hover
             >
               Demander un devis gratuit

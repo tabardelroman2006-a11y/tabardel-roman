@@ -2,6 +2,17 @@
 
 import { useState } from 'react'
 
+const inputClass =
+  'w-full px-4 py-3 border rounded-xl text-sm placeholder:text-[#B0ABAA] focus:outline-none focus:border-[#1A1A1A] transition-colors'
+const inputStyle = {
+  backgroundColor: '#F0ECE6',
+  borderColor: '#D6D3D1',
+  color: '#1A1A1A',
+}
+
+const labelClass = 'block text-xs mb-1.5 uppercase tracking-wider'
+const labelStyle = { color: '#6B6B6B' }
+
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
 
@@ -13,8 +24,15 @@ export function ContactForm() {
   if (submitted) {
     return (
       <div className="py-16 text-center">
-        <p className="text-charcoal text-lg font-medium" style={{ fontFamily: 'var(--font-display)' }}>Message envoyé !</p>
-        <p className="text-muted mt-2">Je vous réponds très rapidement.</p>
+        <p
+          className="text-lg font-medium"
+          style={{ fontFamily: 'var(--font-display)', color: '#1A1A1A' }}
+        >
+          Message envoyé !
+        </p>
+        <p className="mt-2" style={{ color: '#6B6B6B' }}>
+          Je vous réponds très rapidement.
+        </p>
       </div>
     )
   }
@@ -23,66 +41,73 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs text-muted mb-1.5 uppercase tracking-wider">Prénom</label>
+          <label className={labelClass} style={labelStyle}>Prénom</label>
           <input
             type="text"
             required
             placeholder="Votre prénom"
-            className="w-full px-4 py-3 bg-cream-100 border border-stone-200 rounded-xl text-charcoal text-sm placeholder:text-stone-400 focus:outline-none focus:border-charcoal transition-colors"
+            className={inputClass}
+            style={inputStyle}
           />
         </div>
         <div>
-          <label className="block text-xs text-muted mb-1.5 uppercase tracking-wider">Nom</label>
+          <label className={labelClass} style={labelStyle}>Nom</label>
           <input
             type="text"
             required
             placeholder="Votre nom"
-            className="w-full px-4 py-3 bg-cream-100 border border-stone-200 rounded-xl text-charcoal text-sm placeholder:text-stone-400 focus:outline-none focus:border-charcoal transition-colors"
+            className={inputClass}
+            style={inputStyle}
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-xs text-muted mb-1.5 uppercase tracking-wider">Email</label>
+        <label className={labelClass} style={labelStyle}>Email</label>
         <input
           type="email"
           required
           placeholder="votre@email.fr"
-          className="w-full px-4 py-3 bg-cream-100 border border-stone-200 rounded-xl text-charcoal text-sm placeholder:text-stone-400 focus:outline-none focus:border-charcoal transition-colors"
+          className={inputClass}
+          style={inputStyle}
         />
       </div>
 
       <div>
-        <label className="block text-xs text-muted mb-1.5 uppercase tracking-wider">Téléphone</label>
+        <label className={labelClass} style={labelStyle}>Téléphone</label>
         <input
           type="tel"
           placeholder="07 69 34 11 23"
-          className="w-full px-4 py-3 bg-cream-100 border border-stone-200 rounded-xl text-charcoal text-sm placeholder:text-stone-400 focus:outline-none focus:border-charcoal transition-colors"
+          className={inputClass}
+          style={inputStyle}
         />
       </div>
 
       <div>
-        <label className="block text-xs text-muted mb-1.5 uppercase tracking-wider">Sujet</label>
+        <label className={labelClass} style={labelStyle}>Sujet</label>
         <input
           type="text"
           placeholder="Création de site, SEO, refonte..."
-          className="w-full px-4 py-3 bg-cream-100 border border-stone-200 rounded-xl text-charcoal text-sm placeholder:text-stone-400 focus:outline-none focus:border-charcoal transition-colors"
+          className={inputClass}
+          style={inputStyle}
         />
       </div>
 
       <div>
-        <label className="block text-xs text-muted mb-1.5 uppercase tracking-wider">Message</label>
+        <label className={labelClass} style={labelStyle}>Message</label>
         <textarea
           required
           rows={5}
           placeholder="Décrivez votre projet, vos besoins, vos questions..."
-          className="w-full px-4 py-3 bg-cream-100 border border-stone-200 rounded-xl text-charcoal text-sm placeholder:text-stone-400 focus:outline-none focus:border-charcoal transition-colors resize-none"
+          className={`${inputClass} resize-none`}
+          style={inputStyle}
         />
       </div>
 
       <button
         type="submit"
-        className="w-full py-4 bg-charcoal text-white text-sm font-medium rounded-xl hover:bg-stone-800 transition-all"
+        className="w-full py-4 text-white text-sm font-medium rounded-xl transition-all hover:opacity-80"
+        style={{ backgroundColor: '#1A1A1A' }}
         data-cursor-hover
       >
         Envoyer

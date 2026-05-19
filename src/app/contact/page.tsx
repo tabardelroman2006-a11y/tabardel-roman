@@ -11,22 +11,23 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="bg-cream-50 min-h-screen pt-28 pb-24">
+    <div className="min-h-screen pt-28 pb-24" style={{ backgroundColor: '#FAFAF8' }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <ScrollReveal variant="slideLeft">
             <div>
               <h1
-                className="text-charcoal mb-4"
+                className="mb-4"
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                   fontWeight: 400,
+                  color: '#1A1A1A',
                 }}
               >
                 Contactez-moi
               </h1>
-              <p className="text-muted mb-12 text-lg leading-relaxed">
+              <p className="mb-12 text-lg leading-relaxed" style={{ color: '#6B6B6B' }}>
                 Une question ? Un projet ?<br />Je réponds rapidement.
               </p>
 
@@ -36,10 +37,13 @@ export default function ContactPage() {
                   className="flex items-center gap-4 group"
                   data-cursor-hover
                 >
-                  <span className="w-10 h-10 rounded-full bg-cream-100 border border-stone-200 flex items-center justify-center group-hover:bg-charcoal group-hover:border-charcoal transition-all">
-                    <Phone size={16} className="text-muted group-hover:text-white transition-colors" />
+                  <span
+                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:bg-[#1A1A1A] group-hover:border-[#1A1A1A]"
+                    style={{ backgroundColor: '#F0ECE6', border: '1px solid #D6D3D1' }}
+                  >
+                    <Phone size={16} className="transition-colors group-hover:text-white" style={{ color: '#6B6B6B' }} />
                   </span>
-                  <span className="text-charcoal group-hover:text-muted transition-colors">
+                  <span className="transition-colors group-hover:opacity-60" style={{ color: '#1A1A1A' }}>
                     07.69.34.11.23
                   </span>
                 </a>
@@ -49,10 +53,13 @@ export default function ContactPage() {
                   className="flex items-center gap-4 group"
                   data-cursor-hover
                 >
-                  <span className="w-10 h-10 rounded-full bg-cream-100 border border-stone-200 flex items-center justify-center group-hover:bg-charcoal group-hover:border-charcoal transition-all">
-                    <Mail size={16} className="text-muted group-hover:text-white transition-colors" />
+                  <span
+                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:bg-[#1A1A1A] group-hover:border-[#1A1A1A]"
+                    style={{ backgroundColor: '#F0ECE6', border: '1px solid #D6D3D1' }}
+                  >
+                    <Mail size={16} className="transition-colors group-hover:text-white" style={{ color: '#6B6B6B' }} />
                   </span>
-                  <span className="text-charcoal group-hover:text-muted transition-colors">
+                  <span className="transition-colors group-hover:opacity-60" style={{ color: '#1A1A1A' }}>
                     contact@tabardel-roman.fr
                   </span>
                 </a>

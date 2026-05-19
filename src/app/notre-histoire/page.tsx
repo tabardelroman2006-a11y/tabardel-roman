@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function NotreHistoirePage() {
   return (
-    <div className="bg-cream-50 min-h-screen pt-24 pb-24">
+    <div className="min-h-screen pt-24 pb-24" style={{ backgroundColor: '#FAFAF8' }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <ScrollReveal variant="slideLeft">
@@ -26,13 +26,13 @@ export default function NotreHistoirePage() {
               delay={0.1}
             />
             <ScrollReveal variant="fadeUp" delay={0.2}>
-              <p className="text-muted text-sm uppercase tracking-widest mb-10">
+              <p className="text-sm uppercase tracking-widest mb-10" style={{ color: '#6B6B6B' }}>
                 Fondateur · Créateur de sites web
               </p>
             </ScrollReveal>
 
             <ScrollReveal variant="fadeUp" delay={0.3}>
-              <div className="space-y-6 text-charcoal leading-relaxed">
+              <div className="space-y-6 leading-relaxed" style={{ color: '#1A1A1A' }}>
                 <p>
                   Étudiant en Bachelor Gestionnaire Administration des Ventes, Roman a
                   très tôt développé une passion profonde pour la création de sites web.
@@ -58,18 +58,21 @@ export default function NotreHistoirePage() {
             </ScrollReveal>
 
             <ScrollReveal variant="fadeUp" delay={0.5}>
-              <blockquote className="mt-10 pl-6 border-l-2 border-stone-300">
+              <blockquote className="mt-10 pl-6" style={{ borderLeft: '2px solid #D6D3D1' }}>
                 <p
-                  className="text-charcoal italic leading-relaxed"
+                  className="italic leading-relaxed"
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: 'clamp(1.1rem, 2vw, 1.35rem)',
+                    color: '#1A1A1A',
                   }}
                 >
                   &ldquo;Je crois que chaque entreprise, quelle que soit sa taille,
                   mérite un site à la hauteur de ses ambitions.&rdquo;
                 </p>
-                <footer className="mt-3 text-sm text-muted">— Roman Tabardel</footer>
+                <footer className="mt-3 text-sm" style={{ color: '#6B6B6B' }}>
+                  — Roman Tabardel
+                </footer>
               </blockquote>
             </ScrollReveal>
           </div>
