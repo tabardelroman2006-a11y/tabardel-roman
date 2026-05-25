@@ -94,15 +94,16 @@ export function Hero() {
                   className="relative overflow-hidden"
                   style={{ aspectRatio: '4/3', maxHeight: 'calc(100vh - 120px)', minHeight: 380 }}
                 >
-                  <Image
-                    src="/images/hero-photo.jpg"
-                    alt="Espace de travail — Roman Tabardel"
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 1024px) 0vw, 40vw"
-                    style={{ filter: 'grayscale(100%)' }}
-                  />
+                  <div className="absolute inset-0" style={{ filter: 'grayscale(100%)' }}>
+                    <Image
+                      src="/images/hero-photo.jpg"
+                      alt="Espace de travail — Roman Tabardel"
+                      fill
+                      className="object-cover"
+                      priority
+                      sizes="(max-width: 1024px) 0vw, 40vw"
+                    />
+                  </div>
                   <div className="absolute inset-0" style={{ backgroundColor: 'rgba(250,250,248,0.10)' }} />
                 </div>
               </div>
