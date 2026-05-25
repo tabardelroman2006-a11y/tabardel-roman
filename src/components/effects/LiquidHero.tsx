@@ -20,7 +20,7 @@ export function LiquidHero({ children }: { children: ReactNode }) {
       />
 
       {/* Overlay sombre pour lisibilité du texte */}
-      <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.40)', zIndex: 1 }} />
+      <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.22)', zIndex: 1 }} />
 
       {/* Contenu */}
       <div className="absolute inset-0" style={{ zIndex: 2 }}>
