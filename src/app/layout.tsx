@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Inter } from 'next/font/google'
+import { EB_Garamond } from 'next/font/google'
 import './globals.css'
 import { ModalProvider } from '@/context/ModalContext'
 import { Header } from '@/components/layout/Header'
@@ -7,18 +7,11 @@ import { Footer } from '@/components/layout/Footer'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { DevisModal } from '@/components/ui/DevisModal'
 
-const playfair = Playfair_Display({
-  variable: '--font-playfair',
+const garamond = EB_Garamond({
+  variable: '--font-garamond',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
   style: ['normal', 'italic'],
-  display: 'swap',
-})
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
   display: 'swap',
 })
 
@@ -42,7 +35,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${playfair.variable} ${inter.variable}`}>
+    <html lang="fr" className={garamond.variable}>
       <body>
         <ModalProvider>
           <SmoothScroll>
