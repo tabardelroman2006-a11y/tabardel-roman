@@ -81,7 +81,7 @@ export function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
-            <div className="relative" style={{ maxHeight: 'calc(100vh - 140px)' }}>
+            <div className="relative" style={{ maxHeight: 'calc(100vh - 100px)', width: '100%' }}>
               <div
                 className="p-1"
                 style={{
@@ -92,7 +92,7 @@ export function Hero() {
               >
                 <div
                   className="relative overflow-hidden"
-                  style={{ aspectRatio: '2/3', maxHeight: 'calc(100vh - 160px)', minHeight: 300 }}
+                  style={{ aspectRatio: '4/3', maxHeight: 'calc(100vh - 120px)', minHeight: 380 }}
                 >
                   <Image
                     src="/images/hero-photo.jpg"
