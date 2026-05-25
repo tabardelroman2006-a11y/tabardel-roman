@@ -29,9 +29,9 @@ export function Header() {
 
   useEffect(() => { setMobileOpen(false) }, [pathname])
 
-  // Colour helpers
-  const textColor = !scrolled ? '#ffffff' : '#1A1A1A'
-  const textMuted = !scrolled ? 'rgba(255,255,255,0.7)' : '#6B6B6B'
+  // Couleurs fixes — navbar toujours blanche
+  const textColor = '#1A1A1A'
+  const textMuted = '#6B6B6B'
 
   return (
     <>
@@ -44,9 +44,9 @@ export function Header() {
         <div
           className="transition-all duration-500 px-6 md:px-12 lg:px-20 border-b"
           style={{
-            backdropFilter:   scrolled ? 'blur(12px)' : 'none',
-            backgroundColor:  scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.0)',
-            borderColor:      scrolled ? '#E8E4DE' : 'transparent',
+            backdropFilter:  'blur(14px)',
+            backgroundColor: 'rgba(255,255,255,0.82)',
+            borderColor:     '#E8E4DE',
           }}
         >
           <div className="flex items-center justify-between h-16 md:h-20 w-full">
@@ -104,7 +104,7 @@ export function Header() {
                 aria-label="Mode sombre"
                 className="w-9 h-9 flex items-center justify-center rounded-full border transition-all duration-300"
                 style={{
-                  borderColor: scrolled ? '#D6D3D1' : 'rgba(255,255,255,0.5)',
+                  borderColor: '#D6D3D1',
                   color: textColor,
                 }}
               >
