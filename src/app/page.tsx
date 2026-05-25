@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Hero } from '@/components/sections/Hero'
 import { MessageSection } from '@/components/sections/MessageSection'
 import { AtelierSection } from '@/components/sections/AtelierSection'
-import { ReviewsSection } from '@/components/sections/ReviewsSection'
 import { CityShowcase } from '@/components/sections/CityShowcase'
 import { CTAFinal } from '@/components/sections/CTAFinal'
 
@@ -24,8 +23,6 @@ export default function HomePage() {
       <div className="section-divider mx-6 md:mx-12 lg:mx-20" />
 
       <AtelierSection />
-
-      <ReviewsSection />
 
       <CityShowcase />
 
