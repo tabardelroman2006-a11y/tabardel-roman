@@ -8,7 +8,7 @@ export function LiquidHero({ children }: { children: ReactNode }) {
       className="relative w-full h-screen overflow-hidden"
       style={{
         minHeight: 600,
-        backgroundImage: "url('/images/maison.jpg')",
+        backgroundImage: "url('/images/fond-roman.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
       }}
