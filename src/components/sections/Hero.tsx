@@ -101,6 +101,7 @@ export function Hero() {
                     className="object-cover"
                     priority
                     sizes="(max-width: 1024px) 0vw, 40vw"
+                    style={{ filter: 'grayscale(100%)' }}
                   />
                   <div className="absolute inset-0" style={{ backgroundColor: 'rgba(250,250,248,0.10)' }} />
                 </div>
