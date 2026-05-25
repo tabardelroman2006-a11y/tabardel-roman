@@ -14,7 +14,14 @@ export function Hero() {
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pt-16">
 
           {/* Left: Text */}
-          <div>
+          <div
+            className="rounded-2xl p-8 md:p-10"
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.30)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255,255,255,0.12)',
+            }}
+          >
             <motion.p
               className="font-inter text-xs tracking-[0.25em] uppercase mb-6"
               style={{ color: 'rgba(255,255,255,0.6)' }}
