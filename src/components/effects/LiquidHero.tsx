@@ -1,23 +1,29 @@
 'use client'
 
+import Image from 'next/image'
 import { type ReactNode } from 'react'
 
 export function LiquidHero({ children }: { children: ReactNode }) {
   return (
     <div
       className="relative w-full h-screen overflow-hidden"
-      style={{
-        minHeight: 600,
-        backgroundImage: "url('/images/fond-roman.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-      }}
+      style={{ minHeight: 600 }}
     >
-      {/* Overlay sombre pour lisibilité */}
-      <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.35)' }} />
+      {/* Image de fond */}
+      <Image
+        src="/images/fond-roman.jpg"
+        alt=""
+        fill
+        priority
+        className="object-cover object-center"
+        sizes="100vw"
+      />
+
+      {/* Overlay sombre pour lisibilité du texte */}
+      <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.40)', zIndex: 1 }} />
 
       {/* Contenu */}
-      <div className="absolute inset-0 z-10">
+      <div className="absolute inset-0" style={{ zIndex: 2 }}>
         {children}
       </div>
     </div>
