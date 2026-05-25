@@ -8,13 +8,13 @@ export function LiquidHero({ children }: { children: ReactNode }) {
       className="relative w-full h-screen overflow-hidden"
       style={{
         minHeight: 600,
-        backgroundImage: "url('/images/bg-photo.jpg')",
+        backgroundImage: "url('/images/maison.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
       }}
     >
       {/* Overlay sombre pour lisibilité */}
-      <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.50)' }} />
+      <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.35)' }} />
 
       {/* Contenu */}
       <div className="absolute inset-0 z-10">
