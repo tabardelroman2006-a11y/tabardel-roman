@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Light premium palette ── */
+  /* ── Palette ── */
   --color-bg:       #F4F4F4;
   --color-surface:  #FFFFFF;
   --color-surface2: #EBEBEB;
@@ -16,8 +16,8 @@
   --color-stone-border: #D6D3D1;
 
   /* Fonts */
-  --font-display: var(--font-nunito), 'Nunito', sans-serif;
-  --font-body:    var(--font-nunito), 'Nunito', sans-serif;
+  --font-display: var(--font-barlow),  'Barlow Condensed', sans-serif;
+  --font-body:    var(--font-nunito),  'Nunito',           sans-serif;
 }
 
 /* ── Reset ── */
@@ -36,34 +36,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Typography utilities ── */
+/* ── Typography ── */
 .font-display  { font-family: var(--font-display); }
 .font-body     { font-family: var(--font-body);    }
 .font-playfair { font-family: var(--font-display); }
 .font-inter    { font-family: var(--font-body);    }
 
+/* ── Buttons — arrondis globaux ── */
+button {
+  border-radius: 8px;
+}
+
 /* ── Ghost button ── */
 .btn-ghost {
   color: #1A1A1A;
   border: 1px solid rgba(0,0,0,0.18);
-  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+  border-radius: 8px;
+  transition: color 0.25s, border-color 0.25s;
 }
 .btn-ghost:hover {
   color: #1B3A6B;
   border-color: #1B3A6B;
 }
 
-/* ── Nav / footer links ── */
-.link-dim {
-  color: #6B6B6B;
-  transition: color 0.2s;
-}
+/* ── Links ── */
+.link-dim   { color: #6B6B6B; transition: color 0.2s; }
 .link-dim:hover { color: #1A1A1A; }
 
-.link-faint {
-  color: #AAAAAA;
-  transition: color 0.2s;
-}
+.link-faint { color: #AAAAAA; transition: color 0.2s; }
 .link-faint:hover { color: #6B6B6B; }
 
 .link-accent {
