@@ -45,8 +45,7 @@ export function Hero() {
             animate={{ y: '0%', opacity: 1 }}
             transition={{ duration: 1, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
-            Des sites qui{' '}
-            <span style={{ color: '#1B3A6B' }}>vendent.</span>
+            Mon métier ?
           </motion.h1>
         </div>
 
@@ -63,7 +62,7 @@ export function Hero() {
             animate={{ y: '0%', opacity: 1 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
-            Pas des sites qui existent.
+            Mettre en avant le vôtre.
           </motion.p>
         </div>
 
