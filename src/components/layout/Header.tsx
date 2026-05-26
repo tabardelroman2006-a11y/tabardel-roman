@@ -2,22 +2,22 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Moon, Sun } from 'lucide-react'
+import { Menu, X, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 
 const navLinks = [
-  { href: '/',               label: 'Accueil'        },
-  { href: '/notre-histoire', label: 'Notre Histoire' },
-  { href: '/services',       label: 'Services'       },
-  { href: '/contact',        label: 'Contact'        },
+  { href: '/services',       label: 'Services'  },
+  { href: '/#faq',           label: 'FAQ'       },
+  { href: '/notre-histoire', label: 'À propos'  },
+  { href: '/contact',        label: 'Contact'   },
 ]
 
 export function Header() {
-  const [scrolled,  setScrolled]  = useState(false)
+  const [scrolled,   setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [darkMode,  setDarkMode]  = useState(false)
   const pathname = usePathname()
   const { openDevis } = useModal()
 
@@ -29,10 +29,6 @@ export function Header() {
 
   useEffect(() => { setMobileOpen(false) }, [pathname])
 
-  // Couleurs fixes — navbar toujours blanche
-  const textColor = '#1A1A1A'
-  const textMuted = '#6B6B6B'
-
   return (
     <>
       <motion.header
@@ -42,32 +38,34 @@ export function Header() {
         transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
       >
         <div
-          className="transition-all duration-500 px-6 md:px-12 lg:px-20 border-b"
+          className="transition-all duration-500 px-6 md:px-12 lg:px-20"
           style={{
-            backdropFilter:  'blur(14px)',
-            backgroundColor: 'rgba(255,255,255,0.82)',
-            borderColor:     '#E8E4DE',
+            backdropFilter:  'blur(16px)',
+            backgroundColor: scrolled
+              ? 'rgba(10,10,10,0.92)'
+              : 'rgba(10,10,10,0.5)',
+            borderBottom: scrolled
+              ? '1px solid rgba(255,255,255,0.06)'
+              : '1px solid transparent',
           }}
         >
           <div className="flex items-center justify-between h-16 md:h-20 w-full">
+
             {/* Logo */}
             <Link href="/" className="group flex items-center gap-3">
-              <div
-                className="w-9 h-9 flex items-center justify-center transition-all duration-300"
-                style={{
-                  border: `1px solid ${textColor}`,
-                }}
-              >
-                <span
-                  className="font-playfair text-sm font-medium tracking-widest transition-colors duration-300"
-                  style={{ color: textColor }}
-                >
-                  RT
-                </span>
+              <div className="w-9 h-9 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-60">
+                <Image
+                  src="/images/logo-roman.png"
+                  alt="Logo Roman Tabardel"
+                  width={36}
+                  height={36}
+                  className="object-contain"
+                  priority
+                />
               </div>
               <span
-                className="hidden md:block font-playfair text-lg tracking-wide group-hover:opacity-70 transition-all duration-300"
-                style={{ color: textColor }}
+                className="hidden md:block font-display font-semibold text-sm tracking-widest uppercase group-hover:opacity-60 transition-opacity duration-300"
+                style={{ color: '#FFFFFF' }}
               >
                 Roman Tabardel
               </span>
@@ -75,57 +73,40 @@ export function Header() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map(({ href, label }) => {
-                const active = pathname === href
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="font-inter text-sm tracking-wide transition-all duration-300 relative"
-                    style={{ color: active ? textColor : textMuted }}
-                  >
-                    {label}
-                    <span
-                      className="absolute -bottom-0.5 left-0 h-px transition-all duration-300"
-                      style={{
-                        width: active ? '100%' : '0',
-                        backgroundColor: textColor,
-                      }}
-                    />
-                  </Link>
-                )
-              })}
+              {navLinks.map(({ href, label }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  className="font-body text-sm tracking-wide transition-colors duration-200 relative group"
+                  style={{ color: 'rgba(255,255,255,0.5)' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#fff'}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.5)'}
+                >
+                  {label}
+                  <span
+                    className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300"
+                    style={{ backgroundColor: '#C8FF00' }}
+                  />
+                </Link>
+              ))}
             </nav>
 
-            {/* Right: dark toggle + CTA + hamburger */}
+            {/* Right side */}
             <div className="flex items-center gap-3">
-              <button
-                onClick={() => setDarkMode(d => !d)}
-                aria-label="Mode sombre"
-                className="w-9 h-9 flex items-center justify-center rounded-full border transition-all duration-300"
-                style={{
-                  borderColor: '#D6D3D1',
-                  color: textColor,
-                }}
-              >
-                {darkMode ? <Sun size={15} /> : <Moon size={15} />}
-              </button>
-
+              {/* CTA desktop */}
               <button
                 onClick={openDevis}
-                className="hidden md:block font-inter text-sm px-6 py-2 tracking-wide rounded-full border transition-all duration-300"
-                style={{
-                  borderColor: textColor,
-                  color:       textColor,
-                }}
-                data-cursor-hover
+                className="hidden md:flex items-center gap-2 font-body font-semibold text-xs px-5 py-2.5 tracking-widest uppercase transition-opacity duration-200 hover:opacity-80"
+                style={{ backgroundColor: '#C8FF00', color: '#0A0A0A' }}
               >
-                Devis
+                <Phone size={12} />
+                Appel gratuit
               </button>
 
+              {/* Hamburger */}
               <button
-                className="md:hidden p-1"
-                style={{ color: textColor }}
+                className="md:hidden p-1.5 transition-opacity duration-200 hover:opacity-60"
+                style={{ color: '#FFFFFF' }}
                 onClick={() => setMobileOpen(v => !v)}
                 aria-label="Menu"
               >
@@ -140,38 +121,42 @@ export function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed inset-0 z-40 bg-black/90 backdrop-blur-md flex flex-col justify-center items-center"
+            className="fixed inset-0 z-40 flex flex-col justify-center items-center"
+            style={{ backgroundColor: '#0A0A0A' }}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 0.35, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
-            <nav className="flex flex-col items-center gap-10">
+            <nav className="flex flex-col items-center gap-8">
               {navLinks.map(({ href, label }, i) => (
                 <motion.div
-                  key={href}
+                  key={label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  transition={{ delay: i * 0.07, duration: 0.5 }}
                 >
                   <Link
                     href={href}
-                    className={`font-playfair text-4xl tracking-wide ${pathname === href ? 'text-white' : 'text-white/60'}`}
+                    className="font-display font-bold text-4xl tracking-tight"
+                    style={{ color: 'rgba(255,255,255,0.75)' }}
                   >
                     {label}
                   </Link>
                 </motion.div>
               ))}
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.36, duration: 0.5 }}
+                transition={{ delay: 0.32, duration: 0.5 }}
               >
                 <button
                   onClick={() => { setMobileOpen(false); openDevis() }}
-                  className="mt-4 font-inter text-sm border border-white/40 text-white px-8 py-3 tracking-widest hover:bg-white hover:text-black transition-all duration-300"
+                  className="mt-6 font-body font-semibold text-sm px-10 py-4 tracking-widest uppercase"
+                  style={{ backgroundColor: '#C8FF00', color: '#0A0A0A' }}
                 >
-                  Demander un devis
+                  Appel gratuit — 15 min
                 </button>
               </motion.div>
             </nav>

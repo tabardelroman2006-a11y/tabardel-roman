@@ -22,10 +22,13 @@ export function PortraitImage() {
           onError={() => setError(true)}
         />
       ) : (
-        <div className="w-full h-full bg-stone-200 flex items-center justify-center p-8">
-          <p className="text-xs text-muted text-center leading-relaxed">
-            [Portrait Roman Tabardel à déposer dans{' '}
-            <code className="font-mono">public/images/roman-tabardel.jpg</code>]
+        <div
+          className="w-full h-full flex items-center justify-center p-8"
+          style={{ backgroundColor: '#161616', border: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <p className="font-body text-xs text-center leading-relaxed" style={{ color: 'rgba(255,255,255,0.25)' }}>
+            Portrait à déposer dans{' '}
+            <code style={{ color: '#C8FF00' }}>public/images/portrait.jpg</code>
           </p>
         </div>
       )}

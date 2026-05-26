@@ -1,54 +1,66 @@
 import Link from 'next/link'
-import { Phone, Mail } from 'lucide-react'
+import Image from 'next/image'
+import { Phone, Mail, MapPin } from 'lucide-react'
 
-const NAV_LINKS = [
-  { href: '/', label: 'Accueil' },
-  { href: '/notre-histoire', label: 'Notre Histoire' },
-  { href: '/services', label: 'Services' },
-  { href: '/contact', label: 'Contact' },
+const NAV = [
+  { href: '/services',       label: 'Services'  },
+  { href: '/#faq',           label: 'FAQ'       },
+  { href: '/notre-histoire', label: 'À propos'  },
+  { href: '/contact',        label: 'Contact'   },
+]
+
+const LEGAL = [
+  { href: '/mentions-legales',          label: 'Mentions légales' },
+  { href: '/cgv',                       label: 'CGV'              },
+  { href: '/politique-confidentialite', label: 'Confidentialité'  },
 ]
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#F7F5F0] border-t border-[#D6D3D1]/60">
+    <footer style={{ backgroundColor: '#0A0A0A', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16">
 
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-9 h-9 flex items-center justify-center"
-                style={{ border: '1px solid #1A1A1A' }}
+            <div className="flex items-center gap-3 mb-5">
+              <Image
+                src="/images/logo-roman.png"
+                alt="Logo Roman Tabardel"
+                width={34}
+                height={34}
+                className="object-contain"
+              />
+              <span
+                className="font-display font-semibold text-sm tracking-widest uppercase"
+                style={{ color: '#FFFFFF' }}
               >
-                <span className="font-playfair text-sm font-medium tracking-widest text-[#1A1A1A]">
-                  RT
-                </span>
-              </div>
-              <span className="font-playfair text-[#1A1A1A] text-lg tracking-wide">
                 Roman Tabardel
               </span>
             </div>
-            <p className="font-inter text-[#6B6B6B] text-sm leading-relaxed max-w-xs">
-              Création de sites web & référencement naturel pour les entreprises qui méritent
-              une présence en ligne à la hauteur de leur ambition.
+            <p
+              className="font-body text-sm leading-relaxed max-w-xs"
+              style={{ color: 'rgba(255,255,255,0.38)' }}
+            >
+              Création de sites web sur mesure et référencement naturel pour les entreprises
+              qui méritent une présence en ligne à la hauteur de leur ambition.
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h3 className="font-inter text-xs tracking-[0.2em] text-[#6B6B6B] uppercase mb-6">
+            <p
+              className="font-body text-[10px] tracking-[0.22em] uppercase mb-6"
+              style={{ color: 'rgba(255,255,255,0.25)' }}
+            >
               Navigation
-            </h3>
+            </p>
             <nav className="flex flex-col gap-3">
-              {NAV_LINKS.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="font-inter text-sm text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-200"
-                >
+              {NAV.map(({ href, label }) => (
+                <Link key={label} href={href} className="link-dim font-body text-sm">
                   {label}
                 </Link>
               ))}
@@ -57,38 +69,54 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-inter text-xs tracking-[0.2em] text-[#6B6B6B] uppercase mb-6">
+            <p
+              className="font-body text-[10px] tracking-[0.22em] uppercase mb-6"
+              style={{ color: 'rgba(255,255,255,0.25)' }}
+            >
               Contact
-            </h3>
-            <div className="flex flex-col gap-3">
-              <a
-                href="tel:0769341123"
-                className="flex items-center gap-2 font-inter text-sm text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-200 group"
-              >
-                <Phone size={14} className="text-[#D6D3D1] group-hover:text-[#1A1A1A] transition-colors duration-200" />
-                07.69.34.11.23
+            </p>
+            <div className="flex flex-col gap-3.5">
+              <a href="tel:0769341123" className="link-dim flex items-center gap-2.5 font-body text-sm">
+                <Phone size={13} style={{ color: '#C8FF00', flexShrink: 0 }} />
+                07 69 34 11 23
               </a>
-              <a
-                href="mailto:contact@tabardel-roman.fr"
-                className="flex items-center gap-2 font-inter text-sm text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-200 group"
-              >
-                <Mail size={14} className="text-[#D6D3D1] group-hover:text-[#1A1A1A] transition-colors duration-200" />
+              <a href="mailto:contact@tabardel-roman.fr" className="link-dim flex items-center gap-2.5 font-body text-sm">
+                <Mail size={13} style={{ color: '#C8FF00', flexShrink: 0 }} />
                 contact@tabardel-roman.fr
               </a>
+              <div
+                className="flex items-start gap-2.5 font-body text-sm"
+                style={{ color: 'rgba(255,255,255,0.3)' }}
+              >
+                <MapPin size={13} style={{ color: 'rgba(255,255,255,0.2)', flexShrink: 0, marginTop: 3 }} />
+                Chemin des Lauriers, 26400 Allex (Drôme)
+              </div>
             </div>
           </div>
 
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-[#D6D3D1]/60 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <p className="font-inter text-xs text-[#6B6B6B]">
-            Micro-entreprise · SIRET en cours d&apos;immatriculation
+        {/* Bottom bar */}
+        <div
+          className="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <p className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
+            ROMAN TABARDEL · Entrepreneur individuel · SIRET&nbsp;10446560400015
           </p>
-          <p className="font-inter text-xs text-[#6B6B6B]">
-            © {currentYear} Roman Tabardel — Tous droits réservés
-          </p>
+
+          <div className="flex flex-wrap items-center gap-5">
+            {LEGAL.map(({ href, label }) => (
+              <Link key={label} href={href} className="link-faint font-body text-xs">
+                {label}
+              </Link>
+            ))}
+            <p className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
+              © {year} Roman Tabardel
+            </p>
+          </div>
         </div>
+
       </div>
     </footer>
   )

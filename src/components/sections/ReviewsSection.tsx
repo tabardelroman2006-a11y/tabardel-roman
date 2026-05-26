@@ -1,97 +1,151 @@
 'use client'
 
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { Star } from 'lucide-react'
-import { ScrollReveal } from '@/components/ui/ScrollReveal'
-import { PenDecoration } from '@/components/decorations/PenDecoration'
 
 const REVIEWS = [
   {
-    name: 'Thomas Girard',
+    name:    'Thomas Girard',
     company: 'Le Bistrot du Marché',
-    role: 'Gérant de restaurant',
-    text: "Roman a totalement transformé notre présence en ligne. Les réservations en ligne ont augmenté de 40% le premier mois. Un professionnel à l'écoute, réactif et d'une précision remarquable.",
+    role:    'Gérant de restaurant',
+    text:
+      "Roman a totalement transformé notre présence en ligne. Les réservations ont augmenté de 40% dès le premier mois. Un professionnel réactif, à l'écoute et d'une précision remarquable.",
     stars: 5,
   },
   {
-    name: 'Éric Fontaine',
-    company: 'Fontaine Plomberie & Chauffage',
-    role: 'Artisan plombier',
-    text: "Enfin un site qui me ressemble vraiment. Roman a su capturer l'essence de mon métier. Mes clients me disent que c'est professionnel, et j'ai eu 3 nouveaux clients grâce au référencement en 2 semaines.",
+    name:    'Éric Fontaine',
+    company: 'Fontaine Plomberie',
+    role:    'Artisan plombier',
+    text:
+      "Enfin un site qui me ressemble. Roman a su capturer l'essence de mon métier. Mes clients me disent que c'est pro — et j'ai eu 3 nouveaux chantiers grâce au référencement en 2 semaines.",
     stars: 5,
   },
   {
-    name: 'Léa Moreau',
+    name:    'Léa Moreau',
     company: 'Studio Léa Coiffure',
-    role: 'Coiffeuse indépendante',
-    text: "Je n'y connaissais rien en création de site, mais Roman m'a guidée à chaque étape. Le résultat est magnifique, élégant, et mes clientes adorent prendre rendez-vous en ligne maintenant.",
+    role:    'Coiffeuse indépendante',
+    text:
+      "Je n'y connaissais rien, mais Roman m'a guidée à chaque étape. Le résultat est magnifique et mes clientes adorent prendre rendez-vous en ligne maintenant.",
     stars: 5,
   },
   {
-    name: 'Sophie & Marc Chevallier',
+    name:    'Sophie & Marc Chevallier',
     company: 'Menuiserie Chevallier',
-    role: 'PME artisanale',
-    text: "Nous avions un vieux site daté depuis 10 ans. Roman l'a entièrement refondu. Professionnalisme exemplaire, délais respectés, et un référencement qui commence déjà à porter ses fruits.",
+    role:    'PME artisanale',
+    text:
+      "Vieux site daté depuis 10 ans. Roman l'a entièrement refondu — professionnalisme exemplaire, délais respectés, et un référencement qui porte déjà ses fruits.",
     stars: 5,
   },
   {
-    name: 'Julien Perrot',
+    name:    'Julien Perrot',
     company: 'Perrot Shop',
-    role: 'Entrepreneur e-commerce',
-    text: "Roman m'a créé une boutique en ligne performante et optimisée SEO. Ses conseils en référencement naturel sont concrets et efficaces. Je recommande à 100% pour toute entreprise sérieuse.",
+    role:    'Entrepreneur e-commerce',
+    text:
+      "Roman m'a créé une boutique performante et optimisée SEO. Ses conseils en référencement sont concrets et efficaces. Je recommande à 100% pour toute entreprise sérieuse.",
     stars: 5,
   },
 ]
 
-function StarRating({ count = 5 }: { count?: number }) {
+function StarRow({ count = 5 }: { count?: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: count }).map((_, i) => (
-        <Star key={i} size={12} className="fill-[#1A1A1A] text-[#1A1A1A]" />
+        <Star key={i} size={11} fill="#C8FF00" color="#C8FF00" />
       ))}
     </div>
   )
 }
 
 export function ReviewsSection() {
+  const ref    = useRef<HTMLElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+
   return (
-    <section className="py-24 md:py-32 px-6 md:px-12 lg:px-20 bg-[#F7F5F0]">
+    <section
+      ref={ref}
+      id="avis"
+      className="py-28 md:py-40 px-6 md:px-12 lg:px-20"
+      style={{ backgroundColor: '#0A0A0A' }}
+    >
       <div className="max-w-7xl mx-auto">
-        <ScrollReveal>
-          <div className="mb-16">
-            <p className="font-inter text-xs tracking-[0.25em] text-[#6B6B6B] uppercase mb-4">
+
+        {/* Header */}
+        <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <motion.p
+              className="font-body text-xs tracking-[0.28em] uppercase mb-5"
+              style={{ color: '#C8FF00' }}
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6 }}
+            >
               Témoignages
-            </p>
-            <h2 className="font-playfair text-4xl md:text-5xl text-[#1A1A1A]">
-              Ce qu&apos;ils disent
-            </h2>
-          </div>
-        </ScrollReveal>
-
-        <div className="flex items-start gap-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
-            {REVIEWS.map((review, i) => (
-              <ScrollReveal key={review.name} delay={i * 0.1}>
-                <div
-                  className="bg-white border border-[#E8E4DE] p-8 hover:shadow-lg transition-all duration-300 h-full flex flex-col"
-                  data-cursor-hover
-                >
-                  <StarRating count={review.stars} />
-                  <p className="font-inter text-sm text-[#1A1A1A] leading-relaxed my-6 flex-1">
-                    &ldquo;{review.text}&rdquo;
-                  </p>
-                  <div className="border-t border-[#E8E4DE] pt-4">
-                    <p className="font-playfair text-sm font-medium text-[#1A1A1A]">{review.name}</p>
-                    <p className="font-inter text-xs text-[#6B6B6B] mt-0.5">{review.company}</p>
-                    <p className="font-inter text-xs text-[#B0ABAA] mt-0.5 italic">{review.role}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
+            </motion.p>
+            <motion.h2
+              className="font-display font-bold leading-tight"
+              style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', color: '#FFFFFF' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              Ce qu&apos;ils disent.
+              <br />
+              <span style={{ color: 'rgba(255,255,255,0.28)' }}>Sans filtre.</span>
+            </motion.h2>
           </div>
 
-          {/* Pen decoration — right of reviews */}
-          <PenDecoration className="flex-shrink-0 self-center opacity-55 hover:opacity-100 transition-opacity duration-500 ml-4" />
+          <motion.div
+            className="flex items-center gap-3"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <StarRow count={5} />
+            <span className="font-body text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              5/5 · 100% satisfaits
+            </span>
+          </motion.div>
         </div>
+
+        {/* Cards grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {REVIEWS.map(({ name, company, role, text, stars }, i) => (
+            <motion.div
+              key={name}
+              className="flex flex-col p-7"
+              style={{
+                backgroundColor: '#111111',
+                border:          '1px solid rgba(255,255,255,0.06)',
+              }}
+              initial={{ opacity: 0, y: 22 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.65, delay: 0.12 + i * 0.09 }}
+            >
+              <StarRow count={stars} />
+
+              <p
+                className="font-body text-sm leading-relaxed my-6 flex-1"
+                style={{ color: 'rgba(255,255,255,0.55)' }}
+              >
+                &ldquo;{text}&rdquo;
+              </p>
+
+              <div
+                className="pt-5"
+                style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+              >
+                <p className="font-display font-semibold text-sm" style={{ color: '#FFFFFF' }}>
+                  {name}
+                </p>
+                <p className="font-body text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  {company} · {role}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
       </div>
     </section>
   )

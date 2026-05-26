@@ -1,75 +1,105 @@
 import type { Metadata } from 'next'
-import { Phone, Mail } from 'lucide-react'
-import { ScrollReveal } from '@/components/effects/ScrollReveal'
+import { Phone, Mail, MapPin } from 'lucide-react'
 import { ContactForm } from '@/components/sections/ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Contactez Roman Tabardel pour votre projet de site web ou de référencement. Réponse rapide garantie.',
+    'Contactez Roman Tabardel pour votre projet de site web ou de référencement. Réponse garantie sous 24 h.',
 }
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen pt-28 pb-24" style={{ backgroundColor: '#FAFAF8' }}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <div
+      className="min-h-screen pt-28 pb-24 px-6 md:px-12 lg:px-20"
+      style={{ backgroundColor: '#0A0A0A' }}
+    >
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-          <ScrollReveal variant="slideLeft">
-            <div>
-              <h1
-                className="mb-4"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                  fontWeight: 400,
-                  color: '#1A1A1A',
-                }}
+
+          {/* Left */}
+          <div>
+            <p
+              className="font-body text-xs tracking-[0.28em] uppercase mb-5"
+              style={{ color: '#C8FF00' }}
+            >
+              Travaillons ensemble
+            </p>
+            <h1
+              className="font-display font-bold leading-tight mb-6"
+              style={{
+                fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+                color: '#FFFFFF',
+              }}
+            >
+              Parlons de
+              <br />
+              <span style={{ color: 'rgba(255,255,255,0.28)' }}>votre projet.</span>
+            </h1>
+            <p
+              className="font-body text-base leading-relaxed mb-12 max-w-sm"
+              style={{ color: 'rgba(255,255,255,0.45)' }}
+            >
+              Une question, un projet, une idée ? Écrivez-moi ou appelez-moi directement.
+              Je réponds dans les 24 h.
+            </p>
+
+            <div className="space-y-5">
+              <a
+                href="tel:0769341123"
+                className="link-dim flex items-center gap-4 font-body text-base"
               >
-                Contactez-moi
-              </h1>
-              <p className="mb-12 text-lg leading-relaxed" style={{ color: '#6B6B6B' }}>
-                Une question ? Un projet ?<br />Je réponds rapidement.
-              </p>
-
-              <div className="space-y-5">
-                <a
-                  href="tel:0769341123"
-                  className="flex items-center gap-4 group"
-                  data-cursor-hover
+                <span
+                  className="w-10 h-10 flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: 'rgba(200,255,0,0.1)', border: '1px solid rgba(200,255,0,0.2)' }}
                 >
-                  <span
-                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:bg-[#1A1A1A] group-hover:border-[#1A1A1A]"
-                    style={{ backgroundColor: '#F0ECE6', border: '1px solid #D6D3D1' }}
-                  >
-                    <Phone size={16} className="transition-colors group-hover:text-white" style={{ color: '#6B6B6B' }} />
-                  </span>
-                  <span className="transition-colors group-hover:opacity-60" style={{ color: '#1A1A1A' }}>
-                    07.69.34.11.23
-                  </span>
-                </a>
+                  <Phone size={15} style={{ color: '#C8FF00' }} />
+                </span>
+                07 69 34 11 23
+              </a>
 
-                <a
-                  href="mailto:contact@tabardel-roman.fr"
-                  className="flex items-center gap-4 group"
-                  data-cursor-hover
+              <a
+                href="mailto:contact@tabardel-roman.fr"
+                className="link-dim flex items-center gap-4 font-body text-base"
+              >
+                <span
+                  className="w-10 h-10 flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: 'rgba(200,255,0,0.1)', border: '1px solid rgba(200,255,0,0.2)' }}
                 >
-                  <span
-                    className="w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:bg-[#1A1A1A] group-hover:border-[#1A1A1A]"
-                    style={{ backgroundColor: '#F0ECE6', border: '1px solid #D6D3D1' }}
-                  >
-                    <Mail size={16} className="transition-colors group-hover:text-white" style={{ color: '#6B6B6B' }} />
-                  </span>
-                  <span className="transition-colors group-hover:opacity-60" style={{ color: '#1A1A1A' }}>
-                    contact@tabardel-roman.fr
-                  </span>
-                </a>
+                  <Mail size={15} style={{ color: '#C8FF00' }} />
+                </span>
+                contact@tabardel-roman.fr
+              </a>
+
+              <div
+                className="flex items-start gap-4 font-body text-sm"
+                style={{ color: 'rgba(255,255,255,0.35)' }}
+              >
+                <span
+                  className="w-10 h-10 flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+                >
+                  <MapPin size={15} style={{ color: 'rgba(255,255,255,0.3)' }} />
+                </span>
+                <span className="pt-2.5">
+                  Chemin des Lauriers<br />
+                  26400 Allex, Drôme
+                </span>
               </div>
             </div>
-          </ScrollReveal>
+          </div>
 
-          <ScrollReveal variant="slideRight" delay={0.15}>
+          {/* Right: form */}
+          <div
+            className="p-8 md:p-10"
+            style={{
+              backgroundColor: '#111111',
+              border: '1px solid rgba(255,255,255,0.07)',
+            }}
+          >
             <ContactForm />
-          </ScrollReveal>
+          </div>
+
         </div>
       </div>
     </div>
