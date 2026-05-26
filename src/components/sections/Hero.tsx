@@ -13,79 +13,55 @@ const STATS = [
 
 export function Hero() {
   const { openDevis } = useModal()
-  const statsRef   = useRef<HTMLDivElement>(null)
+  const statsRef    = useRef<HTMLDivElement>(null)
   const statsInView = useInView(statsRef, { once: true, margin: '-60px' })
 
   return (
     <section
       className="relative min-h-screen flex flex-col justify-center overflow-hidden"
-      style={{ backgroundColor: '#0A0A0A', paddingTop: '80px' }}
+      style={{ backgroundColor: '#F4F4F4', paddingTop: '80px' }}
     >
-      {/* Ambient accent glow */}
-      <div
-        className="absolute pointer-events-none select-none"
-        style={{
-          top: '10%',
-          left: '55%',
-          transform: 'translateX(-50%)',
-          width: '800px',
-          height: '700px',
-          background:
-            'radial-gradient(ellipse at center, rgba(200,255,0,0.055) 0%, transparent 65%)',
-          filter: 'blur(1px)',
-        }}
-      />
-
       <div className="relative max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-20 py-20 md:py-28">
 
         {/* Eyebrow */}
         <motion.div
           className="flex items-center gap-3 mb-10"
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
-          <span
-            className="block h-px w-8 shrink-0"
-            style={{ backgroundColor: '#C8FF00' }}
-          />
-          <p
-            className="font-body text-xs tracking-[0.28em] uppercase"
-            style={{ color: 'rgba(255,255,255,0.4)' }}
-          >
+          <span className="block h-px w-8 shrink-0" style={{ backgroundColor: '#1B3A6B' }} />
+          <p className="font-body text-xs tracking-[0.25em] uppercase" style={{ color: '#6B6B6B' }}>
             Création web & SEO — Ardèche &amp; partout en France
           </p>
         </motion.div>
 
-        {/* Main headline */}
+        {/* Headline */}
         <div className="overflow-hidden">
           <motion.h1
-            className="font-display font-extrabold leading-[0.9] tracking-tight mb-4"
-            style={{
-              fontSize: 'clamp(3.6rem, 9.5vw, 9rem)',
-              color: '#FFFFFF',
-            }}
+            className="font-display font-800 leading-[0.92] tracking-tight mb-4"
+            style={{ fontSize: 'clamp(3.2rem, 9vw, 8.5rem)', color: '#1A1A1A' }}
             initial={{ y: '105%', opacity: 0 }}
             animate={{ y: '0%', opacity: 1 }}
-            transition={{ duration: 1, delay: 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
             Des sites qui{' '}
-            <span style={{ color: '#C8FF00' }}>vendent.</span>
+            <span style={{ color: '#1B3A6B' }}>vendent.</span>
           </motion.h1>
         </div>
 
         {/* Sub headline */}
         <div className="overflow-hidden mb-12">
           <motion.p
-            className="font-display font-bold tracking-tight leading-tight"
+            className="font-display font-700 tracking-tight leading-tight"
             style={{
-              fontSize: 'clamp(1.8rem, 4.5vw, 4.5rem)',
-              color: 'rgba(255,255,255,0.22)',
+              fontSize: 'clamp(1.6rem, 4vw, 4rem)',
+              color: '#AAAAAA',
               fontStyle: 'italic',
             }}
             initial={{ y: '105%', opacity: 0 }}
             animate={{ y: '0%', opacity: 1 }}
-            transition={{ duration: 1, delay: 0.22, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
             Pas des sites qui existent.
           </motion.p>
@@ -94,10 +70,10 @@ export function Hero() {
         {/* Description */}
         <motion.p
           className="font-body text-base md:text-lg max-w-lg mb-12 leading-relaxed"
-          style={{ color: 'rgba(255,255,255,0.48)' }}
-          initial={{ opacity: 0, y: 18 }}
+          style={{ color: '#6B6B6B' }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.7, delay: 0.45 }}
         >
           Je conçois des sites web sur mesure qui convertissent — pour les artisans,
           indépendants et PME qui veulent une présence en ligne qui travaille vraiment
@@ -107,14 +83,14 @@ export function Hero() {
         {/* CTAs */}
         <motion.div
           className="flex flex-wrap gap-4"
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.68 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
         >
           <button
             onClick={openDevis}
-            className="flex items-center gap-2.5 font-body font-semibold text-sm px-8 py-4 tracking-wide transition-opacity duration-200 hover:opacity-80"
-            style={{ backgroundColor: '#C8FF00', color: '#0A0A0A' }}
+            className="flex items-center gap-2.5 font-body font-700 text-sm px-8 py-4 tracking-wide transition-opacity duration-200 hover:opacity-80"
+            style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
           >
             <Phone size={14} />
             Appel gratuit — 15 min
@@ -122,7 +98,7 @@ export function Hero() {
 
           <a
             href="/services"
-            className="btn-ghost flex items-center gap-2 font-body text-sm px-8 py-4"
+            className="btn-ghost flex items-center gap-2 font-body font-600 text-sm px-8 py-4"
           >
             Voir mes réalisations
             <ArrowRight size={14} />
@@ -133,24 +109,24 @@ export function Hero() {
         <motion.div
           ref={statsRef}
           className="mt-20 pt-10 flex flex-wrap gap-12 md:gap-20"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+          style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}
         >
           {STATS.map(({ value, label }, i) => (
             <motion.div
               key={label}
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={statsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
+              transition={{ duration: 0.55, delay: i * 0.1 }}
             >
               <p
-                className="font-display font-bold"
-                style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', color: '#FFFFFF' }}
+                className="font-display font-800"
+                style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: '#1B3A6B' }}
               >
                 {value}
               </p>
               <p
-                className="font-body text-[10px] mt-1 tracking-[0.22em] uppercase"
-                style={{ color: 'rgba(255,255,255,0.32)' }}
+                className="font-body text-[10px] mt-1 tracking-[0.2em] uppercase"
+                style={{ color: '#AAAAAA' }}
               >
                 {label}
               </p>
@@ -164,11 +140,11 @@ export function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
       >
         <motion.div
           className="w-px h-12 mx-auto"
-          style={{ background: 'linear-gradient(to bottom, rgba(200,255,0,0.5), transparent)' }}
+          style={{ background: 'linear-gradient(to bottom, #1B3A6B, transparent)' }}
           animate={{ scaleY: [0, 1, 0], transformOrigin: 'top' }}
           transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
         />

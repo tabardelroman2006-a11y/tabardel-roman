@@ -35,18 +35,16 @@ export function Header() {
         className="fixed top-0 left-0 right-0 z-50"
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+        transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
       >
         <div
-          className="transition-all duration-500 px-6 md:px-12 lg:px-20"
+          className="transition-all duration-400 px-6 md:px-12 lg:px-20"
           style={{
             backdropFilter:  'blur(16px)',
             backgroundColor: scrolled
-              ? 'rgba(10,10,10,0.92)'
-              : 'rgba(10,10,10,0.5)',
-            borderBottom: scrolled
-              ? '1px solid rgba(255,255,255,0.06)'
-              : '1px solid transparent',
+              ? 'rgba(255,255,255,0.95)'
+              : 'rgba(244,244,244,0.80)',
+            borderBottom: '1px solid rgba(0,0,0,0.07)',
           }}
         >
           <div className="flex items-center justify-between h-16 md:h-20 w-full">
@@ -64,8 +62,8 @@ export function Header() {
                 />
               </div>
               <span
-                className="hidden md:block font-display font-semibold text-sm tracking-widest uppercase group-hover:opacity-60 transition-opacity duration-300"
-                style={{ color: '#FFFFFF' }}
+                className="hidden md:block font-display font-700 text-sm tracking-wide group-hover:opacity-60 transition-opacity duration-300"
+                style={{ color: '#1A1A1A' }}
               >
                 Roman Tabardel
               </span>
@@ -73,40 +71,42 @@ export function Header() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map(({ href, label }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  className="font-body text-sm tracking-wide transition-colors duration-200 relative group"
-                  style={{ color: 'rgba(255,255,255,0.5)' }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#fff'}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.5)'}
-                >
-                  {label}
-                  <span
-                    className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300"
-                    style={{ backgroundColor: '#C8FF00' }}
-                  />
-                </Link>
-              ))}
+              {navLinks.map(({ href, label }) => {
+                const active = pathname === href
+                return (
+                  <Link
+                    key={label}
+                    href={href}
+                    className="font-body text-sm font-500 tracking-wide transition-colors duration-200 relative group"
+                    style={{ color: active ? '#1B3A6B' : '#6B6B6B' }}
+                  >
+                    {label}
+                    <span
+                      className="absolute -bottom-0.5 left-0 h-px transition-all duration-300"
+                      style={{
+                        width: active ? '100%' : '0',
+                        backgroundColor: '#1B3A6B',
+                      }}
+                    />
+                  </Link>
+                )
+              })}
             </nav>
 
-            {/* Right side */}
+            {/* Right */}
             <div className="flex items-center gap-3">
-              {/* CTA desktop */}
               <button
                 onClick={openDevis}
-                className="hidden md:flex items-center gap-2 font-body font-semibold text-xs px-5 py-2.5 tracking-widest uppercase transition-opacity duration-200 hover:opacity-80"
-                style={{ backgroundColor: '#C8FF00', color: '#0A0A0A' }}
+                className="hidden md:flex items-center gap-2 font-body font-700 text-xs px-5 py-2.5 tracking-wide uppercase transition-opacity duration-200 hover:opacity-80"
+                style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
               >
                 <Phone size={12} />
                 Appel gratuit
               </button>
 
-              {/* Hamburger */}
               <button
-                className="md:hidden p-1.5 transition-opacity duration-200 hover:opacity-60"
-                style={{ color: '#FFFFFF' }}
+                className="md:hidden p-1.5"
+                style={{ color: '#1A1A1A' }}
                 onClick={() => setMobileOpen(v => !v)}
                 aria-label="Menu"
               >
@@ -117,16 +117,16 @@ export function Header() {
         </div>
       </motion.header>
 
-      {/* Mobile fullscreen menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             className="fixed inset-0 z-40 flex flex-col justify-center items-center"
-            style={{ backgroundColor: '#0A0A0A' }}
+            style={{ backgroundColor: '#FFFFFF' }}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map(({ href, label }, i) => (
@@ -134,27 +134,26 @@ export function Header() {
                   key={label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07, duration: 0.5 }}
+                  transition={{ delay: i * 0.07, duration: 0.4 }}
                 >
                   <Link
                     href={href}
-                    className="font-display font-bold text-4xl tracking-tight"
-                    style={{ color: 'rgba(255,255,255,0.75)' }}
+                    className="font-display font-700 text-4xl tracking-tight"
+                    style={{ color: '#1A1A1A' }}
                   >
                     {label}
                   </Link>
                 </motion.div>
               ))}
-
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.32, duration: 0.5 }}
+                transition={{ delay: 0.32, duration: 0.4 }}
               >
                 <button
                   onClick={() => { setMobileOpen(false); openDevis() }}
-                  className="mt-6 font-body font-semibold text-sm px-10 py-4 tracking-widest uppercase"
-                  style={{ backgroundColor: '#C8FF00', color: '#0A0A0A' }}
+                  className="mt-6 font-body font-700 text-sm px-10 py-4 tracking-wide uppercase"
+                  style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
                 >
                   Appel gratuit — 15 min
                 </button>

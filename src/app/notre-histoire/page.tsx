@@ -3,49 +3,31 @@ import { PortraitImage } from '@/components/sections/PortraitImage'
 
 export const metadata: Metadata = {
   title: 'À propos — Roman Tabardel',
-  description:
-    "Découvrez qui est Roman Tabardel, créateur de sites web indépendant basé en Drôme.",
+  description: "Découvrez qui est Roman Tabardel, créateur de sites web indépendant basé en Drôme.",
 }
 
 export default function NotreHistoirePage() {
   return (
-    <div
-      className="min-h-screen pt-24 pb-24 px-6 md:px-12 lg:px-20"
-      style={{ backgroundColor: '#0A0A0A' }}
-    >
+    <div className="min-h-screen pt-24 pb-24 px-6 md:px-12 lg:px-20" style={{ backgroundColor: '#F4F4F4' }}>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-          {/* Portrait */}
-          <div>
-            <PortraitImage />
-          </div>
+          <div><PortraitImage /></div>
 
-          {/* Text */}
           <div className="lg:pt-8">
-            <p
-              className="font-body text-xs tracking-[0.28em] uppercase mb-4"
-              style={{ color: '#C8FF00' }}
-            >
+            <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: '#1B3A6B' }}>
               Fondateur · Créateur de sites web
             </p>
-
-            <h1
-              className="font-display font-bold leading-tight mb-10"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: '#FFFFFF' }}
-            >
+            <h1 className="font-display font-800 leading-tight mb-10"
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: '#1A1A1A' }}>
               Roman Tabardel
             </h1>
 
-            <div
-              className="space-y-6 font-body text-base leading-relaxed"
-              style={{ color: 'rgba(255,255,255,0.55)' }}
-            >
+            <div className="space-y-6 font-body text-base leading-relaxed" style={{ color: '#6B6B6B' }}>
               <p>
                 Passionné par le web depuis ses débuts, Roman a développé une expertise solide
                 en création de sites et en référencement naturel — nourrie par des années de
-                pratique, d'apprentissage en autonomie et de projets concrets pour de vraies
-                entreprises.
+                pratique, d'apprentissage en autonomie et de projets concrets pour de vraies entreprises.
               </p>
               <p>
                 Basé en Drôme (26), il accompagne des artisans, TPE et PME partout en France
@@ -60,37 +42,24 @@ export default function NotreHistoirePage() {
               </p>
             </div>
 
-            <blockquote
-              className="mt-12 pl-6"
-              style={{ borderLeft: '2px solid #C8FF00' }}
-            >
-              <p
-                className="font-display font-semibold italic leading-relaxed"
-                style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', color: '#FFFFFF' }}
-              >
+            <blockquote className="mt-12 pl-6" style={{ borderLeft: '3px solid #1B3A6B' }}>
+              <p className="font-display font-600 italic leading-relaxed"
+                style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', color: '#1A1A1A' }}>
                 &ldquo;Je crois que chaque entreprise, quelle que soit sa taille,
                 mérite un site à la hauteur de ses ambitions.&rdquo;
               </p>
-              <footer
-                className="mt-3 font-body text-sm"
-                style={{ color: 'rgba(255,255,255,0.38)' }}
-              >
+              <footer className="mt-3 font-body text-sm" style={{ color: '#888888' }}>
                 — Roman Tabardel
               </footer>
             </blockquote>
 
             <div className="mt-12 flex flex-wrap gap-4">
-              <a
-                href="/contact"
-                className="font-body font-semibold text-sm px-8 py-4 transition-opacity duration-200 hover:opacity-80"
-                style={{ backgroundColor: '#C8FF00', color: '#0A0A0A' }}
-              >
+              <a href="/contact"
+                className="font-body font-700 text-sm px-8 py-4 transition-opacity duration-200 hover:opacity-80"
+                style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}>
                 Me contacter
               </a>
-              <a
-                href="/services"
-                className="btn-ghost font-body text-sm px-8 py-4"
-              >
+              <a href="/services" className="btn-ghost font-body font-600 text-sm px-8 py-4">
                 Voir mes réalisations
               </a>
             </div>

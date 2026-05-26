@@ -39,15 +39,14 @@ export function ProcessSection() {
       ref={ref}
       id="processus"
       className="py-28 md:py-40 px-6 md:px-12 lg:px-20"
-      style={{ backgroundColor: '#0F0F0F' }}
+      style={{ backgroundColor: '#EBEBEB' }}
     >
       <div className="max-w-7xl mx-auto">
 
-        {/* Header */}
         <div className="mb-20 max-w-xl">
           <motion.p
-            className="font-body text-xs tracking-[0.28em] uppercase mb-5"
-            style={{ color: '#C8FF00' }}
+            className="font-body text-xs tracking-[0.25em] uppercase mb-5"
+            style={{ color: '#1B3A6B' }}
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
@@ -55,67 +54,56 @@ export function ProcessSection() {
             Comment ça marche
           </motion.p>
           <motion.h2
-            className="font-display font-bold leading-tight"
-            style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', color: '#FFFFFF' }}
+            className="font-display font-800 leading-tight"
+            style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', color: '#1A1A1A' }}
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             De l&apos;idée à la mise
             <br />
-            <span style={{ color: 'rgba(255,255,255,0.28)' }}>en ligne en 3 semaines.</span>
+            <span style={{ color: '#AAAAAA' }}>en ligne en 3 semaines.</span>
           </motion.h2>
         </div>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px"
-          style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+        {/* Steps grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {STEPS.map(({ num, title, sub, desc }, i) => (
             <motion.div
               key={num}
-              className="relative flex flex-col p-8 md:p-10"
-              style={{ backgroundColor: '#0F0F0F' }}
-              initial={{ opacity: 0, y: 24 }}
+              className="flex flex-col p-8 md:p-9"
+              style={{
+                backgroundColor: '#FFFFFF',
+                border: '1px solid rgba(0,0,0,0.07)',
+              }}
+              initial={{ opacity: 0, y: 22 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1 + i * 0.12 }}
+              transition={{ duration: 0.65, delay: 0.1 + i * 0.11 }}
             >
               {/* Step number */}
               <span
-                className="font-display font-black mb-8 select-none"
-                style={{
-                  fontSize: '4rem',
-                  lineHeight: 1,
-                  color: 'rgba(255,255,255,0.04)',
-                }}
+                className="font-display font-800 mb-6 select-none"
+                style={{ fontSize: '3.5rem', lineHeight: 1, color: 'rgba(0,0,0,0.05)' }}
               >
                 {num}
               </span>
 
               {/* Accent line */}
               <motion.div
-                className="w-8 h-px mb-6"
-                style={{ backgroundColor: '#C8FF00' }}
+                className="w-8 h-0.5 mb-6"
+                style={{ backgroundColor: '#1B3A6B' }}
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={inView ? { scaleX: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.25 + i * 0.12 }}
+                transition={{ duration: 0.45, delay: 0.22 + i * 0.11 }}
               />
 
-              <h3
-                className="font-display font-bold text-xl mb-1"
-                style={{ color: '#FFFFFF' }}
-              >
+              <h3 className="font-display font-700 text-lg mb-1" style={{ color: '#1A1A1A' }}>
                 {title}
               </h3>
-              <p
-                className="font-body text-xs tracking-widest uppercase mb-5"
-                style={{ color: 'rgba(255,255,255,0.3)' }}
-              >
+              <p className="font-body font-600 text-[10px] tracking-widest uppercase mb-5" style={{ color: '#1B3A6B' }}>
                 {sub}
               </p>
-              <p
-                className="font-body text-sm leading-relaxed"
-                style={{ color: 'rgba(255,255,255,0.42)' }}
-              >
+              <p className="font-body text-sm leading-relaxed" style={{ color: '#6B6B6B' }}>
                 {desc}
               </p>
             </motion.div>

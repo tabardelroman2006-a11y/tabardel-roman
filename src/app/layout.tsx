@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Syne, Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import './globals.css'
 import { ModalProvider } from '@/context/ModalContext'
 import { Header } from '@/components/layout/Header'
@@ -7,17 +7,10 @@ import { Footer } from '@/components/layout/Footer'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { DevisModal } from '@/components/ui/DevisModal'
 
-const syne = Syne({
-  variable: '--font-syne',
+const nunito = Nunito({
+  variable: '--font-nunito',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  display: 'swap',
-})
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   display: 'swap',
 })
 
@@ -41,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${syne.variable} ${inter.variable}`}>
+    <html lang="fr" className={nunito.variable}>
       <body>
         <ModalProvider>
           <SmoothScroll>

@@ -36,26 +36,26 @@ function FAQItem({ q, a, index, inView }: { q: string; a: string; index: number;
 
   return (
     <motion.div
-      style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
-      initial={{ opacity: 0, y: 16 }}
+      style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}
+      initial={{ opacity: 0, y: 14 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: 0.1 + index * 0.07 }}
+      transition={{ duration: 0.5, delay: 0.1 + index * 0.07 }}
     >
       <button
         onClick={() => setOpen(v => !v)}
         className="w-full flex items-center justify-between gap-6 py-6 text-left"
       >
         <span
-          className="font-body font-medium text-base"
-          style={{ color: open ? '#FFFFFF' : 'rgba(255,255,255,0.75)', transition: 'color 0.2s' }}
+          className="font-body font-600 text-base"
+          style={{ color: open ? '#1B3A6B' : '#1A1A1A', transition: 'color 0.2s' }}
         >
           {q}
         </span>
         <span
           className="shrink-0 w-6 h-6 flex items-center justify-center rounded-full border transition-all duration-200"
           style={{
-            borderColor: open ? '#C8FF00' : 'rgba(255,255,255,0.15)',
-            color:       open ? '#C8FF00' : 'rgba(255,255,255,0.4)',
+            borderColor: open ? '#1B3A6B' : 'rgba(0,0,0,0.15)',
+            color:       open ? '#1B3A6B' : '#888888',
           }}
         >
           {open ? <Minus size={12} /> : <Plus size={12} />}
@@ -69,13 +69,10 @@ function FAQItem({ q, a, index, inView }: { q: string; a: string; index: number;
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.32, ease: [0.21, 0.47, 0.32, 0.98] }}
+            transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
             style={{ overflow: 'hidden' }}
           >
-            <p
-              className="font-body text-sm leading-relaxed pb-6"
-              style={{ color: 'rgba(255,255,255,0.45)' }}
-            >
+            <p className="font-body text-sm leading-relaxed pb-6" style={{ color: '#6B6B6B' }}>
               {a}
             </p>
           </motion.div>
@@ -94,15 +91,15 @@ export function FAQSection() {
       ref={ref}
       id="faq"
       className="py-28 md:py-40 px-6 md:px-12 lg:px-20"
-      style={{ backgroundColor: '#0F0F0F' }}
+      style={{ backgroundColor: '#EBEBEB' }}
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 lg:gap-24">
 
-        {/* Left: header */}
+        {/* Left */}
         <div className="lg:sticky lg:top-28 lg:self-start">
           <motion.p
-            className="font-body text-xs tracking-[0.28em] uppercase mb-5"
-            style={{ color: '#C8FF00' }}
+            className="font-body text-xs tracking-[0.25em] uppercase mb-5"
+            style={{ color: '#1B3A6B' }}
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
@@ -110,8 +107,8 @@ export function FAQSection() {
             Questions fréquentes
           </motion.p>
           <motion.h2
-            className="font-display font-bold leading-tight mb-6"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#FFFFFF' }}
+            className="font-display font-800 leading-tight mb-6"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#1A1A1A' }}
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -120,31 +117,24 @@ export function FAQSection() {
             <br />
             des questions ?
             <br />
-            <span style={{ color: 'rgba(255,255,255,0.28)' }}>J&apos;ai les réponses.</span>
+            <span style={{ color: '#AAAAAA' }}>J&apos;ai les réponses.</span>
           </motion.h2>
           <motion.p
             className="font-body text-sm leading-relaxed"
-            style={{ color: 'rgba(255,255,255,0.38)' }}
+            style={{ color: '#888888' }}
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.25 }}
           >
-            Une question qui ne figure pas ici ?
-            <br />
-            <a
-              href="/contact"
-              className="underline underline-offset-2 transition-colors duration-200"
-              style={{ color: 'rgba(255,255,255,0.5)' }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#C8FF00'}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.5)'}
-            >
+            Une question qui ne figure pas ici ?{' '}
+            <a href="/contact" className="link-accent font-600">
               Posez-la directement.
             </a>
           </motion.p>
         </div>
 
         {/* Right: accordion */}
-        <div>
+        <div style={{ backgroundColor: '#FFFFFF', padding: '0 2rem' }}>
           {FAQS.map((faq, i) => (
             <FAQItem key={faq.q} {...faq} index={i} inView={inView} />
           ))}

@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Dark premium palette ── */
-  --color-bg:       #0A0A0A;
-  --color-surface:  #111111;
-  --color-surface2: #161616;
-  --color-accent:   #C8FF00;
+  /* ── Light premium palette ── */
+  --color-bg:       #F4F4F4;
+  --color-surface:  #FFFFFF;
+  --color-surface2: #EBEBEB;
+  --color-accent:   #1B3A6B;
   --color-obsidian: #1A1A1A;
 
-  /* Legacy aliases (inner pages / existing components) */
+  /* Legacy aliases */
   --color-cream-50:     #FAFAF8;
   --color-cream-100:    #F0ECE6;
   --color-charcoal:     #1A1A1A;
@@ -16,8 +16,8 @@
   --color-stone-border: #D6D3D1;
 
   /* Fonts */
-  --font-display: var(--font-syne),  'Syne',  sans-serif;
-  --font-body:    var(--font-inter), 'Inter', sans-serif;
+  --font-display: var(--font-nunito), 'Nunito', sans-serif;
+  --font-body:    var(--font-nunito), 'Nunito', sans-serif;
 }
 
 /* ── Reset ── */
@@ -26,8 +26,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: #0A0A0A;
-  color: #ffffff;
+  background-color: #F4F4F4;
+  color: #1A1A1A;
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
@@ -39,58 +39,56 @@ body {
 /* ── Typography utilities ── */
 .font-display  { font-family: var(--font-display); }
 .font-body     { font-family: var(--font-body);    }
-/* Legacy aliases so untouched components still render */
 .font-playfair { font-family: var(--font-display); }
 .font-inter    { font-family: var(--font-body);    }
 
 /* ── Ghost button ── */
 .btn-ghost {
-  color: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.12);
-  transition: color 0.3s, border-color 0.3s;
+  color: #1A1A1A;
+  border: 1px solid rgba(0,0,0,0.18);
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
 }
 .btn-ghost:hover {
-  color: rgba(255,255,255,0.92);
-  border-color: rgba(255,255,255,0.35);
+  color: #1B3A6B;
+  border-color: #1B3A6B;
 }
 
-/* ── Footer / nav links ── */
+/* ── Nav / footer links ── */
 .link-dim {
-  color: rgba(255,255,255,0.42);
+  color: #6B6B6B;
   transition: color 0.2s;
 }
-.link-dim:hover { color: #ffffff; }
+.link-dim:hover { color: #1A1A1A; }
 
 .link-faint {
-  color: rgba(255,255,255,0.22);
+  color: #AAAAAA;
   transition: color 0.2s;
 }
-.link-faint:hover { color: rgba(255,255,255,0.5); }
+.link-faint:hover { color: #6B6B6B; }
 
-/* ── FAQ / inline accent links ── */
 .link-accent {
-  color: rgba(255,255,255,0.5);
+  color: #6B6B6B;
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.2s;
 }
-.link-accent:hover { color: #C8FF00; }
+.link-accent:hover { color: #1B3A6B; }
 
 /* ── Section divider ── */
 .section-divider {
   height: 1px;
-  background-color: rgba(255,255,255,0.06);
+  background-color: rgba(0,0,0,0.08);
 }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar       { width: 4px; }
-::-webkit-scrollbar-track { background: #0A0A0A; }
-::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+::-webkit-scrollbar-track { background: #F4F4F4; }
+::-webkit-scrollbar-thumb { background: #C8C8C8; border-radius: 2px; }
 
 /* ── Selection ── */
 ::selection {
-  background: #C8FF00;
-  color: #0A0A0A;
+  background: #1B3A6B;
+  color: #FFFFFF;
 }
 
 /* ── Reduced motion ── */
