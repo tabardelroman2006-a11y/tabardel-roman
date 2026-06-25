@@ -51,7 +51,7 @@ const PORTFOLIO = [
     category: 'Application web & commande en ligne',
     title:    'Sultan Kebab Crest',
     description: 'Application de commande en ligne pour un restaurant kebab à Crest. Menu interactif, paiement intégré, interface caisse en temps réel.',
-    href: 'https://sultan-crest-eats.vercel.app/',
+    href: 'https://www.sultankebab-crest.fr/',
   },
 ]
 
