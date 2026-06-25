@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Hero } from '@/components/sections/Hero'
 import { ServicesSection } from '@/components/sections/ServicesSection'
 import { ProcessSection } from '@/components/sections/ProcessSection'
-import { FAQSection } from '@/components/sections/FAQSection'
 import { CTAFinal } from '@/components/sections/CTAFinal'
 
 export const metadata: Metadata = {
@@ -17,7 +16,6 @@ export default function HomePage() {
       <Hero />
       <ServicesSection />
       <ProcessSection />
-      <FAQSection />
       <CTAFinal />
     </>
   )

@@ -9,8 +9,8 @@ import { Menu, X, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 
 const navLinks = [
+  { href: '/',               label: 'Accueil'   },
   { href: '/services',       label: 'Services'  },
-  { href: '/#faq',           label: 'FAQ'       },
   { href: '/notre-histoire', label: 'À propos'  },
   { href: '/contact',        label: 'Contact'   },
 ]

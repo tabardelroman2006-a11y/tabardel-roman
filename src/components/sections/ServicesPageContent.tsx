@@ -46,20 +46,12 @@ const SERVICES_LIST = [
 
 const PORTFOLIO = [
   {
-    image:    '/images/bmx-livron.jpg',
-    alt:      'Livron BMX Club',
-    category: 'Site vitrine sportif',
-    title:    'Livron BMX Club',
-    description: 'Site vitrine pour un club BMX local. Design dynamique et moderne, navigation intuitive pour les licenciés et compétiteurs.',
-    href: 'https://livron-bmx-club.base44.app/',
-  },
-  {
-    image:    '/images/chalet-taiga.jpg',
-    alt:      'Chalet La Taïga — Lans-en-Vercors',
-    category: 'Site vitrine & hébergement',
-    title:    'Chalet La Taïga',
-    description: "Site vitrine pour un chalet de montagne à Lans-en-Vercors. Ambiance chaleureuse et premium, optimisé pour les réservations en ligne.",
-    href: 'https://chalet-taiga.fr/',
+    image:    '/images/sultan-kebab.jpg',
+    alt:      'Sultan Kebab Crest — Application de commande en ligne',
+    category: 'Application web & commande en ligne',
+    title:    'Sultan Kebab Crest',
+    description: 'Application de commande en ligne pour un restaurant kebab à Crest. Menu interactif, paiement intégré, interface caisse en temps réel.',
+    href: 'https://sultan-crest-eats.vercel.app/',
   },
 ]
 
@@ -107,11 +99,11 @@ export function ServicesPageContent() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="flex justify-center">
             {PORTFOLIO.map((project, i) => (
               <motion.div
                 key={project.title}
-                className="group flex flex-col overflow-hidden"
+                className="group flex flex-col overflow-hidden w-full max-w-2xl"
                 style={{
                   backgroundColor: '#FFFFFF',
                   border: '1px solid rgba(0,0,0,0.07)',
@@ -133,21 +125,21 @@ export function ServicesPageContent() {
                   el.style.boxShadow   = 'none'
                 }}
               >
-                <div className="relative overflow-hidden" style={{ height: 200 }}>
+                <div className="relative overflow-hidden" style={{ height: 340 }}>
                   <Image
                     src={project.image}
                     alt={project.alt}
                     fill
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
                     loading="lazy"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, 672px"
                   />
                 </div>
-                <div className="p-6 flex flex-col flex-1">
+                <div className="p-8 flex flex-col flex-1">
                   <p className="font-display font-600 text-[10px] tracking-[0.2em] uppercase mb-2" style={{ color: '#AAAAAA' }}>
                     {project.category}
                   </p>
-                  <h3 className="font-display font-700 text-lg mb-3" style={{ color: '#1A1A1A' }}>
+                  <h3 className="font-display font-700 text-xl mb-3" style={{ color: '#1A1A1A' }}>
                     {project.title}
                   </h3>
                   <p className="font-body text-sm leading-relaxed flex-1" style={{ color: '#6B6B6B' }}>
@@ -164,26 +156,6 @@ export function ServicesPageContent() {
                     Voir le site
                   </a>
                 </div>
-              </motion.div>
-            ))}
-
-            {/* Coming soon */}
-            {[1, 2, 3].map((i) => (
-              <motion.div
-                key={i}
-                className="flex flex-col items-center justify-center text-center p-12 min-h-[300px]"
-                style={{ border: '1px dashed rgba(0,0,0,0.1)', borderRadius: '8px' }}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 * i }}
-              >
-                <p className="font-display font-600 italic text-lg mb-2" style={{ color: '#CCCCCC' }}>
-                  Prochainement
-                </p>
-                <p className="font-display font-500 text-xs tracking-widest uppercase" style={{ color: '#CCCCCC' }}>
-                  En cours de réalisation
-                </p>
               </motion.div>
             ))}
           </div>
