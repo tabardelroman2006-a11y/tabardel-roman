@@ -7,7 +7,7 @@ const STEPS = [
   {
     num:   '01',
     title: 'Découverte',
-    sub:   '15 min — Gratuit',
+    sub:   '15 min, gratuit',
     desc:  "Un appel pour comprendre votre activité, vos objectifs et votre cible. Je pose les bonnes questions pour ne rien rater.",
   },
   {

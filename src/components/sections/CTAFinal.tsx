@@ -70,7 +70,7 @@ export function CTAFinal() {
               style={{ backgroundColor: '#FFFFFF', color: '#1B3A6B' }}
             >
               <Phone size={15} />
-              Appel gratuit — 15 min
+              Appel gratuit (15 min)
             </button>
 
             <a

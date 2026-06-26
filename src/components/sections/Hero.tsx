@@ -6,16 +6,8 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 
-const STATS = [
-  { value: '30+',  label: 'Sites livrés'       },
-  { value: '100%', label: 'Satisfaction client' },
-  { value: '5★',   label: 'Avis Google'         },
-]
-
 export function Hero() {
   const { openDevis } = useModal()
-  const statsRef    = useRef<HTMLDivElement>(null)
-  const statsInView = useInView(statsRef, { once: true, margin: '-60px' })
 
   return (
     <section
@@ -39,7 +31,7 @@ export function Hero() {
             >
               <span className="block h-px w-8 shrink-0" style={{ backgroundColor: '#1B3A6B' }} />
               <p className="font-body text-xs tracking-[0.25em] uppercase" style={{ color: '#6B6B6B' }}>
-                Création web &amp; SEO — Drôme &amp; partout en France
+                Création web &amp; SEO, Drôme &amp; partout en France
               </p>
             </motion.div>
 
@@ -99,7 +91,7 @@ export function Hero() {
                 style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
               >
                 <Phone size={14} />
-                Appel gratuit — 15 min
+                Appel gratuit (15 min)
               </button>
 
               <a
@@ -111,34 +103,6 @@ export function Hero() {
               </a>
             </motion.div>
 
-            {/* Stats */}
-            <motion.div
-              ref={statsRef}
-              className="mt-16 pt-8 flex flex-wrap gap-10 md:gap-16"
-              style={{ borderTop: '1px solid rgba(0,0,0,0.08)' }}
-            >
-              {STATS.map(({ value, label }, i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={statsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.55, delay: i * 0.1 }}
-                >
-                  <p
-                    className="font-display font-800"
-                    style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: '#1B3A6B' }}
-                  >
-                    {value}
-                  </p>
-                  <p
-                    className="font-body text-[10px] mt-1 tracking-[0.2em] uppercase"
-                    style={{ color: '#AAAAAA' }}
-                  >
-                    {label}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
 
           </div>{/* end left col */}
 

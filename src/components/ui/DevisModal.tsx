@@ -77,7 +77,7 @@ export function DevisModal() {
                       Réservez votre appel
                     </h2>
                     <p className="font-body text-sm mt-1" style={{ color: '#888888' }}>
-                      15 minutes — gratuit — sans engagement
+                      15 minutes, gratuit, sans engagement
                     </p>
                   </div>
                   <button

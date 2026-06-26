@@ -155,7 +155,7 @@ export function Header() {
                   className="mt-6 font-body font-700 text-sm px-10 py-4 tracking-wide uppercase"
                   style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
                 >
-                  Appel gratuit — 15 min
+                  Appel gratuit (15 min)
                 </button>
               </motion.div>
             </nav>
