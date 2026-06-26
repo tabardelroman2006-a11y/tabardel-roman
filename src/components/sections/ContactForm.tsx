@@ -19,7 +19,7 @@ export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
 
   const focusOn  = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    (e.target.style.borderColor = '#1B3A6B')
+    (e.target.style.borderColor = 'var(--rt-primary)')
   const focusOff = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     (e.target.style.borderColor = 'rgba(0,0,0,0.12)')
 
@@ -27,7 +27,7 @@ export function ContactForm() {
     return (
       <div className="py-20 text-center">
         <div className="w-12 h-12 flex items-center justify-center mx-auto mb-5"
-          style={{ backgroundColor: '#1B3A6B' }}>
+          style={{ backgroundColor: 'var(--rt-primary)' }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.5">
             <polyline points="20 6 9 17 4 12" />
           </svg>
@@ -74,7 +74,7 @@ export function ContactForm() {
 
       <button type="submit"
         className="w-full py-4 font-body font-700 text-sm tracking-wide uppercase transition-opacity duration-200 hover:opacity-80"
-        style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}>
+        style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}>
         Envoyer
       </button>
 

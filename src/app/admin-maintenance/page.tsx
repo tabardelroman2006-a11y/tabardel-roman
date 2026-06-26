@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Lock } from 'lucide-react'
+import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut } from 'lucide-react'
 import { HIDEABLE_PAGES } from '@/lib/pages-config'
 import { TEXT_GROUPS } from '@/lib/text-fields'
 
@@ -148,7 +148,7 @@ export default function AdminPage() {
         {tab === 'maintenance' && <MaintenanceTab token={token} onExpired={logout} />}
         {tab === 'pages'    && <PagesTab token={token} onExpired={logout} />}
         {tab === 'textes'   && <TextsTab token={token} onExpired={logout} />}
-        {tab === 'couleurs' && <ComingSoon title="Changer les couleurs de la marque" />}
+        {tab === 'couleurs' && <ColorsTab token={token} onExpired={logout} />}
       </div>
     </div>
   )
@@ -405,17 +405,106 @@ function TextsTab({ token, onExpired }: { token: string; onExpired: () => void }
   )
 }
 
-// ── Placeholder phases à venir ────────────────────────────────────────────────
-function ComingSoon({ title }: { title: string }) {
+// ── Onglet Couleurs ───────────────────────────────────────────────────────────
+const DEFAULT_PRIMARY = '#1B3A6B'
+const HEX6 = /^#[0-9a-fA-F]{6}$/
+
+function ColorsTab({ token, onExpired }: { token: string; onExpired: () => void }) {
+  const [color, setColor]     = useState(DEFAULT_PRIMARY)
+  const [loaded, setLoaded]   = useState(false)
+  const [saving, setSaving]   = useState(false)
+  const [error, setError]     = useState('')
+  const [success, setSuccess] = useState('')
+
+  useEffect(() => {
+    fetch('/api/admin/content')
+      .then(r => r.json())
+      .then(d => {
+        const p = d?.content?.colors?.primary
+        if (typeof p === 'string' && HEX6.test(p)) setColor(p)
+      })
+      .catch(() => {})
+      .finally(() => setLoaded(true))
+  }, [])
+
+  async function persist(colors: Record<string, string>, msg: string) {
+    setSaving(true); setError(''); setSuccess('')
+    try {
+      const res = await fetch('/api/admin/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-session-token': token },
+        body: JSON.stringify({ patch: { colors } }),
+      })
+      if (res.status === 401) { onExpired(); return }
+      if (res.ok) {
+        try { sessionStorage.removeItem('rtPrimary') } catch {}
+        setSuccess(msg)
+      } else {
+        setError('Erreur lors de l\'enregistrement.')
+      }
+    } catch {
+      setError('Erreur réseau.')
+    }
+    setSaving(false)
+  }
+
+  const valid = HEX6.test(color)
+
   return (
-    <div style={{ ...card, textAlign: 'center', padding: '3rem 2.5rem' }}>
-      <div style={{ display: 'inline-flex', padding: 14, borderRadius: 999, background: '#F4F4F4', marginBottom: '1rem' }}>
-        <Lock size={22} color={NAVY} />
-      </div>
-      <h2 style={{ ...cardTitle, marginBottom: '0.5rem' }}>{title}</h2>
-      <p style={{ fontSize: '0.9rem', color: '#6B6B6B', maxWidth: 380, margin: '0 auto' }}>
-        Bientôt disponible. Cette section est en cours de construction et sera activée prochainement.
+    <div style={card}>
+      <h2 style={cardTitle}>Couleur de la marque</h2>
+      <p style={{ fontSize: '0.85rem', color: '#6B6B6B', margin: '0.5rem 0 1.5rem', lineHeight: 1.6 }}>
+        C&apos;est la couleur principale utilisée sur tout le site (boutons, accents, liens actifs).
+        Choisis une couleur <strong>foncée</strong> : du texte blanc s&apos;affiche dessus.
       </p>
+
+      {/* Aperçu */}
+      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginBottom: '1.5rem' }}>
+        <div style={{ width: 56, height: 56, borderRadius: 12, background: valid ? color : '#ccc', border: '1px solid #E5E3E0' }} />
+        <button style={{ ...primaryBtn, width: 'auto', padding: '12px 24px', background: valid ? color : '#ccc' }}>
+          Exemple de bouton
+        </button>
+      </div>
+
+      {/* Sélecteurs */}
+      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+        <input
+          type="color"
+          value={valid ? color : DEFAULT_PRIMARY}
+          onChange={e => { setColor(e.target.value); setSuccess('') }}
+          disabled={!loaded}
+          style={{ width: 56, height: 44, border: '1px solid #E5E3E0', borderRadius: 8, background: '#fff', cursor: 'pointer' }}
+        />
+        <input
+          type="text"
+          value={color}
+          onChange={e => { setColor(e.target.value); setSuccess('') }}
+          placeholder={DEFAULT_PRIMARY}
+          disabled={!loaded}
+          style={{ ...input, padding: '10px 14px', width: 160, fontFamily: 'monospace', textTransform: 'uppercase' }}
+        />
+      </div>
+
+      {!valid && <p style={{ color: '#dc2626', fontSize: '0.8rem', marginBottom: '1rem' }}>Format attendu : #RRGGBB (ex. #1B3A6B)</p>}
+      {error   && <p style={{ color: '#dc2626', fontSize: '0.875rem', marginBottom: '0.75rem' }}>{error}</p>}
+      {success && <p style={{ color: '#16a34a', fontSize: '0.875rem', marginBottom: '0.75rem' }}>{success}</p>}
+
+      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <button
+          onClick={() => persist({ primary: color }, 'Couleur enregistrée. Le site se met à jour dans quelques secondes.')}
+          disabled={saving || !loaded || !valid}
+          style={{ ...primaryBtn, width: 'auto', padding: '12px 28px', opacity: (saving || !loaded || !valid) ? 0.6 : 1 }}
+        >
+          {saving ? 'Enregistrement…' : 'Enregistrer'}
+        </button>
+        <button
+          onClick={() => { setColor(DEFAULT_PRIMARY); persist({}, 'Couleur réinitialisée à la valeur d\'origine.') }}
+          disabled={saving || !loaded}
+          style={{ ...ghostBtn, padding: '12px 20px' }}
+        >
+          Réinitialiser
+        </button>
+      </div>
     </div>
   )
 }

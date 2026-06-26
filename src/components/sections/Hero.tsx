@@ -31,7 +31,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
             >
-              <span className="block h-px w-8 shrink-0" style={{ backgroundColor: '#1B3A6B' }} />
+              <span className="block h-px w-8 shrink-0" style={{ backgroundColor: 'var(--rt-primary)' }} />
               <p className="font-body text-xs tracking-[0.25em] uppercase" style={{ color: '#6B6B6B' }}>
                 {t('hero.eyebrow')}
               </p>
@@ -88,7 +88,7 @@ export function Hero() {
               <button
                 onClick={openDevis}
                 className="flex items-center gap-2.5 font-body font-700 text-sm px-8 py-4 tracking-wide transition-opacity duration-200 hover:opacity-80"
-                style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
+                style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}
               >
                 <Phone size={14} />
                 Appel gratuit (15 min)
@@ -149,7 +149,7 @@ export function Hero() {
       >
         <motion.div
           className="w-px h-12 mx-auto"
-          style={{ background: 'linear-gradient(to bottom, #1B3A6B, transparent)' }}
+          style={{ background: 'linear-gradient(to bottom, var(--rt-primary), transparent)' }}
           animate={{ scaleY: [0, 1, 0], transformOrigin: 'top' }}
           transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
         />

@@ -16,7 +16,7 @@ export default function ContactPage() {
 
           {/* Left */}
           <div>
-            <p className="font-body text-xs tracking-[0.25em] uppercase mb-5" style={{ color: '#1B3A6B' }}>
+            <p className="font-body text-xs tracking-[0.25em] uppercase mb-5" style={{ color: 'var(--rt-primary)' }}>
               Travaillons ensemble
             </p>
             <h1 className="font-display font-800 leading-tight mb-6"
@@ -34,7 +34,7 @@ export default function ContactPage() {
               <a href="tel:0769341123" className="link-dim flex items-center gap-4 font-body text-base">
                 <span className="w-10 h-10 flex items-center justify-center shrink-0"
                   style={{ backgroundColor: 'rgba(27,58,107,0.08)', border: '1px solid rgba(27,58,107,0.15)' }}>
-                  <Phone size={15} style={{ color: '#1B3A6B' }} />
+                  <Phone size={15} style={{ color: 'var(--rt-primary)' }} />
                 </span>
                 07 69 34 11 23
               </a>
@@ -42,7 +42,7 @@ export default function ContactPage() {
               <a href="mailto:contact@tabardel-roman.fr" className="link-dim flex items-center gap-4 font-body text-base">
                 <span className="w-10 h-10 flex items-center justify-center shrink-0"
                   style={{ backgroundColor: 'rgba(27,58,107,0.08)', border: '1px solid rgba(27,58,107,0.15)' }}>
-                  <Mail size={15} style={{ color: '#1B3A6B' }} />
+                  <Mail size={15} style={{ color: 'var(--rt-primary)' }} />
                 </span>
                 contact@tabardel-roman.fr
               </a>

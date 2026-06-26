@@ -47,15 +47,15 @@ function FAQItem({ q, a, index, inView }: { q: string; a: string; index: number;
       >
         <span
           className="font-body font-600 text-base"
-          style={{ color: open ? '#1B3A6B' : '#1A1A1A', transition: 'color 0.2s' }}
+          style={{ color: open ? 'var(--rt-primary)' : '#1A1A1A', transition: 'color 0.2s' }}
         >
           {q}
         </span>
         <span
           className="shrink-0 w-6 h-6 flex items-center justify-center rounded-full border transition-all duration-200"
           style={{
-            borderColor: open ? '#1B3A6B' : 'rgba(0,0,0,0.15)',
-            color:       open ? '#1B3A6B' : '#888888',
+            borderColor: open ? 'var(--rt-primary)' : 'rgba(0,0,0,0.15)',
+            color:       open ? 'var(--rt-primary)' : '#888888',
           }}
         >
           {open ? <Minus size={12} /> : <Plus size={12} />}
@@ -99,7 +99,7 @@ export function FAQSection() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <motion.p
             className="font-body text-xs tracking-[0.25em] uppercase mb-5"
-            style={{ color: '#1B3A6B' }}
+            style={{ color: 'var(--rt-primary)' }}
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}

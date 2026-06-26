@@ -66,7 +66,7 @@ export function ServicesPageContent() {
       {/* ── HERO ── */}
       <section className="py-20 md:py-28 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
-          <p className="font-display font-700 text-xs tracking-[0.28em] uppercase mb-6" style={{ color: '#1B3A6B' }}>
+          <p className="font-display font-700 text-xs tracking-[0.28em] uppercase mb-6" style={{ color: 'var(--rt-primary)' }}>
             Services &amp; Réalisations
           </p>
           <div ref={titleRef} className="overflow-hidden">
@@ -91,7 +91,7 @@ export function ServicesPageContent() {
       <section className="py-20 md:py-32 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <p className="font-display font-700 text-xs tracking-[0.28em] uppercase mb-5" style={{ color: '#1B3A6B' }}>
+            <p className="font-display font-700 text-xs tracking-[0.28em] uppercase mb-5" style={{ color: 'var(--rt-primary)' }}>
               Portfolio
             </p>
             <h2 className="font-display font-800" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#1A1A1A' }}>
@@ -150,7 +150,7 @@ export function ServicesPageContent() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-6 flex items-center gap-2 font-display font-600 text-xs tracking-widest uppercase transition-opacity duration-200 hover:opacity-60 w-fit"
-                    style={{ color: '#1B3A6B' }}
+                    style={{ color: 'var(--rt-primary)' }}
                   >
                     <ExternalLink size={11} />
                     Voir le site
@@ -168,7 +168,7 @@ export function ServicesPageContent() {
       <section className="py-20 md:py-32 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <p className="font-display font-700 text-xs tracking-[0.28em] uppercase mb-5" style={{ color: '#1B3A6B' }}>
+            <p className="font-display font-700 text-xs tracking-[0.28em] uppercase mb-5" style={{ color: 'var(--rt-primary)' }}>
               Prestations
             </p>
             <h2 className="font-display font-800" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: '#1A1A1A' }}>
@@ -202,11 +202,11 @@ export function ServicesPageContent() {
                   el.style.boxShadow   = 'none'
                 }}
               >
-                <Icon size={20} style={{ color: '#1B3A6B', marginBottom: 16 }} />
+                <Icon size={20} style={{ color: 'var(--rt-primary)', marginBottom: 16 }} />
                 <h3 className="font-display font-700 text-lg mb-1" style={{ color: '#1A1A1A' }}>
                   {title}
                 </h3>
-                <p className="font-display font-600 text-xs tracking-widest uppercase mb-5" style={{ color: '#1B3A6B' }}>
+                <p className="font-display font-600 text-xs tracking-widest uppercase mb-5" style={{ color: 'var(--rt-primary)' }}>
                   {price}
                 </p>
                 <p className="font-body text-sm leading-relaxed flex-1" style={{ color: '#6B6B6B' }}>
@@ -215,7 +215,7 @@ export function ServicesPageContent() {
                 <div className="mt-6 pt-6 space-y-2" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
                   {details.map(d => (
                     <div key={d} className="flex items-center gap-2 font-body text-xs" style={{ color: '#888888' }}>
-                      <span className="w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: '#1B3A6B' }} />
+                      <span className="w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: 'var(--rt-primary)' }} />
                       {d}
                     </div>
                   ))}
@@ -227,7 +227,7 @@ export function ServicesPageContent() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-24 md:py-32 px-6 md:px-12 lg:px-20" style={{ backgroundColor: '#1B3A6B' }}>
+      <section className="py-24 md:py-32 px-6 md:px-12 lg:px-20" style={{ backgroundColor: 'var(--rt-primary)' }}>
         <div className="max-w-3xl mx-auto text-center">
           <h2
             className="font-display font-800 leading-tight mb-6"
@@ -243,7 +243,7 @@ export function ServicesPageContent() {
           <button
             onClick={openDevis}
             className="font-display font-700 text-sm tracking-widest uppercase px-12 py-4 transition-opacity duration-200 hover:opacity-80"
-            style={{ backgroundColor: '#FFFFFF', color: '#1B3A6B', borderRadius: '8px' }}
+            style={{ backgroundColor: '#FFFFFF', color: 'var(--rt-primary)', borderRadius: '8px' }}
           >
             Appel gratuit (15 min)
           </button>

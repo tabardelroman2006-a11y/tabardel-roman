@@ -97,14 +97,14 @@ export function Header() {
                     key={label}
                     href={href}
                     className="font-body text-sm font-500 tracking-wide transition-colors duration-200 relative group"
-                    style={{ color: active ? '#1B3A6B' : '#6B6B6B' }}
+                    style={{ color: active ? 'var(--rt-primary)' : '#6B6B6B' }}
                   >
                     {label}
                     <span
                       className="absolute -bottom-0.5 left-0 h-px transition-all duration-300"
                       style={{
                         width: active ? '100%' : '0',
-                        backgroundColor: '#1B3A6B',
+                        backgroundColor: 'var(--rt-primary)',
                       }}
                     />
                   </Link>
@@ -117,7 +117,7 @@ export function Header() {
               <button
                 onClick={openDevis}
                 className="hidden md:flex items-center gap-2 font-body font-700 text-xs px-5 py-2.5 tracking-wide uppercase transition-opacity duration-200 hover:opacity-80"
-                style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
+                style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}
               >
                 <Phone size={12} />
                 Appel gratuit
@@ -172,7 +172,7 @@ export function Header() {
                 <button
                   onClick={() => { setMobileOpen(false); openDevis() }}
                   className="mt-6 font-body font-700 text-sm px-10 py-4 tracking-wide uppercase"
-                  style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
+                  style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}
                 >
                   Appel gratuit (15 min)
                 </button>

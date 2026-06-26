@@ -57,7 +57,7 @@ export function ProcessSection() {
         <div className="mb-20 max-w-xl">
           <motion.p
             className="font-body text-xs tracking-[0.25em] uppercase mb-5"
-            style={{ color: '#1B3A6B' }}
+            style={{ color: 'var(--rt-primary)' }}
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
@@ -102,7 +102,7 @@ export function ProcessSection() {
               {/* Accent line */}
               <motion.div
                 className="w-8 h-0.5 mb-6"
-                style={{ backgroundColor: '#1B3A6B' }}
+                style={{ backgroundColor: 'var(--rt-primary)' }}
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={inView ? { scaleX: 1 } : {}}
                 transition={{ duration: 0.45, delay: 0.22 + i * 0.11 }}
@@ -111,7 +111,7 @@ export function ProcessSection() {
               <h3 className="font-display font-700 text-lg mb-1" style={{ color: '#1A1A1A' }}>
                 {title}
               </h3>
-              <p className="font-body font-600 text-[10px] tracking-widest uppercase mb-5" style={{ color: '#1B3A6B' }}>
+              <p className="font-body font-600 text-[10px] tracking-widest uppercase mb-5" style={{ color: 'var(--rt-primary)' }}>
                 {sub}
               </p>
               <p className="font-body text-sm leading-relaxed" style={{ color: '#6B6B6B' }}>

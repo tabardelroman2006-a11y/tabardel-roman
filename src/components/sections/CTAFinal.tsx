@@ -16,7 +16,7 @@ export function CTAFinal() {
     <section
       ref={ref}
       className="py-28 md:py-40 px-6 md:px-12 lg:px-20"
-      style={{ backgroundColor: '#1B3A6B' }}
+      style={{ backgroundColor: 'var(--rt-primary)' }}
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-center">
@@ -68,7 +68,7 @@ export function CTAFinal() {
             <button
               onClick={openDevis}
               className="flex items-center justify-center gap-3 font-body font-700 text-sm px-10 py-5 transition-opacity duration-200 hover:opacity-80 whitespace-nowrap"
-              style={{ backgroundColor: '#FFFFFF', color: '#1B3A6B' }}
+              style={{ backgroundColor: '#FFFFFF', color: 'var(--rt-primary)' }}
             >
               <Phone size={15} />
               Appel gratuit (15 min)

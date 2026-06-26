@@ -15,7 +15,7 @@ export default function NotreHistoirePage() {
           <div><PortraitImage /></div>
 
           <div className="lg:pt-8">
-            <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: '#1B3A6B' }}>
+            <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: 'var(--rt-primary)' }}>
               Fondateur · Créateur de sites web
             </p>
             <h1 className="font-display font-800 leading-tight mb-10"
@@ -42,7 +42,7 @@ export default function NotreHistoirePage() {
               </p>
             </div>
 
-            <blockquote className="mt-12 pl-6" style={{ borderLeft: '3px solid #1B3A6B' }}>
+            <blockquote className="mt-12 pl-6" style={{ borderLeft: '3px solid var(--rt-primary)' }}>
               <p className="font-display font-600 italic leading-relaxed"
                 style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', color: '#1A1A1A' }}>
                 &ldquo;Je crois que chaque entreprise, quelle que soit sa taille,
@@ -56,7 +56,7 @@ export default function NotreHistoirePage() {
             <div className="mt-12 flex flex-wrap gap-4">
               <a href="/contact"
                 className="font-body font-700 text-sm px-8 py-4 transition-opacity duration-200 hover:opacity-80"
-                style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}>
+                style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}>
                 Me contacter
               </a>
               <a href="/services" className="btn-ghost font-body font-600 text-sm px-8 py-4">

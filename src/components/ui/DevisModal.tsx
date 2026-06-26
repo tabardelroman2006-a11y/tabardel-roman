@@ -68,8 +68,8 @@ export function DevisModal() {
                 <div className="flex items-start justify-between mb-8">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="w-5 h-px" style={{ backgroundColor: '#1B3A6B' }} />
-                      <p className="font-body text-xs tracking-[0.22em] uppercase" style={{ color: '#1B3A6B' }}>
+                      <span className="w-5 h-px" style={{ backgroundColor: 'var(--rt-primary)' }} />
+                      <p className="font-body text-xs tracking-[0.22em] uppercase" style={{ color: 'var(--rt-primary)' }}>
                         Appel gratuit
                       </p>
                     </div>
@@ -99,7 +99,7 @@ export function DevisModal() {
                       className="py-16 text-center"
                     >
                       <div className="w-12 h-12 flex items-center justify-center mx-auto mb-5"
-                        style={{ backgroundColor: '#1B3A6B' }}>
+                        style={{ backgroundColor: 'var(--rt-primary)' }}>
                         <Phone size={20} color="#FFFFFF" />
                       </div>
                       <p className="font-display font-700 text-xl mb-2" style={{ color: '#1A1A1A' }}>
@@ -117,14 +117,14 @@ export function DevisModal() {
                           <label style={labelStyle}>Prénom</label>
                           <input type="text" name="prenom" value={form.prenom} onChange={handleChange} required
                             placeholder="Votre prénom" style={inputStyle}
-                            onFocus={e => (e.target.style.borderColor = '#1B3A6B')}
+                            onFocus={e => (e.target.style.borderColor = 'var(--rt-primary)')}
                             onBlur={e  => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')} />
                         </div>
                         <div>
                           <label style={labelStyle}>Nom</label>
                           <input type="text" name="nom" value={form.nom} onChange={handleChange} required
                             placeholder="Votre nom" style={inputStyle}
-                            onFocus={e => (e.target.style.borderColor = '#1B3A6B')}
+                            onFocus={e => (e.target.style.borderColor = 'var(--rt-primary)')}
                             onBlur={e  => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')} />
                         </div>
                       </div>
@@ -133,7 +133,7 @@ export function DevisModal() {
                         <label style={labelStyle}>Téléphone</label>
                         <input type="tel" name="telephone" value={form.telephone} onChange={handleChange} required
                           placeholder="07 00 00 00 00" style={inputStyle}
-                          onFocus={e => (e.target.style.borderColor = '#1B3A6B')}
+                          onFocus={e => (e.target.style.borderColor = 'var(--rt-primary)')}
                           onBlur={e  => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')} />
                       </div>
 
@@ -141,7 +141,7 @@ export function DevisModal() {
                         <label style={labelStyle}>Email</label>
                         <input type="email" name="email" value={form.email} onChange={handleChange}
                           placeholder="vous@exemple.com" style={inputStyle}
-                          onFocus={e => (e.target.style.borderColor = '#1B3A6B')}
+                          onFocus={e => (e.target.style.borderColor = 'var(--rt-primary)')}
                           onBlur={e  => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')} />
                       </div>
 
@@ -150,13 +150,13 @@ export function DevisModal() {
                         <textarea name="description" value={form.description} onChange={handleChange} rows={4}
                           placeholder="Type de site, secteur d'activité, budget approximatif…"
                           style={{ ...inputStyle, resize: 'none' }}
-                          onFocus={e => (e.target.style.borderColor = '#1B3A6B')}
+                          onFocus={e => (e.target.style.borderColor = 'var(--rt-primary)')}
                           onBlur={e  => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')} />
                       </div>
 
                       <button type="submit"
                         className="w-full py-4 font-body font-700 text-sm tracking-wide uppercase transition-opacity duration-200 hover:opacity-80"
-                        style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}>
+                        style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}>
                         Envoyer ma demande
                       </button>
 

@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { DevisModal } from '@/components/ui/DevisModal'
+import { ThemeColors } from '@/components/ThemeColors'
 
 const barlow = Barlow_Condensed({
   variable: '--font-barlow',
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${barlow.variable} ${nunito.variable}`}>
       <body>
         <ModalProvider>
+          <ThemeColors />
           <SmoothScroll>
             <Header />
             <main>{children}</main>

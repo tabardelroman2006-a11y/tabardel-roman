@@ -59,7 +59,7 @@ export function ServicesSection() {
         <div className="mb-20 max-w-xl">
           <motion.p
             className="font-body text-xs tracking-[0.25em] uppercase mb-5"
-            style={{ color: '#1B3A6B' }}
+            style={{ color: 'var(--rt-primary)' }}
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
@@ -113,7 +113,7 @@ export function ServicesSection() {
               </span>
 
               <div className="flex items-start justify-between mb-4">
-                <Icon size={20} style={{ color: '#1B3A6B' }} />
+                <Icon size={20} style={{ color: 'var(--rt-primary)' }} />
                 <ArrowUpRight size={15} style={{ color: 'rgba(0,0,0,0.2)' }} />
               </div>
 
@@ -121,7 +121,7 @@ export function ServicesSection() {
                 {title}
               </h3>
 
-              <p className="font-body font-600 text-xs tracking-wide uppercase mb-6" style={{ color: '#1B3A6B' }}>
+              <p className="font-body font-600 text-xs tracking-wide uppercase mb-6" style={{ color: 'var(--rt-primary)' }}>
                 {price}
               </p>
 
@@ -132,7 +132,7 @@ export function ServicesSection() {
               <ul className="space-y-2.5">
                 {points.map(pt => (
                   <li key={pt} className="flex items-center gap-2.5 font-body text-xs" style={{ color: '#888888' }}>
-                    <span className="shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: '#1B3A6B' }} />
+                    <span className="shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: 'var(--rt-primary)' }} />
                     {pt}
                   </li>
                 ))}
@@ -155,7 +155,7 @@ export function ServicesSection() {
           <button
             onClick={openDevis}
             className="font-body font-700 text-sm px-8 py-3.5 transition-opacity duration-200 hover:opacity-80 shrink-0"
-            style={{ backgroundColor: '#1B3A6B', color: '#FFFFFF' }}
+            style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}
           >
             On en parle gratuitement
           </button>
