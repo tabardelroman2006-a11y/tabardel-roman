@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useRef } from 'react'
 import Image from 'next/image'
@@ -47,7 +47,7 @@ const SERVICES_LIST = [
 const PORTFOLIO = [
   {
     image:    '/images/sultan-kebab.jpg',
-    alt:      'Sultan Kebab Crest — Application de commande en ligne',
+    alt:      'Sultan Kebab Crest, Application de commande en ligne',
     category: 'Application web & commande en ligne',
     title:    'Sultan Kebab Crest',
     description: 'Application de commande en ligne pour un restaurant kebab à Crest. Menu interactif, paiement intégré, interface caisse en temps réel.',

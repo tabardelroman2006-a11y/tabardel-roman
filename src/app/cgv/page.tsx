@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Conditions générales de vente',
-  description: 'CGV de Roman Tabardel — conditions de prestation de services web.',
+  description: 'CGV de Roman Tabardel, conditions de prestation de services web.',
   robots: { index: false, follow: false },
 }
 
@@ -54,7 +54,7 @@ export default function CGVPage() {
           {/* Article 1 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 1 — Services proposés
+              Article 1 : Services proposés
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Le Prestataire propose les services suivants :
@@ -64,7 +64,7 @@ export default function CGVPage() {
                 'Création de sites web vitrine sur mesure',
                 'Création de sites e-commerce',
                 'Refonte de sites existants',
-                'Référencement naturel (SEO) — audit, optimisation, suivi',
+                'Référencement naturel (SEO) : audit, optimisation, suivi',
                 'Maintenance et support technique',
               ].map(item => (
                 <li key={item} className="flex items-start gap-2.5">
@@ -80,7 +80,7 @@ export default function CGVPage() {
           {/* Article 2 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 2 — Devis et commande
+              Article 2 : Devis et commande
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Toute prestation fait l'objet d'un devis détaillé, établi gratuitement après un échange
@@ -98,7 +98,7 @@ export default function CGVPage() {
           {/* Article 3 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 3 — Tarifs
+              Article 3 : Tarifs
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Les tarifs sont exprimés en euros toutes taxes comprises (TTC). En qualité de
@@ -118,15 +118,15 @@ export default function CGVPage() {
           {/* Article 4 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 4 — Modalités de paiement
+              Article 4 : Modalités de paiement
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Sauf accord contraire précisé dans le devis, les conditions de paiement sont :
             </p>
             <ul className="space-y-2 text-sm mb-3">
               {[
-                '50 % à la commande (acompte) — démarrage des travaux',
-                '50 % à la livraison — avant mise en ligne du site',
+                '50 % à la commande (acompte), démarrage des travaux',
+                '50 % à la livraison, avant mise en ligne du site',
               ].map(item => (
                 <li key={item} className="flex items-start gap-2.5">
                   <span className="mt-1.5 w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: '#C8FF00' }} />
@@ -146,7 +146,7 @@ export default function CGVPage() {
           {/* Article 5 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 5 — Délais de réalisation
+              Article 5 : Délais de réalisation
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Les délais de réalisation sont précisés dans le devis. Ils courent à compter de la
@@ -164,7 +164,7 @@ export default function CGVPage() {
           {/* Article 6 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 6 — Obligations du Client
+              Article 6 : Obligations du Client
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Le Client s'engage à :
@@ -189,7 +189,7 @@ export default function CGVPage() {
           {/* Article 7 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 7 — Propriété intellectuelle
+              Article 7 : Propriété intellectuelle
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Le Prestataire reste propriétaire des droits de propriété intellectuelle sur tous les
@@ -209,7 +209,7 @@ export default function CGVPage() {
           {/* Article 8 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 8 — Garanties et support
+              Article 8 : Garanties et support
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Le Prestataire garantit la conformité du livrable au devis accepté. Une période de
@@ -228,7 +228,7 @@ export default function CGVPage() {
           {/* Article 9 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 9 — Rétractation
+              Article 9 : Rétractation
             </h2>
             <p className="text-sm leading-relaxed">
               Conformément à l'article L.221-28 du Code de la consommation, le droit de rétractation
@@ -243,7 +243,7 @@ export default function CGVPage() {
           {/* Article 10 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 10 — Annulation
+              Article 10 : Annulation
             </h2>
             <p className="text-sm leading-relaxed">
               En cas d'annulation de la commande par le Client après démarrage des travaux, l'acompte
@@ -258,7 +258,7 @@ export default function CGVPage() {
           {/* Article 11 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 11 — Responsabilité
+              Article 11 : Responsabilité
             </h2>
             <p className="text-sm leading-relaxed">
               La responsabilité du Prestataire ne saurait être engagée en cas de dommages indirects
@@ -273,7 +273,7 @@ export default function CGVPage() {
           {/* Article 12 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 12 — Confidentialité
+              Article 12 : Confidentialité
             </h2>
             <p className="text-sm leading-relaxed">
               Le Prestataire s'engage à garder confidentielles toutes informations sensibles
@@ -288,7 +288,7 @@ export default function CGVPage() {
           {/* Article 13 */}
           <section>
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
-              Article 13 — Droit applicable et litiges
+              Article 13 : Droit applicable et litiges
             </h2>
             <p className="text-sm leading-relaxed mb-3">
               Les présentes CGV sont soumises au droit français. En cas de litige, une solution

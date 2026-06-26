@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { Barlow_Condensed, Nunito } from 'next/font/google'
 import './globals.css'
 import { ModalProvider } from '@/context/ModalContext'
@@ -25,16 +25,16 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   metadataBase: new URL('https://tabardel-roman.fr'),
   title: {
-    default: 'Roman Tabardel — Création de sites web & SEO',
-    template: '%s — Roman Tabardel',
+    default: 'Roman Tabardel | Création de sites web & SEO',
+    template: '%s | Roman Tabardel',
   },
   description:
-    'Création de sites web sur mesure et référencement naturel pour les artisans, TPE et PME. Des sites qui convertissent — partout en France.',
+    'Création de sites web sur mesure et référencement naturel pour les artisans, TPE et PME. Des sites qui convertissent, partout en France.',
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
     siteName: 'Roman Tabardel',
-    title: 'Roman Tabardel — Création de sites web & SEO',
+    title: 'Roman Tabardel | Création de sites web & SEO',
     description: 'Des sites qui vendent. Pas des sites qui existent.',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
   },

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect } from 'react'
 
@@ -51,7 +51,7 @@ export default function AdminMaintenancePage() {
     })
     if (res.ok) {
       setMaintenance(next)
-      setSuccess(next ? 'Maintenance activée — le site affiche la page de maintenance.' : 'Maintenance désactivée — le site est en ligne.')
+      setSuccess(next ? 'Maintenance activée, le site affiche la page de maintenance.' : 'Maintenance désactivée, le site est en ligne.')
     } else {
       setError('Erreur lors de la mise à jour.')
     }

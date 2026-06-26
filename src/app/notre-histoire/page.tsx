@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { PortraitImage } from '@/components/sections/PortraitImage'
 
 export const metadata: Metadata = {
-  title: 'À propos — Roman Tabardel',
+  title: 'À propos | Roman Tabardel',
   description: "Découvrez qui est Roman Tabardel, créateur de sites web indépendant basé en Drôme.",
 }
 

@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Mentions légales',
-  description: 'Mentions légales de Roman Tabardel — créateur de sites web.',
+  description: 'Mentions légales de Roman Tabardel, créateur de sites web.',
   robots: { index: false, follow: false },
 }
 
@@ -107,7 +107,7 @@ export default function MentionsLegalesPage() {
               cédées à des tiers.
             </p>
             <p className="text-sm leading-relaxed mb-3">
-              Conformément au Règlement Général sur la Protection des Données (RGPD — Règlement UE 2016/679)
+              Conformément au Règlement Général sur la Protection des Données (RGPD, Règlement UE 2016/679)
               et à la loi Informatique et Libertés du 6 janvier 1978 modifiée, vous disposez d'un droit d'accès,
               de rectification, d'effacement et d'opposition sur vos données personnelles.
             </p>

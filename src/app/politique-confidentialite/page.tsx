@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Politique de confidentialité',
-  description: 'Politique de confidentialité de Roman Tabardel — traitement des données personnelles.',
+  description: 'Politique de confidentialité de Roman Tabardel, traitement des données personnelles.',
   robots: { index: false, follow: false },
 }
 
@@ -37,7 +37,7 @@ export default function PolitiqueConfidentialitePage() {
               1. Responsable du traitement
             </h2>
             <div className="space-y-1.5 text-sm leading-relaxed">
-              <p>ROMAN TABARDEL — Entrepreneur individuel</p>
+              <p>ROMAN TABARDEL, Entrepreneur individuel</p>
               <p>Email : <a href="mailto:contact@tabardel-roman.fr" style={{ color: '#C8FF00' }}>contact@tabardel-roman.fr</a></p>
               <p>Téléphone : 07 69 34 11 23</p>
             </div>
@@ -128,11 +128,11 @@ export default function PolitiqueConfidentialitePage() {
             </p>
             <ul className="space-y-2 text-sm mb-3">
               {[
-                'Droit d\'accès — obtenir une copie de vos données',
-                'Droit de rectification — corriger des données inexactes',
-                'Droit à l\'effacement — demander la suppression de vos données',
-                'Droit d\'opposition — vous opposer au traitement de vos données',
-                'Droit à la portabilité — recevoir vos données dans un format structuré',
+                'Droit d\'accès : obtenir une copie de vos données',
+                'Droit de rectification : corriger des données inexactes',
+                'Droit à l\'effacement : demander la suppression de vos données',
+                'Droit d\'opposition : vous opposer au traitement de vos données',
+                'Droit à la portabilité : recevoir vos données dans un format structuré',
               ].map(item => (
                 <li key={item} className="flex items-start gap-2.5">
                   <span className="mt-1.5 w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: '#C8FF00' }} />
@@ -145,7 +145,7 @@ export default function PolitiqueConfidentialitePage() {
               <a href="mailto:contact@tabardel-roman.fr" style={{ color: '#C8FF00' }}>
                 contact@tabardel-roman.fr
               </a>
-              {' '}— Réponse sous 30 jours maximum.
+              . Réponse sous 30 jours maximum.
             </p>
             <p className="text-sm leading-relaxed mt-3">
               Vous disposez également du droit d'introduire une réclamation auprès de la CNIL :{' '}
