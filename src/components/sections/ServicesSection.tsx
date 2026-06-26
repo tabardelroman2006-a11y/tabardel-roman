@@ -42,9 +42,17 @@ export function ServicesSection() {
       ref={ref}
       id="services"
       className="py-28 md:py-40 px-6 md:px-12 lg:px-20"
-      style={{ backgroundColor: '#F4F4F4' }}
+      style={{
+        position: 'relative',
+        backgroundColor: '#F4F4F4',
+        backgroundImage: "url('/images/services-bg.jpg')",
+        backgroundSize: 'auto 110%',
+        backgroundRepeat: 'repeat-x',
+        backgroundPosition: 'center',
+      }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(244,244,244,0.83)', zIndex: 0 }} />
+      <div className="max-w-7xl mx-auto" style={{ position: 'relative', zIndex: 1 }}>
 
         <div className="mb-20 max-w-xl">
           <motion.p
