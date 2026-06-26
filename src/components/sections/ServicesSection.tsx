@@ -27,7 +27,7 @@ const SERVICES = [
     number: '03',
     title:  'SEO & Référencement',
     price:  'Sur devis',
-    desc:   "Être beau sur internet ne suffit pas — il faut être trouvé. J'optimise votre visibilité pour que Google vous mette devant vos concurrents.",
+    desc:   "Être beau sur internet ne suffit pas : il faut être trouvé. J'optimise votre visibilité pour que Google vous mette devant vos concurrents.",
     points: ['Audit complet', 'Optimisation on-page', 'Stratégie de liens', 'Rapport mensuel'],
   },
 ]

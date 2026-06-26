@@ -53,7 +53,7 @@ export function CTAFinal() {
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               15 minutes, sans engagement. On parle de votre projet, je vous dis exactement
-              ce que je peux faire pour vous — et pour combien.
+              ce que je peux faire pour vous, et pour combien.
             </motion.p>
           </div>
 

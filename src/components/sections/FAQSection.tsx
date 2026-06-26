@@ -7,7 +7,7 @@ import { Plus, Minus } from 'lucide-react'
 const FAQS = [
   {
     q: 'Combien coûte un site web ?',
-    a: "Un site vitrine commence à 800 €, un site e-commerce à 1 500 €. Le tarif dépend de votre besoin, de la complexité du design et des fonctionnalités souhaitées. On établit un devis détaillé lors de notre premier appel — sans surprise.",
+    a: "Un site vitrine commence à 800 €, un site e-commerce à 1 500 €. Le tarif dépend de votre besoin, de la complexité du design et des fonctionnalités souhaitées. On établit un devis détaillé lors de notre premier appel, sans surprise.",
   },
   {
     q: 'Quel est le délai de réalisation ?',

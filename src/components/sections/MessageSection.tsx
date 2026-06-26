@@ -36,7 +36,7 @@ export function MessageSection() {
           <ScrollReveal delay={0.3}>
             <p className="mt-10 font-inter text-base text-[#6B6B6B] max-w-2xl mx-auto leading-relaxed">
               Chaque projet est unique. Je conçois des expériences numériques qui reflètent
-              véritablement l'identité et les valeurs de votre entreprise — pas des templates,
+              véritablement l'identité et les valeurs de votre entreprise, pas des templates,
               mais des créations sur mesure.
             </p>
           </ScrollReveal>

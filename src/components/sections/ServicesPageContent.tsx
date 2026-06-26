@@ -245,7 +245,7 @@ export function ServicesPageContent() {
             className="font-display font-700 text-sm tracking-widest uppercase px-12 py-4 transition-opacity duration-200 hover:opacity-80"
             style={{ backgroundColor: '#FFFFFF', color: '#1B3A6B', borderRadius: '8px' }}
           >
-            Appel gratuit — 15 min
+            Appel gratuit (15 min)
           </button>
         </div>
       </section>

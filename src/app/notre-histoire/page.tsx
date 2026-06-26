@@ -26,13 +26,13 @@ export default function NotreHistoirePage() {
             <div className="space-y-6 font-body text-base leading-relaxed" style={{ color: '#6B6B6B' }}>
               <p>
                 Passionné par le web depuis ses débuts, Roman a développé une expertise solide
-                en création de sites et en référencement naturel — nourrie par des années de
+                en création de sites et en référencement naturel, nourrie par des années de
                 pratique, d'apprentissage en autonomie et de projets concrets pour de vraies entreprises.
               </p>
               <p>
                 Basé en Drôme (26), il accompagne des artisans, TPE et PME partout en France
                 dans leur développement en ligne. Son objectif : leur offrir un niveau de qualité
-                numérique premium — habituellement réservé aux grandes entreprises — à des tarifs
+                numérique premium, habituellement réservé aux grandes entreprises, à des tarifs
                 adaptés à la réalité des indépendants et des petites structures.
               </p>
               <p>
@@ -49,7 +49,7 @@ export default function NotreHistoirePage() {
                 mérite un site à la hauteur de ses ambitions.&rdquo;
               </p>
               <footer className="mt-3 font-body text-sm" style={{ color: '#888888' }}>
-                — Roman Tabardel
+                Roman Tabardel
               </footer>
             </blockquote>
 
