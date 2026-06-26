@@ -18,6 +18,7 @@ const navLinks = [
 export function Header() {
   const [scrolled,   setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [hidden,     setHidden]     = useState<string[]>([])
   const pathname = usePathname()
   const { openDevis } = useModal()
 
@@ -27,7 +28,25 @@ export function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Pages masquées (cache session pour éviter le clignotement)
+  useEffect(() => {
+    try {
+      const cached = sessionStorage.getItem('rtHiddenPages')
+      if (cached) setHidden(JSON.parse(cached))
+    } catch {}
+    fetch('/api/admin/content')
+      .then(r => r.json())
+      .then(d => {
+        const h = Array.isArray(d?.content?.hidden_pages) ? d.content.hidden_pages : []
+        setHidden(h)
+        try { sessionStorage.setItem('rtHiddenPages', JSON.stringify(h)) } catch {}
+      })
+      .catch(() => {})
+  }, [])
+
   useEffect(() => { setMobileOpen(false) }, [pathname])
+
+  const visibleLinks = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
 
   return (
     <>
@@ -71,7 +90,7 @@ export function Header() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map(({ href, label }) => {
+              {visibleLinks.map(({ href, label }) => {
                 const active = pathname === href
                 return (
                   <Link
@@ -129,7 +148,7 @@ export function Header() {
             transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
             <nav className="flex flex-col items-center gap-8">
-              {navLinks.map(({ href, label }, i) => (
+              {visibleLinks.map(({ href, label }, i) => (
                 <motion.div
                   key={label}
                   initial={{ opacity: 0, y: 20 }}

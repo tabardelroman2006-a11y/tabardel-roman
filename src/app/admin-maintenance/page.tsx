@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Lock } from 'lucide-react'
+import { HIDEABLE_PAGES } from '@/lib/pages-config'
 
 const SESSION_KEY = 'rtAdminSession'
 const NAVY = '#1B3A6B'
@@ -144,7 +145,7 @@ export default function AdminPage() {
 
         {/* Contenu */}
         {tab === 'maintenance' && <MaintenanceTab token={token} onExpired={logout} />}
-        {tab === 'pages'    && <ComingSoon title="Masquer / afficher des pages" />}
+        {tab === 'pages'    && <PagesTab token={token} onExpired={logout} />}
         {tab === 'textes'   && <ComingSoon title="Modifier les textes du site" />}
         {tab === 'couleurs' && <ComingSoon title="Changer les couleurs de la marque" />}
       </div>
@@ -222,6 +223,84 @@ function MaintenanceTab({ token, onExpired }: { token: string; onExpired: () => 
   )
 }
 
+// ── Onglet Pages (masquer / afficher) ─────────────────────────────────────────
+function PagesTab({ token, onExpired }: { token: string; onExpired: () => void }) {
+  const [hidden, setHidden] = useState<string[]>([])
+  const [loaded, setLoaded] = useState(false)
+  const [saving, setSaving] = useState<string | null>(null)
+  const [error, setError]   = useState('')
+
+  useEffect(() => {
+    fetch('/api/admin/content')
+      .then(r => r.json())
+      .then(d => setHidden(Array.isArray(d?.content?.hidden_pages) ? d.content.hidden_pages : []))
+      .catch(() => {})
+      .finally(() => setLoaded(true))
+  }, [])
+
+  async function togglePage(path: string) {
+    setSaving(path); setError('')
+    const next = hidden.includes(path) ? hidden.filter(p => p !== path) : [...hidden, path]
+    try {
+      const res = await fetch('/api/admin/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-session-token': token },
+        body: JSON.stringify({ patch: { hidden_pages: next } }),
+      })
+      if (res.status === 401) { onExpired(); return }
+      if (res.ok) {
+        setHidden(next)
+        try { sessionStorage.setItem('rtHiddenPages', JSON.stringify(next)) } catch {}
+      } else {
+        setError('Erreur lors de l\'enregistrement.')
+      }
+    } catch {
+      setError('Erreur réseau.')
+    }
+    setSaving(null)
+  }
+
+  return (
+    <div style={card}>
+      <h2 style={cardTitle}>Masquer / afficher des pages</h2>
+      <p style={{ fontSize: '0.85rem', color: '#6B6B6B', margin: '0.5rem 0 1.5rem', lineHeight: 1.6 }}>
+        Une page masquée disparaît du menu et redirige les visiteurs vers l&apos;accueil.
+        Elle n&apos;est pas supprimée — tu peux la réafficher quand tu veux. Le changement peut
+        prendre quelques secondes à apparaître sur le site.
+      </p>
+      {error && <p style={{ color: '#dc2626', fontSize: '0.875rem', marginBottom: '1rem' }}>{error}</p>}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        {HIDEABLE_PAGES.map(p => {
+          const isHidden = hidden.includes(p.path)
+          return (
+            <div key={p.path} style={row}>
+              <div>
+                <p style={{ fontWeight: 700, color: '#1A1A1A' }}>{p.label}</p>
+                <p style={{ fontSize: '0.8rem', color: isHidden ? '#dc2626' : '#16a34a', marginTop: 2 }}>
+                  {isHidden ? '🔴 Masquée' : '🟢 Visible'}
+                </p>
+              </div>
+              <button
+                onClick={() => togglePage(p.path)}
+                disabled={!loaded || saving === p.path}
+                style={{
+                  ...toggleBtn,
+                  background:  isHidden ? '#16a34a' : '#fff',
+                  color:       isHidden ? '#fff' : '#1A1A1A',
+                  borderColor: isHidden ? '#16a34a' : '#E5E3E0',
+                  opacity: (!loaded || saving === p.path) ? 0.6 : 1,
+                }}
+              >
+                {saving === p.path ? '…' : isHidden ? 'Afficher' : 'Masquer'}
+              </button>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 // ── Placeholder phases à venir ────────────────────────────────────────────────
 function ComingSoon({ title }: { title: string }) {
   return (
@@ -280,4 +359,12 @@ const tabBtn: React.CSSProperties = {
   display: 'inline-flex', alignItems: 'center', gap: 7, border: '1px solid',
   borderRadius: 10, padding: '10px 16px', fontSize: '0.9rem', fontWeight: 700,
   cursor: 'pointer', fontFamily: 'inherit',
+}
+const row: React.CSSProperties = {
+  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+  padding: '1rem 1.25rem', borderRadius: 12, background: '#F8F7F5', border: '1px solid #EEEBE7',
+}
+const toggleBtn: React.CSSProperties = {
+  border: '1px solid', borderRadius: 8, padding: '8px 18px', fontSize: '0.875rem',
+  fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', minWidth: 90,
 }

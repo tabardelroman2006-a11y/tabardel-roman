@@ -1,3 +1,6 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Mail } from 'lucide-react'
@@ -17,6 +20,24 @@ const LEGAL = [
 
 export function Footer() {
   const year = new Date().getFullYear()
+  const [hidden, setHidden] = useState<string[]>([])
+
+  useEffect(() => {
+    try {
+      const cached = sessionStorage.getItem('rtHiddenPages')
+      if (cached) setHidden(JSON.parse(cached))
+    } catch {}
+    fetch('/api/admin/content')
+      .then(r => r.json())
+      .then(d => {
+        const h = Array.isArray(d?.content?.hidden_pages) ? d.content.hidden_pages : []
+        setHidden(h)
+        try { sessionStorage.setItem('rtHiddenPages', JSON.stringify(h)) } catch {}
+      })
+      .catch(() => {})
+  }, [])
+
+  const navVisible = NAV.filter(l => l.href.startsWith('/#') || !hidden.includes(l.href))
 
   return (
     <footer style={{ position: 'relative', overflow: 'hidden' }}>
@@ -52,7 +73,7 @@ export function Footer() {
               Navigation
             </p>
             <nav className="flex flex-col gap-3">
-              {NAV.map(({ href, label }) => (
+              {navVisible.map(({ href, label }) => (
                 <Link key={label} href={href} className="font-body text-sm link-dim" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   {label}
                 </Link>
