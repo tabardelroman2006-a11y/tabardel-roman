@@ -1,5 +1,6 @@
 import { get } from '@vercel/edge-config'
 import { NextResponse } from 'next/server'
+import { requireAdmin } from '@/lib/admin-security'
 
 export async function GET() {
   try {
@@ -14,8 +15,11 @@ export async function POST(request: Request) {
   try {
     const { password, value } = await request.json()
 
-    if (!password || password !== process.env.MAINTENANCE_PASSWORD) {
-      return NextResponse.json({ error: 'Mot de passe incorrect.' }, { status: 401 })
+    // Accepte soit un token de session valide (header), soit le mot de passe (secours)
+    const okToken    = requireAdmin(request)
+    const okPassword = !!password && password === process.env.MAINTENANCE_PASSWORD
+    if (!okToken && !okPassword) {
+      return NextResponse.json({ error: 'Non autorisé.' }, { status: 401 })
     }
 
     const edgeConfigId = process.env.EDGE_CONFIG_ID
