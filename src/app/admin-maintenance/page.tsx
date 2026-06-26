@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Lock } from 'lucide-react'
 import { HIDEABLE_PAGES } from '@/lib/pages-config'
+import { TEXT_GROUPS } from '@/lib/text-fields'
 
 const SESSION_KEY = 'rtAdminSession'
 const NAVY = '#1B3A6B'
@@ -146,7 +147,7 @@ export default function AdminPage() {
         {/* Contenu */}
         {tab === 'maintenance' && <MaintenanceTab token={token} onExpired={logout} />}
         {tab === 'pages'    && <PagesTab token={token} onExpired={logout} />}
-        {tab === 'textes'   && <ComingSoon title="Modifier les textes du site" />}
+        {tab === 'textes'   && <TextsTab token={token} onExpired={logout} />}
         {tab === 'couleurs' && <ComingSoon title="Changer les couleurs de la marque" />}
       </div>
     </div>
@@ -297,6 +298,109 @@ function PagesTab({ token, onExpired }: { token: string; onExpired: () => void }
           )
         })}
       </div>
+    </div>
+  )
+}
+
+// ── Onglet Textes ─────────────────────────────────────────────────────────────
+function TextsTab({ token, onExpired }: { token: string; onExpired: () => void }) {
+  const [values, setValues]   = useState<Record<string, string>>({})
+  const [loaded, setLoaded]   = useState(false)
+  const [saving, setSaving]   = useState(false)
+  const [error, setError]     = useState('')
+  const [success, setSuccess] = useState('')
+
+  useEffect(() => {
+    fetch('/api/admin/content')
+      .then(r => r.json())
+      .then(d => {
+        const t = (d?.content?.texts && typeof d.content.texts === 'object') ? d.content.texts : {}
+        setValues(t)
+      })
+      .catch(() => {})
+      .finally(() => setLoaded(true))
+  }, [])
+
+  function setField(key: string, val: string) {
+    setValues(v => ({ ...v, [key]: val }))
+    setSuccess('')
+  }
+
+  async function save() {
+    setSaving(true); setError(''); setSuccess('')
+    // On ne garde que les champs réellement remplis (vide = retour au texte par défaut)
+    const cleaned: Record<string, string> = {}
+    for (const [k, v] of Object.entries(values)) {
+      if (typeof v === 'string' && v.trim() !== '') cleaned[k] = v.trim()
+    }
+    try {
+      const res = await fetch('/api/admin/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-session-token': token },
+        body: JSON.stringify({ patch: { texts: cleaned } }),
+      })
+      if (res.status === 401) { onExpired(); return }
+      if (res.ok) {
+        try { sessionStorage.removeItem('rtTexts') } catch {}
+        setSuccess('Textes enregistrés. Les changements apparaîtront sur le site dans quelques secondes.')
+      } else {
+        setError('Erreur lors de l\'enregistrement.')
+      }
+    } catch {
+      setError('Erreur réseau.')
+    }
+    setSaving(false)
+  }
+
+  return (
+    <div style={card}>
+      <h2 style={cardTitle}>Modifier les textes</h2>
+      <p style={{ fontSize: '0.85rem', color: '#6B6B6B', margin: '0.5rem 0 1.5rem', lineHeight: 1.6 }}>
+        Laisse un champ <strong>vide</strong> pour garder le texte d&apos;origine (affiché en gris).
+        Le changement apparaît sur le site quelques secondes après l&apos;enregistrement.
+      </p>
+
+      {TEXT_GROUPS.map(group => (
+        <div key={group.group} style={{ marginBottom: '1.75rem' }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: NAVY, marginBottom: '0.9rem' }}>
+            {group.group}
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+            {group.fields.map(f => (
+              <label key={f.key} style={{ display: 'block' }}>
+                <span style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#1A1A1A', marginBottom: 5 }}>
+                  {f.label}
+                </span>
+                {f.multiline ? (
+                  <textarea
+                    value={values[f.key] ?? ''}
+                    placeholder={f.default}
+                    onChange={e => setField(f.key, e.target.value)}
+                    disabled={!loaded}
+                    rows={3}
+                    style={{ ...input, padding: '10px 14px', resize: 'vertical', lineHeight: 1.5 }}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    value={values[f.key] ?? ''}
+                    placeholder={f.default}
+                    onChange={e => setField(f.key, e.target.value)}
+                    disabled={!loaded}
+                    style={{ ...input, padding: '10px 14px' }}
+                  />
+                )}
+              </label>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {error   && <p style={{ color: '#dc2626', fontSize: '0.875rem', marginBottom: '0.75rem' }}>{error}</p>}
+      {success && <p style={{ color: '#16a34a', fontSize: '0.875rem', marginBottom: '0.75rem' }}>{success}</p>}
+      <button onClick={save} disabled={saving || !loaded} style={{ ...primaryBtn, opacity: (saving || !loaded) ? 0.7 : 1 }}>
+        {saving ? 'Enregistrement…' : 'Enregistrer les textes'}
+      </button>
     </div>
   )
 }

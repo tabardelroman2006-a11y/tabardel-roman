@@ -2,6 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useSiteTexts } from '@/lib/useSiteTexts'
 
 const STEPS = [
   {
@@ -33,6 +34,7 @@ const STEPS = [
 export function ProcessSection() {
   const ref    = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const t      = useSiteTexts()
 
   return (
     <section
@@ -60,7 +62,7 @@ export function ProcessSection() {
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
           >
-            Comment ça marche
+            {t('process.eyebrow')}
           </motion.p>
           <motion.h2
             className="font-display font-800 leading-tight"
@@ -69,9 +71,9 @@ export function ProcessSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            De l&apos;idée à la mise
+            {t('process.titleLine1')}
             <br />
-            <span style={{ color: '#AAAAAA' }}>en ligne en 3 semaines.</span>
+            <span style={{ color: '#AAAAAA' }}>{t('process.titleLine2')}</span>
           </motion.h2>
         </div>
 

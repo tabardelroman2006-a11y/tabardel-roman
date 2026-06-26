@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
+import { useSiteTexts } from '@/lib/useSiteTexts'
 
 export function Hero() {
   const { openDevis } = useModal()
+  const t = useSiteTexts()
 
   return (
     <section
@@ -31,7 +33,7 @@ export function Hero() {
             >
               <span className="block h-px w-8 shrink-0" style={{ backgroundColor: '#1B3A6B' }} />
               <p className="font-body text-xs tracking-[0.25em] uppercase" style={{ color: '#6B6B6B' }}>
-                Création web &amp; SEO, Drôme &amp; partout en France
+                {t('hero.eyebrow')}
               </p>
             </motion.div>
 
@@ -44,7 +46,7 @@ export function Hero() {
                 animate={{ y: '0%', opacity: 1 }}
                 transition={{ duration: 1, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
-                Mon métier ?
+                {t('hero.title')}
               </motion.h1>
             </div>
 
@@ -61,7 +63,7 @@ export function Hero() {
                 animate={{ y: '0%', opacity: 1 }}
                 transition={{ duration: 1, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
-                Mettre en avant le vôtre.
+                {t('hero.subtitle')}
               </motion.p>
             </div>
 
@@ -73,9 +75,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.45 }}
             >
-              Je conçois des sites web sur mesure qui convertissent, pour les artisans,
-              indépendants et PME qui veulent une présence en ligne qui travaille vraiment
-              pour eux.
+              {t('hero.description')}
             </motion.p>
 
             {/* CTAs */}

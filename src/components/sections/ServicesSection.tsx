@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Monitor, ShoppingBag, Search } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
+import { useSiteTexts } from '@/lib/useSiteTexts'
 
 const SERVICES = [
   {
@@ -34,6 +35,7 @@ const SERVICES = [
 
 export function ServicesSection() {
   const { openDevis } = useModal()
+  const t = useSiteTexts()
   const ref    = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -62,7 +64,7 @@ export function ServicesSection() {
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
           >
-            Ce que je fais
+            {t('services.eyebrow')}
           </motion.p>
           <motion.h2
             className="font-display font-800 leading-tight"
@@ -71,9 +73,9 @@ export function ServicesSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            Trois offres.
+            {t('services.titleLine1')}
             <br />
-            <span style={{ color: '#AAAAAA' }}>Zéro compromis.</span>
+            <span style={{ color: '#AAAAAA' }}>{t('services.titleLine2')}</span>
           </motion.h2>
         </div>
 

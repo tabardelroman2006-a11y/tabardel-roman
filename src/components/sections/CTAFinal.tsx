@@ -4,9 +4,11 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Phone, ArrowRight } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
+import { useSiteTexts } from '@/lib/useSiteTexts'
 
 export function CTAFinal() {
   const { openDevis } = useModal()
+  const t = useSiteTexts()
   const ref    = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
 
@@ -28,7 +30,7 @@ export function CTAFinal() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6 }}
             >
-              Passons à l&apos;action
+              {t('cta.eyebrow')}
             </motion.p>
 
             <div className="overflow-hidden">
@@ -39,9 +41,9 @@ export function CTAFinal() {
                 animate={inView ? { y: '0%', opacity: 1 } : {}}
                 transition={{ duration: 0.9, ease: [0.21, 0.47, 0.32, 0.98] }}
               >
-                Votre prochain site
+                {t('cta.titleLine1')}
                 <br />
-                commence par un appel.
+                {t('cta.titleLine2')}
               </motion.h2>
             </div>
 
@@ -52,8 +54,7 @@ export function CTAFinal() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2 }}
             >
-              15 minutes, sans engagement. On parle de votre projet, je vous dis exactement
-              ce que je peux faire pour vous, et pour combien.
+              {t('cta.description')}
             </motion.p>
           </div>
 
