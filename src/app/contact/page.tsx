@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Phone, Mail, MapPin } from 'lucide-react'
+import { Phone, Mail } from 'lucide-react'
 import { ContactForm } from '@/components/sections/ContactForm'
 
 export const metadata: Metadata = {
@@ -46,13 +46,6 @@ export default function ContactPage() {
                 contact@tabardel-roman.fr
               </a>
 
-              <div className="flex items-start gap-4 font-body text-sm" style={{ color: '#AAAAAA' }}>
-                <span className="w-10 h-10 flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: 'rgba(0,0,0,0.04)', border: '1px solid rgba(0,0,0,0.07)' }}>
-                  <MapPin size={15} style={{ color: '#CCCCCC' }} />
-                </span>
-                <span className="pt-2.5">Chemin des Lauriers<br />26400 Allex, Drôme</span>
-              </div>
             </div>
           </div>
 

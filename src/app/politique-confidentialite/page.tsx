@@ -38,7 +38,6 @@ export default function PolitiqueConfidentialitePage() {
             </h2>
             <div className="space-y-1.5 text-sm leading-relaxed">
               <p>ROMAN TABARDEL — Entrepreneur individuel</p>
-              <p>Chemin des Lauriers, 26400 Allex, France</p>
               <p>Email : <a href="mailto:contact@tabardel-roman.fr" style={{ color: '#C8FF00' }}>contact@tabardel-roman.fr</a></p>
               <p>Téléphone : 07 69 34 11 23</p>
             </div>

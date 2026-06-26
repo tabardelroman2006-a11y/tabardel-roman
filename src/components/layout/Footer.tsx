@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, Mail, MapPin } from 'lucide-react'
+import { Phone, Mail } from 'lucide-react'
 
 const NAV = [
   { href: '/services',       label: 'Services'  },
@@ -19,8 +19,10 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer style={{ backgroundColor: '#1A1A1A', borderTop: '1px solid rgba(0,0,0,0.1)' }}>
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20">
+    <footer style={{ position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: "url('/images/footer-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(10,18,35,0.82)', zIndex: 1 }} />
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20" style={{ position: 'relative', zIndex: 2 }}>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16">
 
@@ -72,10 +74,6 @@ export function Footer() {
                 <Mail size={13} style={{ color: '#FFFFFF', flexShrink: 0 }} />
                 contact@tabardel-roman.fr
               </a>
-              <div className="flex items-start gap-2.5 font-body text-sm" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                <MapPin size={13} style={{ color: 'rgba(255,255,255,0.3)', flexShrink: 0, marginTop: 3 }} />
-                Chemin des Lauriers, 26400 Allex (Drôme)
-              </div>
             </div>
           </div>
 
