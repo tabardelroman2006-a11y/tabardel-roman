@@ -39,9 +39,18 @@ export function ProcessSection() {
       ref={ref}
       id="processus"
       className="py-28 md:py-40 px-6 md:px-12 lg:px-20"
-      style={{ backgroundColor: '#EBEBEB' }}
+      style={{
+        position: 'relative',
+        backgroundColor: '#EBEBEB',
+        backgroundImage: "url('/images/phones-bg.jpg')",
+        backgroundSize: 'auto 110%',
+        backgroundRepeat: 'repeat-x',
+        backgroundPosition: 'center',
+      }}
     >
-      <div className="max-w-7xl mx-auto">
+      {/* Overlay pour garder le texte lisible */}
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(235,235,235,0.82)', zIndex: 0 }} />
+      <div className="max-w-7xl mx-auto" style={{ position: 'relative', zIndex: 1 }}>
 
         <div className="mb-20 max-w-xl">
           <motion.p
