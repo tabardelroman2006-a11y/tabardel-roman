@@ -19,7 +19,7 @@ const STEPS = [
   {
     num:   '03',
     title: 'Développement',
-    sub:   'Semaines 2–3',
+    sub:   'Semaines 2 à 3',
     desc:  "Je code votre site avec les meilleures technologies : rapide, sécurisé, optimisé pour Google dès la première ligne.",
   },
   {

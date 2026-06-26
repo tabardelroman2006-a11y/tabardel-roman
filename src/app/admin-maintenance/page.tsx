@@ -1,9 +1,11 @@
 ﻿'use client'
 
 import { useState, useEffect } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 
 export default function AdminMaintenancePage() {
   const [password, setPassword]         = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [authenticated, setAuthenticated] = useState(false)
   const [maintenance, setMaintenance]   = useState(false)
   const [loading, setLoading]           = useState(false)
@@ -83,21 +85,45 @@ export default function AdminMaintenancePage() {
             Maintenance
           </h1>
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <input
-              type="password"
-              placeholder="Mot de passe"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              style={{
-                padding: '12px 16px',
-                borderRadius: '8px',
-                border: '1px solid #D6D3D1',
-                fontSize: '1rem',
-                outline: 'none',
-                fontFamily: 'inherit',
-              }}
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Mot de passe"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+                style={{
+                  padding: '12px 48px 12px 16px',
+                  borderRadius: '8px',
+                  border: '1px solid #D6D3D1',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  fontFamily: 'inherit',
+                  width: '100%',
+                  boxSizing: 'border-box',
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(v => !v)}
+                aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                style={{
+                  position: 'absolute',
+                  right: '8px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  padding: '8px',
+                  cursor: 'pointer',
+                  color: '#6B6B6B',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
             {error && (
               <p style={{ color: '#dc2626', fontSize: '0.875rem' }}>{error}</p>
             )}

@@ -12,7 +12,7 @@ const SERVICES = [
     title:  'Site Vitrine',
     price:  'À partir de 800 €',
     desc:   'Un site professionnel qui présente votre activité, inspire confiance et capte vos prospects. Design unique, mobile-first, rapide.',
-    points: ['Design 100 % sur mesure', 'Responsive & rapide', 'SEO technique inclus', 'Livré en 2–3 semaines'],
+    points: ['Design 100 % sur mesure', 'Responsive & rapide', 'SEO technique inclus', 'Livré en 2 à 3 semaines'],
   },
   {
     icon:   ShoppingBag,
