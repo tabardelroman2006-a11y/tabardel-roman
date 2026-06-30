@@ -17,9 +17,9 @@ export function Hero() {
       style={{
         backgroundColor: '#F4F4F4',
         backgroundImage: "url('/images/hero-bg-blur.jpg')",
-        backgroundSize: 'auto 110%',
-        backgroundRepeat: 'repeat-x',
-        backgroundPosition: 'center',
+        backgroundSize: '100% auto',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center top',
         paddingTop: '80px',
       }}
     >
