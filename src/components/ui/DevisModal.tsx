@@ -125,6 +125,7 @@ export function DevisModal() {
             exit={{ opacity: 0 }}
           >
             <motion.div
+              data-lenis-prevent
               className="w-full max-w-lg max-h-[92vh] overflow-y-auto"
               style={{ backgroundColor: '#FFFFFF', border: '1px solid rgba(0,0,0,0.08)', boxShadow: '0 24px 80px rgba(0,0,0,0.12)' }}
               initial={{ y: 40, opacity: 0 }}
