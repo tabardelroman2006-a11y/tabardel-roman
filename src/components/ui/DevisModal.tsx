@@ -23,12 +23,10 @@ export function DevisModal() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
-        subject: `📞 Demande d'appel — ${form.prenom} ${form.nom}`,
+        subject: `Demande d'appel — ${form.prenom} ${form.nom}`,
         from_name: `${form.prenom} ${form.nom}`,
         replyto: form.email,
-        Téléphone: form.telephone,
-        Email: form.email,
-        Projet: form.description || '—',
+        message: `Nouvelle demande de réservation d'appel\n\nPrénom : ${form.prenom}\nNom : ${form.nom}\nTéléphone : ${form.telephone}\nEmail : ${form.email}\nProjet : ${form.description || '—'}`,
       }),
     })
     setSubmitted(true)

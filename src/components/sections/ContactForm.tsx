@@ -29,13 +29,10 @@ export function ContactForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
-        subject: `✉️ Contact — ${form.prenom} ${form.nom}`,
+        subject: `Contact — ${form.prenom} ${form.nom}`,
         from_name: `${form.prenom} ${form.nom}`,
         replyto: form.email,
-        Email: form.email,
-        Téléphone: form.telephone || '—',
-        Sujet: form.sujet || '—',
-        Message: form.message,
+        message: `Nouveau message depuis le formulaire de contact\n\nPrénom : ${form.prenom}\nNom : ${form.nom}\nEmail : ${form.email}\nTéléphone : ${form.telephone || '—'}\nSujet : ${form.sujet || '—'}\n\nMessage :\n${form.message}`,
       }),
     })
     setSubmitted(true)
