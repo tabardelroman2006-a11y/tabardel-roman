@@ -87,9 +87,9 @@ export function Footer() {
               Contact
             </p>
             <div className="flex flex-col gap-3.5">
-              <a href="tel:0769341123" className="flex items-center gap-2.5 font-body text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <a href="tel:0618135384" className="flex items-center gap-2.5 font-body text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 <Phone size={13} style={{ color: '#FFFFFF', flexShrink: 0 }} />
-                07 69 34 11 23
+                06 18 13 53 84
               </a>
               <a href="mailto:contact@tabardel-roman.fr" className="flex items-center gap-2.5 font-body text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 <Mail size={13} style={{ color: '#FFFFFF', flexShrink: 0 }} />

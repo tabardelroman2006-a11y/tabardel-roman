@@ -31,12 +31,12 @@ export default function ContactPage() {
             </p>
 
             <div className="space-y-5">
-              <a href="tel:0769341123" className="link-dim flex items-center gap-4 font-body text-base">
+              <a href="tel:0618135384" className="link-dim flex items-center gap-4 font-body text-base">
                 <span className="w-10 h-10 flex items-center justify-center shrink-0"
                   style={{ backgroundColor: 'rgba(27,58,107,0.08)', border: '1px solid rgba(27,58,107,0.15)' }}>
                   <Phone size={15} style={{ color: 'var(--rt-primary)' }} />
                 </span>
-                07 69 34 11 23
+                06 18 13 53 84
               </a>
 
               <a href="mailto:contact@tabardel-roman.fr" className="link-dim flex items-center gap-4 font-body text-base">

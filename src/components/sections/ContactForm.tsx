@@ -17,6 +17,29 @@ const labelStyle: React.CSSProperties = {
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [form, setForm] = useState({ prenom: '', nom: '', email: '', telephone: '', sujet: '', message: '' })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+        subject: `✉️ Contact — ${form.prenom} ${form.nom}`,
+        from_name: `${form.prenom} ${form.nom}`,
+        replyto: form.email,
+        Email: form.email,
+        Téléphone: form.telephone || '—',
+        Sujet: form.sujet || '—',
+        Message: form.message,
+      }),
+    })
+    setSubmitted(true)
+  }
 
   const focusOn  = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     (e.target.style.borderColor = 'var(--rt-primary)')
@@ -39,36 +62,36 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={e => { e.preventDefault(); setSubmitted(true) }} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label style={labelStyle}>Prénom</label>
-          <input type="text" required placeholder="Votre prénom" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
+          <input type="text" name="prenom" value={form.prenom} onChange={handleChange} required placeholder="Votre prénom" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
         </div>
         <div>
           <label style={labelStyle}>Nom</label>
-          <input type="text" required placeholder="Votre nom" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
+          <input type="text" name="nom" value={form.nom} onChange={handleChange} required placeholder="Votre nom" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
         </div>
       </div>
 
       <div>
         <label style={labelStyle}>Email</label>
-        <input type="email" required placeholder="vous@exemple.com" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
+        <input type="email" name="email" value={form.email} onChange={handleChange} required placeholder="vous@exemple.com" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
       </div>
 
       <div>
         <label style={labelStyle}>Téléphone</label>
-        <input type="tel" placeholder="07 00 00 00 00" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
+        <input type="tel" name="telephone" value={form.telephone} onChange={handleChange} placeholder="06 00 00 00 00" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
       </div>
 
       <div>
         <label style={labelStyle}>Sujet</label>
-        <input type="text" placeholder="Création de site, SEO, refonte…" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
+        <input type="text" name="sujet" value={form.sujet} onChange={handleChange} placeholder="Création de site, SEO, refonte…" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
       </div>
 
       <div>
         <label style={labelStyle}>Message</label>
-        <textarea required rows={5} placeholder="Décrivez votre projet, vos besoins, votre budget…"
+        <textarea name="message" value={form.message} onChange={handleChange} required rows={5} placeholder="Décrivez votre projet, vos besoins, votre budget…"
           style={{ ...inputStyle, resize: 'none' }} onFocus={focusOn} onBlur={focusOff} />
       </div>
 

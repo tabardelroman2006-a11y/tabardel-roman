@@ -16,8 +16,21 @@ export function DevisModal() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+        subject: `📞 Demande d'appel — ${form.prenom} ${form.nom}`,
+        from_name: `${form.prenom} ${form.nom}`,
+        replyto: form.email,
+        Téléphone: form.telephone,
+        Email: form.email,
+        Projet: form.description || '—',
+      }),
+    })
     setSubmitted(true)
   }
 

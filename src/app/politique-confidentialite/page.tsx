@@ -39,7 +39,7 @@ export default function PolitiqueConfidentialitePage() {
             <div className="space-y-1.5 text-sm leading-relaxed">
               <p>ROMAN TABARDEL, Entrepreneur individuel</p>
               <p>Email : <a href="mailto:contact@tabardel-roman.fr" style={{ color: '#C8FF00' }}>contact@tabardel-roman.fr</a></p>
-              <p>Téléphone : 07 69 34 11 23</p>
+              <p>Téléphone : 06 18 13 53 84</p>
             </div>
           </section>
 
