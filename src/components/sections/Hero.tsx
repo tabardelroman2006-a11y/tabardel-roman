@@ -14,9 +14,17 @@ export function Hero() {
   return (
     <section
       className="relative min-h-screen flex flex-col justify-center overflow-hidden"
-      style={{ backgroundColor: '#F4F4F4', paddingTop: '80px' }}
+      style={{
+        backgroundColor: '#F4F4F4',
+        backgroundImage: "url('/images/hero-bg-blur.jpg')",
+        backgroundSize: 'auto 110%',
+        backgroundRepeat: 'repeat-x',
+        backgroundPosition: 'center',
+        paddingTop: '80px',
+      }}
     >
-      <div className="relative max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-20 py-20 md:py-28">
+      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(244,244,244,0.83)', zIndex: 0 }} />
+      <div className="relative max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-20 py-20 md:py-28" style={{ zIndex: 1 }}>
 
         {/* Two-column grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
