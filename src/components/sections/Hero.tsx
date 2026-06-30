@@ -122,7 +122,7 @@ export function Hero() {
               }}
             >
               <Image
-                src="/images/hero-desk.jpg"
+                src="/images/hero-desk.png"
                 alt="Espace de travail Roman Tabardel"
                 fill
                 className="object-cover object-center"

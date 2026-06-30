@@ -32,7 +32,12 @@ export function ContactForm() {
         subject: `Contact — ${form.prenom} ${form.nom}`,
         from_name: `${form.prenom} ${form.nom}`,
         replyto: form.email,
-        message: `Nouveau message depuis le formulaire de contact\n\nPrénom : ${form.prenom}\nNom : ${form.nom}\nEmail : ${form.email}\nTéléphone : ${form.telephone || '—'}\nSujet : ${form.sujet || '—'}\n\nMessage :\n${form.message}`,
+        'Prénom': form.prenom,
+        'Nom': form.nom,
+        'Email': form.email,
+        'Téléphone': form.telephone || '—',
+        'Sujet': form.sujet || '—',
+        'Message': form.message,
       }),
     })
     setSubmitted(true)
