@@ -108,17 +108,35 @@ export function Hero() {
 
           {/* ── RIGHT — image ── */}
           <motion.div
-            className="hidden lg:block"
+            className="hidden lg:block relative"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.1, delay: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
+            {/* blurred backdrop — décoratif, en retrait derrière la photo */}
+            <div
+              className="absolute overflow-hidden pointer-events-none"
+              style={{ inset: '-32px', borderRadius: '24px', zIndex: 0 }}
+            >
+              <Image
+                src="/images/hero-bg-blur.jpg"
+                alt=""
+                fill
+                aria-hidden="true"
+                className="object-cover object-center"
+                style={{ filter: 'blur(36px)', transform: 'scale(1.2)' }}
+                sizes="50vw"
+              />
+              <div className="absolute inset-0" style={{ backgroundColor: 'rgba(244,244,244,0.55)' }} />
+            </div>
+
             <div
               className="relative overflow-hidden"
               style={{
                 borderRadius: '12px',
                 height: 'clamp(440px, 58vh, 640px)',
                 boxShadow: '0 24px 64px rgba(0,0,0,0.10)',
+                zIndex: 1,
               }}
             >
               <Image
