@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
+import { formatSlotLabel } from '@/lib/booking'
 
 export function DevisModal() {
   const { isDevisOpen, closeDevis } = useModal()
@@ -12,24 +13,83 @@ export function DevisModal() {
     prenom: '', nom: '', telephone: '', email: '', description: '',
   })
 
+  const [availableDates, setAvailableDates] = useState<string[]>([])
+  const [allSlots, setAllSlots] = useState<string[]>([])
+  const [bookedSlots, setBookedSlots] = useState<string[]>([])
+  const [selectedDate, setSelectedDate] = useState('')
+  const [selectedTime, setSelectedTime] = useState('')
+  const [slotsLoading, setSlotsLoading] = useState(false)
+  const [bookingError, setBookingError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+
+  useEffect(() => {
+    if (!isDevisOpen) return
+    setSubmitted(false)
+    setSelectedDate('')
+    setSelectedTime('')
+    setBookingError('')
+    setSlotsLoading(true)
+    fetch('/api/booking')
+      .then(res => res.json())
+      .then(data => {
+        setAvailableDates(data.dates || [])
+        setAllSlots(data.slots || [])
+        setBookedSlots(data.booked || [])
+      })
+      .catch(() => setBookingError('Impossible de charger les disponibilités.'))
+      .finally(() => setSlotsLoading(false))
+  }, [isDevisOpen])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  const dateLabel = (dateStr: string) =>
+    new Intl.DateTimeFormat('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' }).format(new Date(`${dateStr}T00:00:00`))
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
-        subject: `Demande d'appel — ${form.prenom} ${form.nom}`,
-        from_name: `${form.prenom} ${form.nom}`,
-        replyto: form.email,
-        message: `Nouvelle demande de réservation d'appel\n\nPrénom : ${form.prenom}\nNom : ${form.nom}\nTéléphone : ${form.telephone}\nEmail : ${form.email}\nProjet : ${form.description || '—'}`,
-      }),
-    })
-    setSubmitted(true)
+    if (!selectedDate || !selectedTime) {
+      setBookingError('Choisissez une date et un horaire.')
+      return
+    }
+    setSubmitting(true)
+    setBookingError('')
+
+    try {
+      const bookRes = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date: selectedDate, time: selectedTime }),
+      })
+      const bookData = await bookRes.json()
+
+      if (!bookRes.ok) {
+        setBookedSlots(prev => [...prev, `${selectedDate}T${selectedTime}`])
+        setSelectedTime('')
+        setBookingError(bookData.error || 'Ce créneau n’est plus disponible, choisissez-en un autre.')
+        setSubmitting(false)
+        return
+      }
+
+      const slotLabel = formatSlotLabel(selectedDate, selectedTime)
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          subject: `Demande d'appel — ${form.prenom} ${form.nom}`,
+          from_name: `${form.prenom} ${form.nom}`,
+          replyto: form.email,
+          message: `Nouvelle demande de réservation d'appel\n\nCréneau choisi : ${slotLabel}\n\nPrénom : ${form.prenom}\nNom : ${form.nom}\nTéléphone : ${form.telephone}\nEmail : ${form.email}\nProjet : ${form.description || '—'}`,
+        }),
+      })
+      setSubmitted(true)
+    } catch {
+      setBookingError('Une erreur est survenue, réessayez.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const inputStyle: React.CSSProperties = {
@@ -123,6 +183,68 @@ export function DevisModal() {
                   ) : (
                     <motion.form key="form" onSubmit={handleSubmit} className="space-y-5">
 
+                      <div>
+                        <label style={labelStyle}>Choisissez une date</label>
+                        {slotsLoading ? (
+                          <p className="font-body text-sm" style={{ color: '#888888' }}>Chargement des disponibilités…</p>
+                        ) : (
+                          <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'thin' }}>
+                            {availableDates.map(d => {
+                              const active = d === selectedDate
+                              return (
+                                <button
+                                  key={d}
+                                  type="button"
+                                  onClick={() => { setSelectedDate(d); setSelectedTime(''); setBookingError('') }}
+                                  className="shrink-0 px-3 py-2 font-body text-xs capitalize transition-colors duration-150"
+                                  style={{
+                                    border: '1px solid ' + (active ? 'var(--rt-primary)' : 'rgba(0,0,0,0.12)'),
+                                    backgroundColor: active ? 'var(--rt-primary)' : '#F4F4F4',
+                                    color: active ? '#FFFFFF' : '#1A1A1A',
+                                  }}
+                                >
+                                  {dateLabel(d)}
+                                </button>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+
+                      {selectedDate && (
+                        <div>
+                          <label style={labelStyle}>Choisissez un horaire</label>
+                          <div className="grid grid-cols-4 gap-2">
+                            {allSlots.map(t => {
+                              const isBooked = bookedSlots.includes(`${selectedDate}T${t}`)
+                              const active = t === selectedTime
+                              return (
+                                <button
+                                  key={t}
+                                  type="button"
+                                  disabled={isBooked}
+                                  onClick={() => { setSelectedTime(t); setBookingError('') }}
+                                  className="px-2 py-2 font-body text-xs transition-colors duration-150"
+                                  style={{
+                                    border: '1px solid ' + (active ? 'var(--rt-primary)' : 'rgba(0,0,0,0.12)'),
+                                    backgroundColor: isBooked ? '#EAEAEA' : (active ? 'var(--rt-primary)' : '#F4F4F4'),
+                                    color: isBooked ? '#BBBBBB' : (active ? '#FFFFFF' : '#1A1A1A'),
+                                    textDecoration: isBooked ? 'line-through' : 'none',
+                                    cursor: isBooked ? 'not-allowed' : 'pointer',
+                                  }}
+                                >
+                                  {t}
+                                </button>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      )}
+
+                      {bookingError && (
+                        <p className="font-body text-xs" style={{ color: '#C0392B' }}>{bookingError}</p>
+                      )}
+
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <label style={labelStyle}>Prénom</label>
@@ -166,9 +288,10 @@ export function DevisModal() {
                       </div>
 
                       <button type="submit"
-                        className="w-full py-4 font-body font-700 text-sm tracking-wide uppercase transition-opacity duration-200 hover:opacity-80"
+                        disabled={submitting || !selectedDate || !selectedTime}
+                        className="w-full py-4 font-body font-700 text-sm tracking-wide uppercase transition-opacity duration-200 hover:opacity-80 disabled:opacity-40 disabled:cursor-not-allowed"
                         style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}>
-                        Envoyer ma demande
+                        {submitting ? 'Envoi…' : 'Confirmer ma réservation'}
                       </button>
 
                       <p className="text-center font-body text-xs" style={{ color: '#AAAAAA' }}>
