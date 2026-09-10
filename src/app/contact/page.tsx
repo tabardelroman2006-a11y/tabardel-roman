@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Phone, Mail } from 'lucide-react'
-import Image from 'next/image'
 import { ContactForm } from '@/components/sections/ContactForm'
 
 export const metadata: Metadata = {
@@ -47,18 +46,6 @@ export default function ContactPage() {
                 contact@tabardel-roman.fr
               </a>
 
-            </div>
-
-            {/* Banner */}
-            <div className="mt-10 rounded-lg overflow-hidden" style={{ opacity: 0.75 }}>
-              <Image
-                src="/images/contact-banner.jpg"
-                alt=""
-                width={560}
-                height={180}
-                className="w-full object-cover"
-                style={{ maxHeight: 180 }}
-              />
             </div>
           </div>
 
