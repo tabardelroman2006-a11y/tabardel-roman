@@ -48,6 +48,12 @@ export function Header() {
 
   const visibleLinks = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
 
+  /* Sur l'accueil, tant qu'on est sur la grande photo : barre transparente,
+     textes blancs (facon bellevilles.fr). Des qu'on defile, retour a la barre claire. */
+  const overHero = pathname === '/' && !scrolled && !mobileOpen
+  const inkMain = overHero ? '#FFFFFF' : '#1A1A1A'
+  const inkMuted = overHero ? 'rgba(255,255,255,0.88)' : '#6B6B6B'
+
   return (
     <>
       <motion.header
@@ -59,11 +65,13 @@ export function Header() {
         <div
           className="transition-all duration-400 px-6 md:px-12 lg:px-20"
           style={{
-            backdropFilter:  'blur(16px)',
-            backgroundColor: scrolled
-              ? 'rgba(255,255,255,0.95)'
-              : 'rgba(244,244,244,0.80)',
-            borderBottom: '1px solid rgba(0,0,0,0.07)',
+            backdropFilter:  overHero ? 'none' : 'blur(16px)',
+            backgroundColor: overHero
+              ? 'transparent'
+              : scrolled
+                ? 'rgba(255,255,255,0.95)'
+                : 'rgba(244,244,244,0.80)',
+            borderBottom: overHero ? '1px solid transparent' : '1px solid rgba(0,0,0,0.07)',
           }}
         >
           <div className="flex items-center justify-between h-16 md:h-20 w-full">
@@ -77,12 +85,13 @@ export function Header() {
                   width={36}
                   height={36}
                   className="object-contain"
+                  style={{ filter: overHero ? 'brightness(0) invert(1)' : 'none', transition: 'filter 0.3s' }}
                   priority
                 />
               </div>
               <span
                 className="hidden md:block font-display font-700 text-sm tracking-wide group-hover:opacity-60 transition-opacity duration-300"
-                style={{ color: '#1A1A1A' }}
+                style={{ color: inkMain }}
               >
                 Roman Tabardel
               </span>
@@ -97,14 +106,14 @@ export function Header() {
                     key={label}
                     href={href}
                     className="font-body text-sm font-500 tracking-wide transition-colors duration-200 relative group"
-                    style={{ color: active ? 'var(--rt-primary)' : '#6B6B6B' }}
+                    style={{ color: overHero ? inkMain : active ? 'var(--rt-primary)' : inkMuted }}
                   >
                     {label}
                     <span
                       className="absolute -bottom-0.5 left-0 h-px transition-all duration-300"
                       style={{
                         width: active ? '100%' : '0',
-                        backgroundColor: 'var(--rt-primary)',
+                        backgroundColor: overHero ? '#FFFFFF' : 'var(--rt-primary)',
                       }}
                     />
                   </Link>
@@ -125,7 +134,7 @@ export function Header() {
 
               <button
                 className="md:hidden p-1.5"
-                style={{ color: '#1A1A1A' }}
+                style={{ color: inkMain }}
                 onClick={() => setMobileOpen(v => !v)}
                 aria-label="Menu"
               >

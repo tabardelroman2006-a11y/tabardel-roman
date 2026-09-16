@@ -1,185 +1,140 @@
 'use client'
 
-import { useRef } from 'react'
 import Image from 'next/image'
-import { motion, useInView } from 'framer-motion'
-import { ArrowRight, Phone } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowDown, ArrowRight, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 import { useSiteTexts } from '@/lib/useSiteTexts'
+
+/* Hero facon bellevilles.fr : une grande photo plein ecran, un titre blanc
+   geant au centre, et une pastille ronde pour descendre. Les textes restent
+   ceux de l'admin (hero.eyebrow / title / subtitle). */
+
+const HERO_FONT = { fontFamily: 'var(--font-archivo), Arial, sans-serif', fontStretch: '85%' } as const
+const EASE = [0.21, 0.47, 0.32, 0.98] as const
+
+/* Typographie francaise : espace insecable avant ? ! : ; pour que la
+   ponctuation ne tombe jamais seule a la ligne (« MON MÉTIER » / « ? »). */
+const insecable = (s: string) => s.replace(/\s+([?!:;»])/g, ' $1').replace(/(«)\s+/g, '$1 ')
 
 export function Hero() {
   const { openDevis } = useModal()
   const t = useSiteTexts()
 
+  const descendre = () => window.scrollBy({ top: window.innerHeight - 64, behavior: 'smooth' })
+
   return (
-    <section
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
-      style={{
-        backgroundColor: '#F4F4F4',
-        backgroundImage: "url('/images/hero-bg-blur.jpg')",
-        backgroundSize: '100% auto',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center top',
-        paddingTop: '80px',
-      }}
-    >
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(244,244,244,0.83)', zIndex: 0 }} />
-      <div className="relative max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-20 py-20 md:py-28" style={{ zIndex: 1 }}>
+    <section className="relative flex flex-col items-center justify-center overflow-hidden" style={{ minHeight: '100svh' }}>
+      {/* Photo plein ecran */}
+      <Image
+        src="/images/topo-bg.jpg"
+        alt="Crête montagneuse au-dessus de la mer de nuages"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+        style={{ zIndex: 0 }}
+      />
+      {/* Voile : haut assombri pour la barre de navigation, bas pour les boutons,
+          et un halo au centre — la brume claire de la photo passe juste derriere
+          le titre, sans ce halo le blanc se lirait mal. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          zIndex: 1,
+          background:
+            'radial-gradient(60% 50% at 50% 50%, rgba(10,14,22,0.38) 0%, rgba(10,14,22,0) 100%), linear-gradient(180deg, rgba(10,14,22,0.50) 0%, rgba(10,14,22,0.24) 35%, rgba(10,14,22,0.28) 65%, rgba(10,14,22,0.58) 100%)',
+        }}
+      />
 
-        {/* Two-column grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative w-full px-6 md:px-12 lg:px-20 text-center" style={{ zIndex: 2, paddingTop: '80px' }}>
+        <motion.p
+          className="uppercase mb-6 md:mb-8"
+          style={{ ...HERO_FONT, color: 'rgba(255,255,255,0.9)', fontWeight: 600, letterSpacing: '0.18em', fontSize: 'clamp(0.75rem, 1vw, 0.95rem)' }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
+          {t('hero.eyebrow')}
+        </motion.p>
 
-          {/* ── LEFT — text ── */}
-          <div>
-
-            {/* Eyebrow */}
-            <motion.div
-              className="flex items-center gap-3 mb-10"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
-            >
-              <span className="block h-px w-8 shrink-0" style={{ backgroundColor: 'var(--rt-primary)' }} />
-              <p className="font-body text-xs tracking-[0.25em] uppercase" style={{ color: '#6B6B6B' }}>
-                {t('hero.eyebrow')}
-              </p>
-            </motion.div>
-
-            {/* Headline */}
-            <div className="overflow-hidden">
-              <motion.h1
-                className="font-display font-800 leading-[0.92] tracking-tight mb-4"
-                style={{ fontSize: 'clamp(3.2rem, 7vw, 7rem)', color: '#1A1A1A' }}
-                initial={{ y: '105%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 1, delay: 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-              >
-                {t('hero.title')}
-              </motion.h1>
-            </div>
-
-            {/* Sub headline */}
-            <div className="overflow-hidden mb-12">
-              <motion.p
-                className="font-display font-700 tracking-tight leading-tight"
-                style={{
-                  fontSize: 'clamp(1.6rem, 3.5vw, 3.5rem)',
-                  color: '#AAAAAA',
-                  fontStyle: 'italic',
-                }}
-                initial={{ y: '105%', opacity: 0 }}
-                animate={{ y: '0%', opacity: 1 }}
-                transition={{ duration: 1, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
-              >
-                {t('hero.subtitle')}
-              </motion.p>
-            </div>
-
-            {/* Description */}
-            <motion.p
-              className="font-body text-base md:text-lg max-w-lg mb-12 leading-relaxed"
-              style={{ color: '#6B6B6B' }}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.45 }}
-            >
-              {t('hero.description')}
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              className="flex flex-wrap gap-4"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
-            >
-              <button
-                onClick={openDevis}
-                className="flex items-center gap-2.5 font-body font-700 text-sm px-8 py-4 tracking-wide transition-opacity duration-200 hover:opacity-80"
-                style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}
-              >
-                <Phone size={14} />
-                Appel gratuit (15 min)
-              </button>
-
-              <a
-                href="/services"
-                className="btn-ghost flex items-center gap-2 font-body font-600 text-sm px-8 py-4"
-              >
-                Voir mes réalisations
-                <ArrowRight size={14} />
-              </a>
-            </motion.div>
-
-
-          </div>{/* end left col */}
-
-          {/* ── RIGHT — image ── */}
-          <motion.div
-            className="hidden lg:block relative"
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.1, delay: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
+        <div className="overflow-hidden">
+          <motion.h1
+            className="uppercase"
+            style={{
+              ...HERO_FONT,
+              color: '#FFFFFF',
+              fontWeight: 700,
+              lineHeight: 0.9,
+              letterSpacing: '-0.015em',
+              fontSize: 'clamp(3.4rem, 11vw, 10.5rem)',
+              textShadow: '0 4px 40px rgba(0,0,0,0.25)',
+            }}
+            initial={{ y: '105%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            transition={{ duration: 1.1, delay: 0.1, ease: EASE }}
           >
-            {/* blurred backdrop — décoratif, en retrait derrière la photo */}
-            <div
-              className="absolute overflow-hidden pointer-events-none"
-              style={{ inset: '-32px', borderRadius: '24px', zIndex: 0 }}
-            >
-              <Image
-                src="/images/hero-bg-blur.jpg"
-                alt=""
-                fill
-                aria-hidden="true"
-                className="object-cover object-center"
-                style={{ filter: 'blur(36px)', transform: 'scale(1.2)' }}
-                sizes="50vw"
-              />
-              <div className="absolute inset-0" style={{ backgroundColor: 'rgba(244,244,244,0.55)' }} />
-            </div>
+            {insecable(t('hero.title'))}
+          </motion.h1>
+        </div>
 
-            <div
-              className="relative overflow-hidden"
-              style={{
-                borderRadius: '12px',
-                height: 'clamp(440px, 58vh, 640px)',
-                boxShadow: '0 24px 64px rgba(0,0,0,0.10)',
-                zIndex: 1,
-              }}
-            >
-              <Image
-                src="/images/hero-desk.png"
-                alt="Espace de travail Roman Tabardel"
-                fill
-                className="object-cover object-center"
-                priority
-                sizes="50vw"
-              />
-              {/* subtle navy overlay */}
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(135deg, rgba(27,58,107,0.10) 0%, transparent 55%)' }}
-              />
-            </div>
-          </motion.div>
+        <div className="overflow-hidden mt-3 md:mt-4">
+          <motion.p
+            style={{
+              ...HERO_FONT,
+              color: '#FFFFFF',
+              fontWeight: 500,
+              lineHeight: 1.05,
+              letterSpacing: '-0.01em',
+              fontSize: 'clamp(1.6rem, 4.2vw, 3.8rem)',
+              textShadow: '0 2px 24px rgba(0,0,0,0.3)',
+            }}
+            initial={{ y: '105%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            transition={{ duration: 1.1, delay: 0.22, ease: EASE }}
+          >
+            {insecable(t('hero.subtitle'))}
+          </motion.p>
+        </div>
 
-        </div>{/* end grid */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-3 md:gap-4 mt-10 md:mt-12"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+        >
+          <button
+            onClick={openDevis}
+            className="flex items-center gap-2.5 uppercase px-8 py-4 rounded-full transition-transform duration-200 hover:-translate-y-0.5"
+            style={{ ...HERO_FONT, borderRadius: '999px', backgroundColor: '#FFFFFF', color: 'var(--rt-primary)', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '0.06em' }}
+          >
+            <Phone size={15} />
+            Appel gratuit (15 min)
+          </button>
+          <a
+            href="/services"
+            className="flex items-center gap-2 uppercase px-8 py-4 rounded-full transition-colors duration-200 hover:bg-white/10"
+            style={{ ...HERO_FONT, borderRadius: '999px', color: '#FFFFFF', border: '1.5px solid rgba(255,255,255,0.85)', fontWeight: 600, fontSize: '0.9rem', letterSpacing: '0.06em' }}
+          >
+            Voir mes réalisations
+            <ArrowRight size={15} />
+          </a>
+        </motion.div>
       </div>
 
-      {/* Scroll pulse */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
+      {/* Pastille ronde pour descendre, comme sur bellevilles.fr */}
+      <motion.button
+        type="button"
+        onClick={descendre}
+        aria-label="Descendre vers la suite"
+        className="absolute left-1/2 -translate-x-1/2 bottom-8 md:bottom-10 flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-105"
+        style={{ zIndex: 2, borderRadius: '999px', width: '52px', height: '52px', backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: [0, 6, 0] }}
+        transition={{ opacity: { delay: 1.2, duration: 0.6 }, y: { delay: 1.8, duration: 2.2, repeat: Infinity, ease: 'easeInOut' } }}
       >
-        <motion.div
-          className="w-px h-12 mx-auto"
-          style={{ background: 'linear-gradient(to bottom, var(--rt-primary), transparent)' }}
-          animate={{ scaleY: [0, 1, 0], transformOrigin: 'top' }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
-        />
-      </motion.div>
+        <ArrowDown size={22} />
+      </motion.button>
     </section>
   )
 }

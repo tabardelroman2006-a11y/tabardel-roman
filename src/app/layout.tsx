@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from 'next'
-import { Barlow_Condensed, Nunito } from 'next/font/google'
+import { Archivo, Barlow_Condensed, Nunito } from 'next/font/google'
 import './globals.css'
 import { ModalProvider } from '@/context/ModalContext'
 import { Header } from '@/components/layout/Header'
@@ -13,6 +13,16 @@ const barlow = Barlow_Condensed({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
   style: ['normal', 'italic'],
+  display: 'swap',
+})
+
+/* Archivo (axe de largeur) : equivalent libre de Neue Brucke, la police du
+   site bellevilles.fr, payante en usage commercial. Utilisee a ~85 % de
+   largeur, elle en reprend la chasse etroite et les formes. */
+const archivo = Archivo({
+  variable: '--font-archivo',
+  subsets: ['latin'],
+  axes: ['wdth'],
   display: 'swap',
 })
 
@@ -43,7 +53,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${barlow.variable} ${nunito.variable}`}>
+    <html lang="fr" className={`${barlow.variable} ${nunito.variable} ${archivo.variable}`}>
       <body>
         <ModalProvider>
           <ThemeColors />
