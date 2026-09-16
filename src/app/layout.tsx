@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from 'next'
-import { Archivo, Barlow_Condensed, Nunito } from 'next/font/google'
+import { Barlow_Condensed, Bricolage_Grotesque, Nunito } from 'next/font/google'
 import './globals.css'
 import { ModalProvider } from '@/context/ModalContext'
 import { Header } from '@/components/layout/Header'
@@ -16,13 +16,14 @@ const barlow = Barlow_Condensed({
   display: 'swap',
 })
 
-/* Archivo (axe de largeur) : equivalent libre de Neue Brucke, la police du
-   site bellevilles.fr, payante en usage commercial. Utilisee a ~85 % de
-   largeur, elle en reprend la chasse etroite et les formes. */
-const archivo = Archivo({
-  variable: '--font-archivo',
+/* Bricolage Grotesque : equivalent libre de Neue Brucke, la police du site
+   bellevilles.fr (payante en usage commercial). Retenue apres comparaison
+   de 20 polices a cote de l'originale : meme allure grasse et compacte,
+   memes terminaisons taillees. Axes opsz (taille optique) et wdth. */
+const bricolage = Bricolage_Grotesque({
+  variable: '--font-bricolage',
   subsets: ['latin'],
-  axes: ['wdth'],
+  axes: ['opsz', 'wdth'],
   display: 'swap',
 })
 
@@ -53,7 +54,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${barlow.variable} ${nunito.variable} ${archivo.variable}`}>
+    <html lang="fr" className={`${barlow.variable} ${nunito.variable} ${bricolage.variable}`}>
       <body>
         <ModalProvider>
           <ThemeColors />

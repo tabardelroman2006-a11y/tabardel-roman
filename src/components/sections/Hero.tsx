@@ -10,7 +10,12 @@ import { useSiteTexts } from '@/lib/useSiteTexts'
    geant au centre, et une pastille ronde pour descendre. Les textes restent
    ceux de l'admin (hero.eyebrow / title / subtitle). */
 
-const HERO_FONT = { fontFamily: 'var(--font-archivo), Arial, sans-serif', fontStretch: '85%' } as const
+/* Bricolage Grotesque en grande taille optique : l'equivalent libre le plus
+   proche de Neue Brucke (bellevilles.fr). */
+const HERO_FONT = {
+  fontFamily: 'var(--font-bricolage), Arial, sans-serif',
+  fontVariationSettings: "'opsz' 96",
+} as const
 const EASE = [0.21, 0.47, 0.32, 0.98] as const
 
 /* Typographie francaise : espace insecable avant ? ! : ; pour que la
@@ -64,9 +69,9 @@ export function Hero() {
             style={{
               ...HERO_FONT,
               color: '#FFFFFF',
-              fontWeight: 700,
+              fontWeight: 650,
               lineHeight: 0.9,
-              letterSpacing: '-0.015em',
+              letterSpacing: '-0.02em',
               fontSize: 'clamp(3.4rem, 11vw, 10.5rem)',
               textShadow: '0 4px 40px rgba(0,0,0,0.25)',
             }}
@@ -83,7 +88,7 @@ export function Hero() {
             style={{
               ...HERO_FONT,
               color: '#FFFFFF',
-              fontWeight: 500,
+              fontWeight: 550,
               lineHeight: 1.05,
               letterSpacing: '-0.01em',
               fontSize: 'clamp(1.6rem, 4.2vw, 3.8rem)',
