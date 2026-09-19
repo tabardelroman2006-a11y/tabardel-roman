@@ -107,8 +107,7 @@ export default function CGVPage() {
               chaque facture.
             </p>
             <p className="text-sm leading-relaxed">
-              Les tarifs en vigueur sont disponibles sur le site tabardel-roman.fr et peuvent être
-              modifiés à tout moment. Les devis acceptés ne sont pas soumis à révision tarifaire
+              Les tarifs sont établis sur devis, propre à chaque projet. Les devis acceptés ne sont pas soumis à révision tarifaire
               pendant leur durée de validité (30 jours).
             </p>
           </section>

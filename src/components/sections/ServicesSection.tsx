@@ -11,7 +11,6 @@ const SERVICES = [
     icon:   Monitor,
     number: '01',
     title:  'Site Vitrine',
-    price:  'À partir de 800 €',
     desc:   'Un site professionnel qui présente votre activité, inspire confiance et capte vos prospects. Design unique, mobile-first, rapide.',
     points: ['Design 100 % sur mesure', 'Responsive & rapide', 'SEO technique inclus', 'Livré en 2 à 3 semaines'],
   },
@@ -19,7 +18,6 @@ const SERVICES = [
     icon:   ShoppingBag,
     number: '02',
     title:  'E-commerce',
-    price:  'À partir de 1 500 €',
     desc:   "Une boutique en ligne qui vend, même quand vous dormez. Tunnel de commande optimisé, gestion de stock intuitive.",
     points: ['Paiement sécurisé', 'Gestion produits simple', 'Emails transactionnels', 'Analytics intégrés'],
   },
@@ -27,7 +25,6 @@ const SERVICES = [
     icon:   Search,
     number: '03',
     title:  'SEO & Référencement',
-    price:  'Sur devis',
     desc:   "Être beau sur internet ne suffit pas : il faut être trouvé. J'optimise votre visibilité pour que Google vous mette devant vos concurrents.",
     points: ['Audit complet', 'Optimisation on-page', 'Stratégie de liens', 'Rapport mensuel'],
   },
@@ -81,7 +78,7 @@ export function ServicesSection() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-          {SERVICES.map(({ icon: Icon, number, title, price, desc, points }, i) => (
+          {SERVICES.map(({ icon: Icon, number, title, desc, points }, i) => (
             <motion.div
               key={title}
               className="group relative flex flex-col p-8 md:p-10 cursor-default"
@@ -117,13 +114,9 @@ export function ServicesSection() {
                 <ArrowUpRight size={15} style={{ color: 'rgba(0,0,0,0.2)' }} />
               </div>
 
-              <h3 className="font-display font-700 text-xl mb-2" style={{ color: '#1A1A1A' }}>
+              <h3 className="font-display font-700 text-xl mb-6" style={{ color: '#1A1A1A' }}>
                 {title}
               </h3>
-
-              <p className="font-body font-600 text-xs tracking-wide uppercase mb-6" style={{ color: 'var(--rt-primary)' }}>
-                {price}
-              </p>
 
               <p className="font-body text-sm leading-relaxed mb-8 flex-1" style={{ color: '#6B6B6B' }}>
                 {desc}
