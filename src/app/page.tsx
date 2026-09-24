@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from 'next'
 import { Hero } from '@/components/sections/Hero'
 import { ServicesSection } from '@/components/sections/ServicesSection'
-import { TornDivider } from '@/components/ui/TornDivider'
+import { AboutSection } from '@/components/sections/AboutSection'
 import { ProcessSection } from '@/components/sections/ProcessSection'
 import { CTAFinal } from '@/components/sections/CTAFinal'
 
@@ -16,7 +16,7 @@ export default function HomePage() {
     <>
       <Hero />
       <ServicesSection />
-      <TornDivider />
+      <AboutSection />
       <ProcessSection />
       <CTAFinal />
     </>

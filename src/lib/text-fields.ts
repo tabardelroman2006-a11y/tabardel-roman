@@ -26,6 +26,16 @@ export const TEXT_GROUPS: TextGroup[] = [
     ],
   },
   {
+    group: 'Accueil — Qui sommes-nous',
+    fields: [
+      { key: 'about.eyebrow',    label: 'Petit texte',  default: 'Qui sommes-nous' },
+      { key: 'about.titleLine1', label: 'Titre ligne 1', default: 'Roman Tabardel,' },
+      { key: 'about.titleLine2', label: 'Titre ligne 2 (gris)', default: 'créateur de sites web.' },
+      { key: 'about.paragraph1', label: 'Paragraphe 1', default: 'Basé dans la Drôme, j’accompagne les artisans, TPE et PME partout en France pour leur offrir une présence en ligne à la hauteur de leur savoir-faire.', multiline: true },
+      { key: 'about.paragraph2', label: 'Paragraphe 2', default: 'Chaque site est pensé sur mesure, sans modèle tout fait : un design unique, rapide et bien placé sur Google, qui raconte votre histoire et attire les bons clients.', multiline: true },
+    ],
+  },
+  {
     group: 'Accueil — Processus',
     fields: [
       { key: 'process.eyebrow',    label: 'Petit texte',  default: 'Comment ça marche' },

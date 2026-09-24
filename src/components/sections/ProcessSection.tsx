@@ -43,15 +43,23 @@ export function ProcessSection() {
       className="py-28 md:py-40 px-6 md:px-12 lg:px-20"
       style={{
         position: 'relative',
+        overflow: 'hidden',
         backgroundColor: '#EBEBEB',
-        backgroundImage: "url('/images/phones-bg.jpg')",
-        backgroundSize: 'auto 110%',
-        backgroundRepeat: 'repeat-x',
-        backgroundPosition: 'center',
       }}
     >
-      {/* Overlay pour garder le texte lisible */}
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(235,235,235,0.82)', zIndex: 0 }} />
+      {/* Photo en vraies couleurs, seulement floutée (débordement pour masquer les bords flous) */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: '-40px',
+          backgroundImage: "url('/images/phones-bg.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'left top',
+          filter: 'blur(14px)',
+          zIndex: 0,
+        }}
+      />
       <div className="max-w-7xl mx-auto" style={{ position: 'relative', zIndex: 1 }}>
 
         <div className="mb-20 max-w-xl">
@@ -73,7 +81,7 @@ export function ProcessSection() {
           >
             {t('process.titleLine1')}
             <br />
-            <span style={{ color: '#AAAAAA' }}>{t('process.titleLine2')}</span>
+            <span style={{ color: '#6B6B6B' }}>{t('process.titleLine2')}</span>
           </motion.h2>
         </div>
 

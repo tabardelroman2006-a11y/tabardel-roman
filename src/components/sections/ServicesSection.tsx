@@ -43,14 +43,23 @@ export function ServicesSection() {
       className="py-28 md:py-40 px-6 md:px-12 lg:px-20"
       style={{
         position: 'relative',
+        overflow: 'hidden',
         backgroundColor: '#F4F4F4',
-        backgroundImage: "url('/images/services-bg.jpg')",
-        backgroundSize: 'auto 110%',
-        backgroundRepeat: 'repeat-x',
-        backgroundPosition: 'center',
       }}
     >
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(244,244,244,0.83)', zIndex: 0 }} />
+      {/* Photo en vraies couleurs, seulement floutée (débordement pour masquer les bords flous) */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: '-40px',
+          backgroundImage: "url('/images/services-bg.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(14px)',
+          zIndex: 0,
+        }}
+      />
       <div className="max-w-7xl mx-auto" style={{ position: 'relative', zIndex: 1 }}>
 
         <div className="mb-20 max-w-xl">
@@ -72,7 +81,7 @@ export function ServicesSection() {
           >
             {t('services.titleLine1')}
             <br />
-            <span style={{ color: '#AAAAAA' }}>{t('services.titleLine2')}</span>
+            <span style={{ color: '#6B6B6B' }}>{t('services.titleLine2')}</span>
           </motion.h2>
         </div>
 
@@ -142,7 +151,7 @@ export function ServicesSection() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.55 }}
         >
-          <p className="font-body text-sm" style={{ color: '#AAAAAA' }}>
+          <p className="font-body font-600 text-sm" style={{ color: '#1A1A1A' }}>
             Pas sûr de ce dont vous avez besoin ?
           </p>
           <button
