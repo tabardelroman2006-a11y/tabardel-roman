@@ -25,20 +25,30 @@ export default function NotreHistoirePage() {
 
             <div className="space-y-6 font-body text-base leading-relaxed" style={{ color: '#6B6B6B' }}>
               <p>
-                Passionné par le web depuis ses débuts, Roman a développé une expertise solide
-                en création de sites et en référencement naturel, nourrie par des années de
-                pratique, d'apprentissage en autonomie et de projets concrets pour de vraies entreprises.
+                Je m’appelle Roman Tabardel, j’ai 20 ans et je suis créateur de sites web indépendant.
               </p>
               <p>
-                Basé en Drôme (26), il accompagne des artisans, TPE et PME partout en France
-                dans leur développement en ligne. Son objectif : leur offrir un niveau de qualité
-                numérique premium, habituellement réservé aux grandes entreprises, à des tarifs
-                adaptés à la réalité des indépendants et des petites structures.
+                J’ai créé ma micro-entreprise avec une idée simple : permettre aux entreprises de mettre
+                en valeur leur savoir-faire et de présenter leur activité de la meilleure manière sur internet.
               </p>
               <p>
-                Chaque projet est pensé sur mesure. Il n'y a pas de template, pas de copier-coller :
-                un site réussi raconte une histoire unique, celle de votre entreprise, et la raconte
-                bien aux bonnes personnes.
+                Ce que j’aime particulièrement dans mon métier, ce sont les relations humaines. Prendre
+                le temps d’échanger, rencontrer les personnes avec qui je travaille, découvrir leur
+                activité et comprendre réellement ce dont elles ont besoin, c’est ce qui me plaît le
+                plus dans chaque projet.
+              </p>
+              <p>
+                Je ne cherche pas à proposer une solution toute faite. Chaque entreprise a ses propres
+                besoins, ses propres objectifs et sa propre façon de travailler. C’est pourquoi je prends
+                le temps de comprendre votre activité avant de réfléchir à la manière de la mettre en
+                avant sur le web.
+              </p>
+              <p>
+                À travers mes sites, mon objectif est de créer quelque chose de professionnel, moderne
+                et fidèle à votre entreprise, tout en restant simple et efficace pour vos clients.
+              </p>
+              <p>
+                Écouter, comprendre, créer et accompagner : c’est cette approche qui me motive dans mon métier.
               </p>
             </div>
 
