@@ -8,11 +8,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 
+/* Tout le site tient sur l'accueil : le menu mene aux sections.
+   `page` = page d'origine, pour respecter les pages masquees dans l'admin. */
 const navLinks = [
-  { href: '/',               label: 'Accueil'   },
-  { href: '/services',       label: 'Services'  },
-  { href: '/notre-histoire', label: 'À propos'  },
-  { href: '/contact',        label: 'Contact'   },
+  { href: '/',              label: 'Accueil',      page: '/'               },
+  { href: '/#services',     label: 'Services',     page: '/services'       },
+  { href: '/#realisations', label: 'Réalisations', page: '/services'       },
+  { href: '/#a-propos',     label: 'À propos',     page: '/notre-histoire' },
+  { href: '/#contact',      label: 'Contact',      page: '/contact'        },
 ]
 
 export function Header() {
@@ -23,11 +26,7 @@ export function Header() {
   const { openDevis } = useModal()
 
   useEffect(() => {
-    /* Sur la frise en relief de l'accueil, la barre reste transparente jusqu'a la sortie. */
-    const onScroll = () => {
-      const relief = document.getElementById('relief')
-      setScrolled(relief ? relief.getBoundingClientRect().bottom < 80 : window.scrollY > 40)
-    }
+    const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -51,11 +50,11 @@ export function Header() {
 
   useEffect(() => { setMobileOpen(false) }, [pathname])
 
-  const visibleLinks = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
+  const visibleLinks = navLinks.filter(l => l.page === '/' || !hidden.includes(l.page))
 
-  /* Sur l'accueil, tant qu'on est sur la grande photo : barre transparente,
-     textes blancs (facon bellevilles.fr). Des qu'on defile, retour a la barre claire. */
-  const overHero = pathname === '/' && !scrolled && !mobileOpen
+  /* Sur l'accueil (sombre du debut a la fin) : textes blancs, barre transparente
+     en haut puis en verre fume des qu'on defile. */
+  const overHero = pathname === '/' && !mobileOpen
   const inkMain = overHero ? '#FFFFFF' : '#1A1A1A'
   const inkMuted = overHero ? 'rgba(255,255,255,0.88)' : '#6B6B6B'
 
@@ -70,13 +69,13 @@ export function Header() {
         <div
           className="transition-all duration-400 px-6 md:px-12 lg:px-20"
           style={{
-            backdropFilter:  overHero ? 'none' : 'blur(16px)',
+            backdropFilter:  overHero && !scrolled ? 'none' : 'blur(16px)',
             backgroundColor: overHero
-              ? 'transparent'
+              ? (scrolled ? 'rgba(11,12,15,0.45)' : 'transparent')
               : scrolled
                 ? 'rgba(255,255,255,0.95)'
                 : 'rgba(244,244,244,0.80)',
-            borderBottom: overHero ? '1px solid transparent' : '1px solid rgba(0,0,0,0.07)',
+            borderBottom: overHero ? (scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent') : '1px solid rgba(0,0,0,0.07)',
           }}
         >
           <div className="flex items-center justify-between h-16 md:h-20 w-full">
@@ -171,6 +170,7 @@ export function Header() {
                 >
                   <Link
                     href={href}
+                    onClick={() => setMobileOpen(false)}
                     className="font-display font-700 text-4xl tracking-tight"
                     style={{ color: '#1A1A1A' }}
                   >

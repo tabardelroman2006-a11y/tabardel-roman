@@ -6,7 +6,7 @@ import { motion, useInView } from 'framer-motion'
 import { ExternalLink, Monitor, ShoppingBag, RefreshCw, Search, BarChart2 } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 
-const SERVICES_LIST = [
+export const SERVICES_LIST = [
   {
     icon: Monitor,
     title: 'Site vitrine',

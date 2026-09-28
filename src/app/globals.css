@@ -28,7 +28,6 @@
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
 
 body {
   background-color: #F4F4F4;
@@ -125,4 +124,13 @@ button {
 }
 @media (max-height: 760px) {
   .relief-step-desc { display: none; }
+}
+
+/* ── Accueil : apparition du titre ── */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translate3d(0, 60%, 0); }
+  to { opacity: 1; transform: none; }
+}
+.hero-rise {
+  animation: hero-rise 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

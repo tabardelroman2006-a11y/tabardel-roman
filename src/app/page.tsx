@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import { HomeRelief } from '@/components/relief/HomeRelief'
-import { CTAFinal } from '@/components/sections/CTAFinal'
+import { HomePage } from '@/components/home/HomePage'
 
 export const metadata: Metadata = {
   title: 'Roman Tabardel | Création de sites web & SEO',
@@ -8,11 +7,6 @@ export const metadata: Metadata = {
     'Des sites web sur mesure qui convertissent, pour les artisans, TPE et PME. Création de sites vitrine, e-commerce et référencement naturel partout en France.',
 }
 
-export default function HomePage() {
-  return (
-    <>
-      <HomeRelief />
-      <CTAFinal />
-    </>
-  )
+export default function Page() {
+  return <HomePage />
 }
