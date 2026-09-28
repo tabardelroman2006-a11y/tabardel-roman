@@ -32,6 +32,7 @@ uniform float uScreen;
 uniform float uT;
 uniform vec2 uMouse;
 uniform float uTime;
+uniform vec2 uDir;
 
 vec2 cover(vec2 uv, float imgAsp, vec2 focus, float zoom) {
   vec2 span = uScreen > imgAsp ? vec2(1.0, imgAsp / uScreen) : vec2(uScreen / imgAsp, 1.0);
@@ -83,16 +84,19 @@ void main() {
   float breathe = 0.018 * sin(uTime * 0.22);
   vec2 hover = uMouse * vec2(0.018, 0.012);
 
-  vec2 uvA = uv + vec2(uT * 0.38, 0.0);
-  vec3 colA = scene(uColA, uDepA, uvA, uAspA, uFocA, 1.06 + 0.07 * uT + breathe, hover + vec2(-uT * 0.07, 0.0), uFitA).rgb;
+  /* uDir = cote d'ou arrive la scene suivante (1,0 droite ; -1,0 gauche ;
+     0,1 bas ; 0,-1 haut). La scene qui part recule dans l'autre sens. */
+  vec2 uvA = uv + uDir * uT * 0.38;
+  vec3 colA = scene(uColA, uDepA, uvA, uAspA, uFocA, 1.06 + 0.07 * uT + breathe, hover - uDir * uT * 0.07, uFitA).rgb;
   colA *= 1.0 - 0.45 * uT;
 
   vec3 col = colA;
   if (uT > 0.0005) {
-    vec2 uvB = uv - vec2(1.0 - uT, 0.0);
+    vec2 uvB = uv - uDir * (1.0 - uT);
     float lead = (1.0 - uT) * 0.16;
-    vec4 b = scene(uColB, uDepB, uvB, uAspB, uFocB, 1.06 + 0.05 * (1.0 - uT) + breathe, hover + vec2(-lead, 0.0), uFitB);
-    float front = uvB.x + lead * (b.a - 0.4);
+    vec4 b = scene(uColB, uDepB, uvB, uAspB, uFocB, 1.06 + 0.05 * (1.0 - uT) + breathe, hover - uDir * lead, uFitB);
+    float edge = dot(uvB, max(uDir, 0.0)) + dot(1.0 - uvB, max(-uDir, 0.0));
+    float front = edge + lead * (b.a - 0.4);
     float m = smoothstep(-0.002, 0.004, front);
     float shade = exp(-max(0.0, -front) * 14.0) * 0.5 * (1.0 - m) * smoothstep(0.0, 0.08, uT);
     col = mix(colA * (1.0 - shade), b.rgb, m);
@@ -143,7 +147,7 @@ export class ReliefRenderer {
     gl.enableVertexAttribArray(loc)
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0)
 
-    for (const name of ['uColA', 'uDepA', 'uColB', 'uDepB', 'uAspA', 'uAspB', 'uFocA', 'uFocB', 'uFitA', 'uFitB', 'uScreen', 'uT', 'uMouse', 'uTime']) {
+    for (const name of ['uColA', 'uDepA', 'uColB', 'uDepB', 'uAspA', 'uAspB', 'uFocA', 'uFocB', 'uFitA', 'uFitB', 'uScreen', 'uT', 'uMouse', 'uTime', 'uDir']) {
       this.u[name] = gl.getUniformLocation(p, name)
     }
     gl.uniform1i(this.u.uColA, 0)
@@ -213,7 +217,7 @@ export class ReliefRenderer {
     this.gl.viewport(0, 0, w, h)
   }
 
-  render(x: number, time: number) {
+  render(x: number, time: number, dir: [number, number] = [1, 0]) {
     if (!this.ready) return
     const gl = this.gl
     const n = this.textures.length
@@ -244,6 +248,7 @@ export class ReliefRenderer {
     gl.uniform1f(this.u.uT, t)
     gl.uniform2f(this.u.uMouse, this.mouse[0], this.mouse[1])
     gl.uniform1f(this.u.uTime, time)
+    gl.uniform2f(this.u.uDir, dir[0], dir[1])
     gl.drawArrays(gl.TRIANGLES, 0, 3)
   }
 

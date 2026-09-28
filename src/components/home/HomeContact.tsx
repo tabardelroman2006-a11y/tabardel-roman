@@ -11,16 +11,16 @@ export function HomeContact() {
   const t = useSiteTexts()
 
   return (
-    <section id="contact" className="text-white px-6 md:px-12 lg:px-20 py-28 md:py-36" style={{ backgroundColor: 'var(--rt-primary)' }}>
+    <section id="contact" className="text-white px-6 md:px-12 lg:px-20 pt-36 md:pt-44 pb-28 md:pb-36" style={{ backgroundColor: 'var(--rt-primary)' }}>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24 items-start">
         <div>
           <Reveal>
             <p className="font-body text-xs tracking-[0.25em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.55)' }}>{t('cta.eyebrow')}</p>
-            <h2 className="font-display font-800 leading-[0.92] tracking-tight" style={{ fontSize: 'clamp(2.8rem, 6vw, 5.6rem)' }}>
+            <h1 className="font-display font-800 leading-[0.92] tracking-tight" style={{ fontSize: 'clamp(2.8rem, 6vw, 5.6rem)' }}>
               {t('cta.titleLine1')}
               <br />
               {t('cta.titleLine2')}
-            </h2>
+            </h1>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="font-body text-base mt-8 max-w-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>{t('cta.description')}</p>

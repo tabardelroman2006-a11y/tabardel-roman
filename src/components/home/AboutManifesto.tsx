@@ -64,17 +64,17 @@ export function AboutManifesto({ still = false }: { still?: boolean }) {
     ))
 
   return (
-    <section id="a-propos" ref={ref} className="relative text-white px-6 md:px-12 lg:px-20 py-28 md:py-40" style={{ backgroundColor: DARK }}>
+    <section id="a-propos" ref={ref} className="relative text-white px-6 md:px-12 lg:px-20 pt-36 md:pt-44 pb-28 md:pb-40" style={{ backgroundColor: DARK }}>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-14 lg:gap-24">
         <div className="lg:sticky lg:top-28 self-start">
           <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: 'rgba(255,255,255,0.55)' }}>
             À propos · Fondateur
           </p>
-          <h2 className="font-display font-800 leading-[0.95] mb-8" style={{ fontSize: 'clamp(2.4rem, 5vw, 4.4rem)' }}>
+          <h1 className="font-display font-800 leading-[0.95] mb-8" style={{ fontSize: 'clamp(2.4rem, 5vw, 4.4rem)' }}>
             Roman
             <br />
             Tabardel
-          </h2>
+          </h1>
           <div className="relative overflow-hidden w-full max-w-sm" style={{ aspectRatio: '3 / 4', borderRadius: 16 }}>
             <Image src="/images/photo-identite.jpg" alt="Roman Tabardel, créateur de sites web" fill sizes="(max-width: 1024px) 90vw, 384px" style={{ objectFit: 'cover' }} />
           </div>
@@ -93,11 +93,11 @@ export function AboutManifesto({ still = false }: { still?: boolean }) {
           </blockquote>
 
           <div className="mt-14 flex flex-wrap gap-4">
-            <a href="#contact" className="inline-flex items-center gap-2 font-body font-700 text-sm px-8 py-4 transition-opacity duration-200 hover:opacity-80" style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}>
+            <a href="/contact" className="inline-flex items-center gap-2 font-body font-700 text-sm px-8 py-4 transition-opacity duration-200 hover:opacity-80" style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}>
               Me contacter
               <ArrowRight size={15} />
             </a>
-            <a href="#realisations" className="inline-flex items-center font-body font-600 text-sm px-8 py-4 transition-colors duration-200 hover:bg-white/10" style={{ border: '1px solid rgba(255,255,255,0.4)' }}>
+            <a href="/services#realisations" className="inline-flex items-center font-body font-600 text-sm px-8 py-4 transition-colors duration-200 hover:bg-white/10" style={{ border: '1px solid rgba(255,255,255,0.4)' }}>
               Voir mes réalisations
             </a>
           </div>

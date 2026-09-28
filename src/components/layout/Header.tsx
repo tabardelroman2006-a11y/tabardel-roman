@@ -8,15 +8,15 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 
-/* Tout le site tient sur l'accueil : le menu mene aux sections.
-   `page` = page d'origine, pour respecter les pages masquees dans l'admin. */
 const navLinks = [
-  { href: '/',              label: 'Accueil',      page: '/'               },
-  { href: '/#services',     label: 'Services',     page: '/services'       },
-  { href: '/#realisations', label: 'Réalisations', page: '/services'       },
-  { href: '/#a-propos',     label: 'À propos',     page: '/notre-histoire' },
-  { href: '/#contact',      label: 'Contact',      page: '/contact'        },
+  { href: '/',               label: 'Accueil'   },
+  { href: '/services',       label: 'Services'  },
+  { href: '/notre-histoire', label: 'À propos'  },
+  { href: '/contact',        label: 'Contact'   },
 ]
+
+/* Pages sombres et animees : textes blancs, barre transparente puis verre fume. */
+const DARK_PAGES = ['/services', '/notre-histoire', '/contact']
 
 export function Header() {
   const [scrolled,   setScrolled]   = useState(false)
@@ -26,11 +26,15 @@ export function Header() {
   const { openDevis } = useModal()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    /* Sur la frise en relief de l'accueil, la barre reste transparente jusqu'a la sortie. */
+    const onScroll = () => {
+      const relief = document.getElementById('relief')
+      setScrolled(relief ? relief.getBoundingClientRect().bottom < 80 : window.scrollY > 40)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [pathname])
 
   // Pages masquées (cache session pour éviter le clignotement)
   useEffect(() => {
@@ -50,11 +54,13 @@ export function Header() {
 
   useEffect(() => { setMobileOpen(false) }, [pathname])
 
-  const visibleLinks = navLinks.filter(l => l.page === '/' || !hidden.includes(l.page))
+  const visibleLinks = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
 
-  /* Sur l'accueil (sombre du debut a la fin) : textes blancs, barre transparente
-     en haut puis en verre fume des qu'on defile. */
-  const overHero = pathname === '/' && !mobileOpen
+  /* Accueil : transparente sur la frise, claire ensuite. Pages sombres : textes
+     blancs, transparente en haut puis verre fume. */
+  const darkPage = DARK_PAGES.includes(pathname) && !mobileOpen
+  const overHero = (pathname === '/' && !scrolled && !mobileOpen) || darkPage
+  const glass = darkPage && scrolled
   const inkMain = overHero ? '#FFFFFF' : '#1A1A1A'
   const inkMuted = overHero ? 'rgba(255,255,255,0.88)' : '#6B6B6B'
 
@@ -69,13 +75,13 @@ export function Header() {
         <div
           className="transition-all duration-400 px-6 md:px-12 lg:px-20"
           style={{
-            backdropFilter:  overHero && !scrolled ? 'none' : 'blur(16px)',
+            backdropFilter:  overHero && !glass ? 'none' : 'blur(16px)',
             backgroundColor: overHero
-              ? (scrolled ? 'rgba(11,12,15,0.45)' : 'transparent')
+              ? (glass ? 'rgba(11,12,15,0.5)' : 'transparent')
               : scrolled
                 ? 'rgba(255,255,255,0.95)'
                 : 'rgba(244,244,244,0.80)',
-            borderBottom: overHero ? (scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent') : '1px solid rgba(0,0,0,0.07)',
+            borderBottom: overHero ? (glass ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent') : '1px solid rgba(0,0,0,0.07)',
           }}
         >
           <div className="flex items-center justify-between h-16 md:h-20 w-full">
