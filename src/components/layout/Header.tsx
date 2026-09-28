@@ -23,10 +23,10 @@ export function Header() {
   const { openDevis } = useModal()
 
   useEffect(() => {
-    /* Dans la galerie 3D de l'accueil, la barre reste transparente jusqu'a la sortie. */
+    /* Sur la frise en relief de l'accueil, la barre reste transparente jusqu'a la sortie. */
     const onScroll = () => {
-      const galerie = document.getElementById('galerie')
-      setScrolled(galerie ? galerie.getBoundingClientRect().bottom < 80 : window.scrollY > 40)
+      const relief = document.getElementById('relief')
+      setScrolled(relief ? relief.getBoundingClientRect().bottom < 80 : window.scrollY > 40)
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })

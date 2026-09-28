@@ -5,11 +5,11 @@ import { Hero } from '@/components/sections/Hero'
 import { ServicesSection } from '@/components/sections/ServicesSection'
 import { AboutSection } from '@/components/sections/AboutSection'
 import { ProcessSection } from '@/components/sections/ProcessSection'
-import { GalleryExperience } from './GalleryExperience'
+import { ReliefExperience } from './ReliefExperience'
 
-/* Galerie 3D par defaut. Si le visiteur a demande a limiter les animations,
+/* Frise en relief par defaut. Si le visiteur a demande a limiter les animations,
    ou si son appareil ne sait pas afficher de 3D, on garde l'accueil classique. */
-function canShowGallery() {
+function canShowRelief() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
   try {
     const c = document.createElement('canvas')
@@ -19,11 +19,11 @@ function canShowGallery() {
   }
 }
 
-export function HomeGallery() {
+export function HomeRelief() {
   const [classic, setClassic] = useState(false)
 
   useEffect(() => {
-    if (!canShowGallery()) setClassic(true)
+    if (!canShowRelief()) setClassic(true)
   }, [])
 
   if (classic) {
@@ -36,5 +36,5 @@ export function HomeGallery() {
       </>
     )
   }
-  return <GalleryExperience />
+  return <ReliefExperience />
 }

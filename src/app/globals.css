@@ -104,15 +104,25 @@ button {
   }
 }
 
-/* ── Galerie 3D de l'accueil : reperes des salles ── */
-.gallery-dot-mark {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.7);
-  transition: background-color 0.3s, transform 0.3s;
+/* ── Accueil en relief : onglets des sections et pastille ── */
+.relief-tab {
+  color: rgba(255,255,255,0.55);
+  transition: color 0.3s;
 }
-.gallery-dot[data-active="1"] .gallery-dot-mark {
-  background-color: #FFFFFF;
-  transform: scale(1.35);
+.relief-tab:hover,
+.relief-tab[data-active="1"] {
+  color: #FFFFFF;
+}
+@keyframes relief-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.relief-bob {
+  animation: relief-bob 2.2s ease-in-out infinite;
+}
+@media (max-height: 680px) {
+  .relief-scroll { display: none; }
+}
+@media (max-height: 760px) {
+  .relief-step-desc { display: none; }
 }
