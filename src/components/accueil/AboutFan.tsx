@@ -1,5 +1,6 @@
 'use client'
 
+import { SafeImg } from './SafeImg'
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
@@ -12,8 +13,8 @@ import { DISPLAY_FONT, loop, passProgress, reducedMotion, smoothstep } from './a
    une carte se souleve. */
 
 const CARDS = [
-  { src: '/images/accueil/bureau.jpg', alt: 'Le bureau de Roman' },
-  { src: '/images/accueil/telephones.jpg', alt: 'Des sites pensés pour le téléphone' },
+  { src: '/images/accueil/pc-composants.jpg', alt: 'Un ordinateur portable en pièces détachées' },
+  { src: '/images/accueil/pc-superpose.jpg', alt: 'Le site de Roman affiché sur deux écrans' },
   { src: '/images/photo-identite.jpg', alt: 'Roman Tabardel' },
   { src: '/images/accueil/jardin.jpg', alt: 'Travail en extérieur' },
   { src: '/images/accueil/roman-dehors.jpg', alt: 'Roman au travail' },
@@ -48,8 +49,7 @@ export function AboutFan() {
           {CARDS.map((c, i) => (
             <div key={c.src} ref={el => { cardRefs.current[i] = el }} className="acc-fan-card absolute left-1/2 top-1/2" style={{ zIndex: i === 2 ? 10 : 5 - Math.abs(i - 2) }}>
               <div className="acc-fan-inner overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.src} alt={c.alt} loading="lazy" className="w-full h-full object-cover" />
+                <SafeImg src={c.src} alt={c.alt} className="w-full h-full object-cover" />
               </div>
             </div>
           ))}

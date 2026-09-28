@@ -1,5 +1,6 @@
 'use client'
 
+import { SafeImg } from './SafeImg'
 import { useEffect, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { PORTFOLIO } from '@/components/sections/ServicesPageContent'
@@ -85,14 +86,12 @@ function Case({ index }: { index: number }) {
                 <p className="acc-browser-url">{hostOf(project.href)}</p>
               </div>
               <div className="acc-browser-screen">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img ref={deskRef} src={shots.desk} alt={`${project.title}, page d’accueil`} loading="lazy" className="block w-full" />
+                <SafeImg ref={deskRef} src={shots.desk} alt={`${project.title}, page d’accueil`} className="block w-full" />
               </div>
             </div>
             <div className="acc-phone">
               <div className="acc-phone-screen">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img ref={phoneRef} src={shots.phone} alt={`${project.title} sur téléphone`} loading="lazy" className="block w-full" />
+                <SafeImg ref={phoneRef} src={shots.phone} alt={`${project.title} sur téléphone`} className="block w-full" />
               </div>
             </div>
           </div>

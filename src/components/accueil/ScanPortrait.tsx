@@ -10,8 +10,12 @@ import { accentColor, reducedMotion } from './anim'
 const PHOTO = '/images/accueil/roman-detoure.webp'
 const LINES = '/images/accueil/roman-lignes.png'
 
-export function ScanPortrait({ className = '', style, priority = false }: { className?: string; style?: CSSProperties; priority?: boolean }) {
+/* seeThrough : la ou passe la souris, la photo devient transparente (on voit ce
+   qu'il y a derriere, par exemple un texte cache par la tete) et seules les
+   courbes de niveau bleues restent dessinees par-dessus. */
+export function ScanPortrait({ className = '', style, priority = false, seeThrough = false }: { className?: string; style?: CSSProperties; priority?: boolean; seeThrough?: boolean }) {
   const boxRef = useRef<HTMLDivElement>(null)
+  const imgRef = useRef<HTMLImageElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const hintRef = useRef<HTMLDivElement>(null)
 
@@ -25,6 +29,8 @@ export function ScanPortrait({ className = '', style, priority = false }: { clas
     const tctx = trail.getContext('2d')!
     const scan = document.createElement('canvas')
     const sctx = scan.getContext('2d')!
+    const mix = document.createElement('canvas')
+    const mctx = mix.getContext('2d')!
     const photo = new Image()
     const lines = new Image()
     photo.src = PHOTO
@@ -44,11 +50,15 @@ export function ScanPortrait({ className = '', style, priority = false }: { clas
       scan.width = canvas.width
       scan.height = canvas.height
       sctx.clearRect(0, 0, scan.width, scan.height)
-      sctx.drawImage(photo, 0, 0, scan.width, scan.height)
-      sctx.globalCompositeOperation = 'source-in'
-      sctx.fillStyle = '#EEF3FC'
-      sctx.fillRect(0, 0, scan.width, scan.height)
-      sctx.globalCompositeOperation = 'source-over'
+      mix.width = canvas.width
+      mix.height = canvas.height
+      if (!seeThrough) {
+        sctx.drawImage(photo, 0, 0, scan.width, scan.height)
+        sctx.globalCompositeOperation = 'source-in'
+        sctx.fillStyle = '#EEF3FC'
+        sctx.fillRect(0, 0, scan.width, scan.height)
+        sctx.globalCompositeOperation = 'source-over'
+      }
       const tmp = document.createElement('canvas')
       tmp.width = scan.width
       tmp.height = scan.height
@@ -74,6 +84,7 @@ export function ScanPortrait({ className = '', style, priority = false }: { clas
     Promise.all([photo.decode(), lines.decode()]).then(() => {
       ready = true
       buildScan()
+      if (seeThrough && !still && imgRef.current) imgRef.current.style.visibility = 'hidden'
     }).catch(() => {})
 
     const onMove = (e: PointerEvent) => {
@@ -115,12 +126,27 @@ export function ScanPortrait({ className = '', style, priority = false }: { clas
       tctx.arc(px, py, rad, 0, Math.PI * 2)
       tctx.fill()
 
+      ctx.imageSmoothingEnabled = true
       ctx.globalCompositeOperation = 'source-over'
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.drawImage(scan, 0, 0)
-      ctx.globalCompositeOperation = 'destination-in'
-      ctx.imageSmoothingEnabled = true
-      ctx.drawImage(trail, 0, 0, canvas.width, canvas.height)
+      if (seeThrough) {
+        ctx.drawImage(photo, 0, 0, canvas.width, canvas.height)
+        ctx.globalCompositeOperation = 'destination-out'
+        ctx.drawImage(trail, 0, 0, canvas.width, canvas.height)
+        mctx.globalCompositeOperation = 'source-over'
+        mctx.clearRect(0, 0, mix.width, mix.height)
+        mctx.globalAlpha = 0.5
+        mctx.drawImage(scan, 0, 0)
+        mctx.globalAlpha = 1
+        mctx.globalCompositeOperation = 'destination-in'
+        mctx.drawImage(trail, 0, 0, mix.width, mix.height)
+        ctx.globalCompositeOperation = 'source-over'
+        ctx.drawImage(mix, 0, 0)
+      } else {
+        ctx.drawImage(scan, 0, 0)
+        ctx.globalCompositeOperation = 'destination-in'
+        ctx.drawImage(trail, 0, 0, canvas.width, canvas.height)
+      }
 
       if (hintRef.current) {
         hintRef.current.style.transform = `translate3d(${pointer.x * w}px, ${pointer.y * h}px, 0) translate(-50%, -50%)`
@@ -150,13 +176,13 @@ export function ScanPortrait({ className = '', style, priority = false }: { clas
       mo.disconnect()
       window.removeEventListener('pointermove', onMove)
     }
-  }, [])
+  }, [seeThrough])
 
   return (
     <div ref={boxRef} className={className} style={{ aspectRatio: '900 / 1200', ...style }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={PHOTO} alt="Roman Tabardel, créateur de sites web" className="acc-hero-photo absolute inset-0 w-full h-full select-none" draggable={false} fetchPriority={priority ? 'high' : 'auto'} />
-      <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none" />
+      <img ref={imgRef} src={PHOTO} alt="Roman Tabardel, créateur de sites web" className="acc-hero-photo absolute inset-0 w-full h-full select-none" draggable={false} fetchPriority={priority ? 'high' : 'auto'} />
+      <canvas ref={canvasRef} aria-hidden="true" className={`absolute inset-0 w-full h-full pointer-events-none ${seeThrough ? 'acc-hero-photo' : ''}`} />
       <div ref={hintRef} aria-hidden="true" className="absolute left-0 top-0 hidden md:flex items-center justify-center pointer-events-none transition-opacity duration-500" style={{ width: 92, height: 92, borderRadius: 999, border: '1px solid color-mix(in srgb, var(--rt-primary) 55%, transparent)', color: 'var(--rt-primary)', opacity: 0 }}>
         <span className="font-body text-[9px] font-700 tracking-[0.18em] uppercase text-center leading-tight">Passez<br />la souris</span>
       </div>

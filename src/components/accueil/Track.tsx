@@ -1,5 +1,6 @@
 'use client'
 
+import { SafeImg } from './SafeImg'
 import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
@@ -96,8 +97,7 @@ export function Track() {
               {item.kind === 'img' && (
                 <a href={item.href} target={item.href ? '_blank' : undefined} rel="noopener noreferrer" className={`group block ${item.href ? '' : 'pointer-events-none'}`}>
                   <div data-media className="overflow-hidden" style={{ aspectRatio: item.ratio, borderRadius: 14, boxShadow: '0 25px 60px color-mix(in srgb, var(--rt-primary) 18%, transparent)', backgroundColor: '#FFFFFF' }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={item.src} alt={item.caption} loading="lazy" className="w-full h-full object-cover object-top transition-[filter] duration-500 group-hover:brightness-105" />
+                    <SafeImg src={item.src!} alt={item.caption} className="w-full h-full object-cover object-top transition-[filter] duration-500 group-hover:brightness-105" />
                   </div>
                   <p className="mt-3 flex items-center justify-between gap-2 font-body text-[10px] md:text-[11px] font-700 tracking-[0.16em] uppercase" style={{ color: 'var(--rt-muted)' }}>
                     <span>{item.caption}</span>

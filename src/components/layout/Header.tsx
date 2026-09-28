@@ -50,6 +50,8 @@ export function Header() {
 
   /* Le site est clair partout : barre claire, textes a l'encre bleue (jamais noirs). */
   const overHero = false
+  /* Tout en haut de l'accueil, la barre est transparente (on voit le fond). */
+  const clearTop = pathname === '/' && !scrolled && !mobileOpen
   const inkMain = 'var(--rt-ink)'
   const inkMuted = 'var(--rt-muted)'
 
@@ -64,13 +66,13 @@ export function Header() {
         <div
           className="transition-all duration-400 px-6 md:px-12 lg:px-20"
           style={{
-            backdropFilter:  overHero ? 'none' : 'blur(16px)',
-            backgroundColor: overHero
+            backdropFilter:  overHero || clearTop ? 'none' : 'blur(16px)',
+            backgroundColor: overHero || clearTop
               ? 'transparent'
               : scrolled
                 ? 'rgba(255,255,255,0.95)'
                 : 'rgba(244,244,244,0.80)',
-            borderBottom: overHero ? '1px solid transparent' : '1px solid rgba(0,0,0,0.07)',
+            borderBottom: overHero || clearTop ? '1px solid transparent' : '1px solid rgba(0,0,0,0.07)',
           }}
         >
           <div className="flex items-center justify-between h-16 md:h-20 w-full">

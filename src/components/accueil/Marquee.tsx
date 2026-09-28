@@ -1,5 +1,6 @@
 'use client'
 
+import { SafeImg } from './SafeImg'
 import { useEffect, useRef } from 'react'
 import { DISPLAY_FONT, passProgress, reducedMotion, scrollVelocity } from './anim'
 
@@ -73,8 +74,7 @@ export function Marquee() {
         className="hidden md:block absolute left-1/2 top-1/2 overflow-hidden pointer-events-none"
         style={{ width: 'clamp(160px, 16vw, 260px)', aspectRatio: '3 / 4', borderRadius: 18, transform: 'translate(-50%, -50%)', boxShadow: '0 30px 70px color-mix(in srgb, var(--rt-primary) 30%, transparent)', border: '6px solid #FFFFFF' }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/accueil/roman-dehors.jpg" alt="" loading="lazy" className="w-full h-full object-cover" />
+        <SafeImg src="/images/accueil/roman-dehors.jpg" alt="" className="w-full h-full object-cover" />
       </div>
     </section>
   )

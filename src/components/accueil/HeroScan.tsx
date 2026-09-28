@@ -44,41 +44,29 @@ export function HeroScan() {
         </p>
         <h1 className="uppercase" style={{ ...DISPLAY_FONT, color: 'var(--rt-primary)', fontWeight: 700, lineHeight: 0.85, letterSpacing: '-0.035em', fontSize: 'clamp(3.2rem, 12vw, 13rem)' }}>
           <span className="acc-rise-mask"><span className="acc-rise" style={{ animationDelay: '0.15s' }}>{insecable(t('hero.title'))}</span></span>
-          <span className="block mt-[0.12em] normal-case" style={{ fontSize: 'clamp(1.15rem, 1.9vw, 1.9rem)', lineHeight: 1.1, letterSpacing: '-0.01em' }}>
-            <span className="acc-rise-mask">
-              <span className="acc-rise" style={{ animationDelay: '0.4s', fontFamily: 'var(--font-barlow), sans-serif', fontStyle: 'italic', fontWeight: 600, color: 'var(--rt-ink)' }}>
-                {insecable(t('hero.subtitle'))}
-              </span>
-            </span>
-          </span>
         </h1>
       </div>
 
-      <div ref={portraitRef} className="absolute left-1/2 bottom-0 -translate-x-1/2" style={{ zIndex: 2, height: 'min(70svh, 820px)' }}>
-        <ScanPortrait priority className="relative h-full" />
+      {/* La reponse est cachee derriere la tete : on la decouvre en passant la
+          souris sur le visage (la photo devient transparente sous la souris). */}
+      <div ref={portraitRef} className="absolute left-1/2 bottom-0 -translate-x-1/2" style={{ zIndex: 2, height: 'min(70svh, 820px)', containerType: 'size', aspectRatio: '900 / 1200' }}>
+        <p className="absolute text-center pointer-events-none" style={{ top: '41%', left: '29%', right: '29%', fontFamily: 'var(--font-barlow), sans-serif', fontStyle: 'italic', fontWeight: 700, color: 'var(--rt-primary)', fontSize: '6.6cqw', lineHeight: 1.05, letterSpacing: '-0.01em' }}>
+          {t('hero.subtitle')}
+        </p>
+        <ScanPortrait priority seeThrough className="relative h-full" />
       </div>
 
-      <div className="hidden md:block absolute left-8 bottom-8 acc-rise" style={{ zIndex: 3, animationDelay: '0.6s' }}>
-        <div className="acc-card p-5 w-[260px]">
-          <p className="flex items-center gap-2 font-body text-[10px] font-700 tracking-[0.2em] uppercase" style={{ color: 'var(--rt-muted)' }}>
-            <span className="acc-pulse" /> Disponible
-          </p>
-          <p className="mt-2 font-display font-700 leading-tight text-lg" style={{ color: 'var(--rt-ink)' }}>
-            Pour de nouveaux projets
-          </p>
-          <p className="mt-2 font-body text-xs leading-relaxed" style={{ color: 'var(--rt-muted)' }}>
-            Sites vitrines, e-commerce et référencement, depuis la Drôme.
-          </p>
-        </div>
-      </div>
-
-      <div className="absolute inset-x-4 md:inset-x-auto md:right-8 bottom-6 md:bottom-8 flex flex-col items-center md:items-end gap-3 acc-rise" style={{ zIndex: 3, animationDelay: '0.75s' }}>
+      <div className="absolute left-4 md:left-8 bottom-6 md:bottom-8 acc-rise" style={{ zIndex: 3, animationDelay: '0.6s' }}>
         <button onClick={openDevis} className="acc-btn acc-btn-solid">
           <Phone size={15} />
           Appel gratuit
         </button>
-        <a href="#realisations" className="acc-btn acc-btn-ghost hidden md:inline-flex">
-          Mes réalisations
+      </div>
+
+      <div className="absolute right-4 md:right-8 bottom-6 md:bottom-8 acc-rise" style={{ zIndex: 3, animationDelay: '0.75s' }}>
+        <a href="#realisations" className="acc-btn acc-btn-ghost">
+          <span className="hidden sm:inline">Mes réalisations</span>
+          <span className="sm:hidden">Réalisations</span>
           <ArrowRight size={15} />
         </a>
       </div>
