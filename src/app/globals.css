@@ -103,3 +103,16 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Galerie 3D de l'accueil : reperes des salles ── */
+.gallery-dot-mark {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.7);
+  transition: background-color 0.3s, transform 0.3s;
+}
+.gallery-dot[data-active="1"] .gallery-dot-mark {
+  background-color: #FFFFFF;
+  transform: scale(1.35);
+}
