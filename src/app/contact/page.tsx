@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { PageIntro } from '@/components/accueil/PageIntro'
-import { TiltPhoto } from '@/components/accueil/TiltPhoto'
+import { RevealPhoto } from '@/components/accueil/RevealPhoto'
 import { ContactPanel } from '@/components/accueil/ContactPanel'
 
 export const metadata: Metadata = {
@@ -18,11 +18,12 @@ export default function ContactPage() {
         text="Je vous réponds sous 24 h, par téléphone ou par e-mail."
         next="#ecrire"
         aside={
-          <TiltPhoto
-            src="/images/accueil/roman-dehors.jpg"
+          <RevealPhoto
+            cutout="/images/accueil/roman-dehors-detoure.webp"
+            full="/images/accueil/roman-dehors.jpg"
             alt="Roman Tabardel devant son ordinateur"
-            badge="Réponse sous 24 h"
-            className="relative mx-auto h-[460px] lg:h-[min(66svh,640px)] lg:mt-10"
+            ratio="900 / 1354"
+            className="relative h-[480px] lg:absolute lg:inset-x-0 lg:bottom-[-9svh] lg:h-[min(80svh,780px)]"
           />
         }
       />
