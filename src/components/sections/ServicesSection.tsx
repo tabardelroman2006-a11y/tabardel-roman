@@ -6,7 +6,7 @@ import { ArrowUpRight, Monitor, ShoppingBag, Search } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 import { useSiteTexts } from '@/lib/useSiteTexts'
 
-export const SERVICES = [
+const SERVICES = [
   {
     icon:   Monitor,
     number: '01',

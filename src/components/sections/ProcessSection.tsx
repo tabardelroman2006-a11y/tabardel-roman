@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useSiteTexts } from '@/lib/useSiteTexts'
 
-export const STEPS = [
+const STEPS = [
   {
     num:   '01',
     title: 'Découverte',

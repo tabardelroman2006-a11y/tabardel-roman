@@ -15,9 +15,6 @@ const navLinks = [
   { href: '/contact',        label: 'Contact'   },
 ]
 
-/* Pages sombres et animees : textes blancs, barre transparente puis verre fume. */
-const DARK_PAGES = ['/services', '/notre-histoire', '/contact']
-
 export function Header() {
   const [scrolled,   setScrolled]   = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -26,15 +23,10 @@ export function Header() {
   const { openDevis } = useModal()
 
   useEffect(() => {
-    /* Sur la frise en relief de l'accueil, la barre reste transparente jusqu'a la sortie. */
-    const onScroll = () => {
-      const relief = document.getElementById('relief')
-      setScrolled(relief ? relief.getBoundingClientRect().bottom < 80 : window.scrollY > 40)
-    }
-    onScroll()
+    const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [pathname])
+  }, [])
 
   // Pages masquées (cache session pour éviter le clignotement)
   useEffect(() => {
@@ -56,11 +48,9 @@ export function Header() {
 
   const visibleLinks = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
 
-  /* Accueil : transparente sur la frise, claire ensuite. Pages sombres : textes
-     blancs, transparente en haut puis verre fume. */
-  const darkPage = DARK_PAGES.includes(pathname) && !mobileOpen
-  const overHero = (pathname === '/' && !scrolled && !mobileOpen) || darkPage
-  const glass = darkPage && scrolled
+  /* Sur l'accueil, tant qu'on est sur la grande photo : barre transparente,
+     textes blancs (facon bellevilles.fr). Des qu'on defile, retour a la barre claire. */
+  const overHero = pathname === '/' && !scrolled && !mobileOpen
   const inkMain = overHero ? '#FFFFFF' : '#1A1A1A'
   const inkMuted = overHero ? 'rgba(255,255,255,0.88)' : '#6B6B6B'
 
@@ -75,13 +65,13 @@ export function Header() {
         <div
           className="transition-all duration-400 px-6 md:px-12 lg:px-20"
           style={{
-            backdropFilter:  overHero && !glass ? 'none' : 'blur(16px)',
+            backdropFilter:  overHero ? 'none' : 'blur(16px)',
             backgroundColor: overHero
-              ? (glass ? 'rgba(11,12,15,0.5)' : 'transparent')
+              ? 'transparent'
               : scrolled
                 ? 'rgba(255,255,255,0.95)'
                 : 'rgba(244,244,244,0.80)',
-            borderBottom: overHero ? (glass ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent') : '1px solid rgba(0,0,0,0.07)',
+            borderBottom: overHero ? '1px solid transparent' : '1px solid rgba(0,0,0,0.07)',
           }}
         >
           <div className="flex items-center justify-between h-16 md:h-20 w-full">
@@ -176,7 +166,6 @@ export function Header() {
                 >
                   <Link
                     href={href}
-                    onClick={() => setMobileOpen(false)}
                     className="font-display font-700 text-4xl tracking-tight"
                     style={{ color: '#1A1A1A' }}
                   >

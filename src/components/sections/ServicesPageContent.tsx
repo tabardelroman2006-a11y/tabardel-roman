@@ -6,7 +6,7 @@ import { motion, useInView } from 'framer-motion'
 import { ExternalLink, Monitor, ShoppingBag, RefreshCw, Search, BarChart2 } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 
-export const SERVICES_LIST = [
+const SERVICES_LIST = [
   {
     icon: Monitor,
     title: 'Site vitrine',
@@ -39,7 +39,7 @@ export const SERVICES_LIST = [
   },
 ]
 
-export const PORTFOLIO = [
+const PORTFOLIO = [
   {
     image:    '/images/sultan-kebab-accueil.jpg',
     alt:      'Sultan Kebab Crest, Application de commande en ligne',

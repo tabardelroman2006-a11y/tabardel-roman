@@ -1,5 +1,8 @@
-import type { Metadata } from 'next'
-import { HomeRelief } from '@/components/home/HomeRelief'
+﻿import type { Metadata } from 'next'
+import { Hero } from '@/components/sections/Hero'
+import { ServicesSection } from '@/components/sections/ServicesSection'
+import { AboutSection } from '@/components/sections/AboutSection'
+import { ProcessSection } from '@/components/sections/ProcessSection'
 import { CTAFinal } from '@/components/sections/CTAFinal'
 
 export const metadata: Metadata = {
@@ -11,7 +14,10 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <HomeRelief />
+      <Hero />
+      <ServicesSection />
+      <AboutSection />
+      <ProcessSection />
       <CTAFinal />
     </>
   )

@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Plus, Minus } from 'lucide-react'
 
-export const FAQS = [
+const FAQS = [
   {
     q: 'Combien coûte un site web ?',
     a: "Chaque projet est chiffré sur mesure. Le tarif dépend de votre besoin, de la complexité du design et des fonctionnalités souhaitées. On établit un devis détaillé lors de notre premier appel, sans surprise.",
