@@ -73,9 +73,6 @@ export function ServicesSplit() {
                     <span style={{ ...DISPLAY_FONT, fontWeight: 700, fontSize: 'clamp(2.4rem, 4vw, 4rem)', lineHeight: 0.8, color: open ? 'rgba(255,255,255,0.35)' : 'var(--rt-line)', transition: 'color 0.6s' }}>
                       {s.number}
                     </span>
-                    <span className="flex items-center justify-center shrink-0" style={{ width: 42, height: 42, borderRadius: 999, backgroundColor: open ? '#FFFFFF' : 'var(--rt-soft)', color: 'var(--rt-primary)', transform: open ? 'rotate(0deg)' : 'rotate(-45deg)', transition: 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.6s' }}>
-                      <ArrowUpRight size={18} />
-                    </span>
                   </div>
                   <div>
                     <h3 className="uppercase" style={{ ...DISPLAY_FONT, fontWeight: 700, lineHeight: 0.92, letterSpacing: '-0.02em', fontSize: 'clamp(1.8rem, 3.2vw, 3.2rem)', color: open ? '#FFFFFF' : 'var(--rt-primary)', transition: 'color 0.6s' }}>
