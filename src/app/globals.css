@@ -284,3 +284,68 @@ button {
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .acc-contact-card:hover .acc-contact-arrow { transform: translate(3px, -3px); }
+
+/* ── Services : realisations dans un ordinateur et un telephone ── */
+.acc-browser {
+  width: 88%;
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid var(--rt-line);
+  box-shadow: 0 40px 90px color-mix(in srgb, var(--rt-primary) 22%, transparent);
+  overflow: hidden;
+}
+.acc-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 14px;
+  background: var(--rt-soft);
+  border-bottom: 1px solid var(--rt-line);
+}
+.acc-browser-bar > span {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--rt-primary) 28%, #FFFFFF);
+}
+.acc-browser-url {
+  margin: 0 auto;
+  padding: 3px 14px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  font-family: var(--font-nunito), sans-serif;
+  font-size: 11px;
+  color: var(--rt-muted);
+}
+.acc-browser-screen {
+  aspect-ratio: 16 / 10;
+  max-height: 58svh;
+  overflow: hidden;
+}
+.acc-phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 26%;
+  padding: 7px;
+  background: #FFFFFF;
+  border-radius: 30px;
+  border: 1px solid var(--rt-line);
+  box-shadow: 0 30px 70px color-mix(in srgb, var(--rt-primary) 28%, transparent);
+}
+.acc-phone-screen {
+  aspect-ratio: 9 / 19;
+  max-height: 52svh;
+  border-radius: 23px;
+  overflow: hidden;
+}
+
+.acc-mark {
+  background: linear-gradient(transparent 62%, var(--rt-soft) 62%);
+  color: var(--rt-primary);
+  font-weight: 700;
+  padding: 0 0.1em;
+}
+@keyframes acc-spin { to { transform: rotate(360deg); } }
+.acc-spin { animation: acc-spin 18s linear infinite; }

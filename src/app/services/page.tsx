@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
 import { PageIntro } from '@/components/accueil/PageIntro'
 import { OffersStack } from '@/components/accueil/OffersStack'
-import { Track } from '@/components/accueil/Track'
-import { ProcessLine } from '@/components/accueil/ProcessLine'
-import { FinalCallout } from '@/components/accueil/FinalCallout'
+import { CaseStudies } from '@/components/accueil/CaseStudies'
+import { ClosingMagnet } from '@/components/accueil/ClosingMagnet'
 
 export const metadata: Metadata = {
   title: 'Services & Réalisations | Roman Tabardel',
@@ -22,9 +21,8 @@ export default function ServicesPage() {
         next="#offres"
       />
       <OffersStack />
-      <Track />
-      <ProcessLine />
-      <FinalCallout />
+      <CaseStudies />
+      <ClosingMagnet title="Le prochain, c’est le vôtre" line="Un appel de 15 minutes pour parler de votre projet. Gratuit, sans engagement." />
     </>
   )
 }
