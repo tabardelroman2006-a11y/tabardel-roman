@@ -48,6 +48,14 @@ const PORTFOLIO = [
     description: 'Application de commande en ligne pour un restaurant kebab à Crest. Menu interactif, paiement intégré, interface caisse en temps réel.',
     href: 'https://www.sultankebab-crest.fr/',
   },
+  {
+    image:    '/images/jr-maconnerie.jpg',
+    alt:      'JR Maçonnerie Rénovation, site vitrine',
+    category: 'Site vitrine',
+    title:    'JR Maçonnerie Rénovation',
+    description: 'Site vitrine pour une entreprise de maçonnerie et de rénovation à Allex, dans la Drôme. Chantiers en photos, domaines d’intervention et demande de devis en ligne.',
+    href: 'https://xn--jrmaonnerie-p9a.fr/',
+  },
 ]
 
 export function ServicesPageContent() {
@@ -94,11 +102,11 @@ export function ServicesPageContent() {
             </h2>
           </div>
 
-          <div className="flex justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {PORTFOLIO.map((project, i) => (
               <motion.div
                 key={project.title}
-                className="group flex flex-col overflow-hidden w-full max-w-2xl"
+                className="group flex flex-col overflow-hidden w-full"
                 style={{
                   backgroundColor: '#FFFFFF',
                   border: '1px solid rgba(0,0,0,0.07)',
@@ -127,7 +135,7 @@ export function ServicesPageContent() {
                     fill
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-[1200ms] ease-out"
                     loading="lazy"
-                    sizes="(max-width: 768px) 100vw, 672px"
+                    sizes="(max-width: 768px) 100vw, 640px"
                   />
                 </div>
                 <div className="p-8 flex flex-col flex-1">
