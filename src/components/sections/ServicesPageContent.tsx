@@ -41,7 +41,7 @@ const SERVICES_LIST = [
 
 const PORTFOLIO = [
   {
-    image:    '/images/sultan-kebab.jpg',
+    image:    '/images/sultan-kebab-accueil.jpg',
     alt:      'Sultan Kebab Crest, Application de commande en ligne',
     category: 'Application web & commande en ligne',
     title:    'Sultan Kebab Crest',
