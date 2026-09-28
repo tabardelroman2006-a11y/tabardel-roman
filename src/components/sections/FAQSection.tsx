@@ -27,7 +27,7 @@ export const FAQS = [
   },
   {
     q: "Je peux modifier mon site moi-même après livraison ?",
-    a: "Oui. Je livre chaque site avec une formation à son interface d'administration. Vous pourrez modifier vos textes, images et produits en toute autonomie. Je reste disponible si vous avez des questions.",
+    a: "Oui, c'est possible. Pour cela, je vous installe un espace d'administration sur mesure, pensé pour votre site, qui vous permet de modifier vous-même vos textes et vos images. Et si vous préférez ne pas vous en occuper, mon forfait mensuel s'occupe de tout : les modifications, l'hébergement et la sécurité de votre site.",
   },
 ]
 
