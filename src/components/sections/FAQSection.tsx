@@ -22,7 +22,7 @@ const FAQS = [
     a: "Le premier mois de support est inclus dans chaque projet. Ensuite, je propose des contrats de maintenance mensuels pour les mises à jour, sauvegardes et petites modifications de contenu. Tarifs sur demande.",
   },
   {
-    q: 'Vous intervenez seulement en Ardèche ?',
+    q: 'Vous intervenez seulement dans la Drôme ?',
     a: "Non, je travaille avec des clients partout en France (et même à l'international). Tout se fait à distance, via appels vidéo et partages d'écran. La distance n'est pas un obstacle.",
   },
   {
