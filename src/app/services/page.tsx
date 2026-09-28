@@ -1,5 +1,9 @@
-﻿import type { Metadata } from 'next'
-import { ServicesPageContent } from '@/components/sections/ServicesPageContent'
+import type { Metadata } from 'next'
+import { PageIntro } from '@/components/accueil/PageIntro'
+import { OffersStack } from '@/components/accueil/OffersStack'
+import { Track } from '@/components/accueil/Track'
+import { ProcessLine } from '@/components/accueil/ProcessLine'
+import { FinalCallout } from '@/components/accueil/FinalCallout'
 
 export const metadata: Metadata = {
   title: 'Services & Réalisations | Roman Tabardel',
@@ -8,5 +12,19 @@ export const metadata: Metadata = {
 }
 
 export default function ServicesPage() {
-  return <ServicesPageContent />
+  return (
+    <>
+      <PageIntro
+        eyebrow="Services & Réalisations"
+        title="Des sites qui vous ressemblent"
+        subtitle="Pensés pour votre activité, livrés clés en main."
+        text="Site vitrine, boutique en ligne, refonte ou référencement : chaque projet est conçu sur mesure, jamais à partir d’un modèle."
+        next="#offres"
+      />
+      <OffersStack />
+      <Track />
+      <ProcessLine />
+      <FinalCallout />
+    </>
+  )
 }

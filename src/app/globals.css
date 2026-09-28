@@ -221,3 +221,66 @@ button {
 }
 .acc-fan-card:hover { z-index: 20 !important; }
 .acc-fan-card:hover .acc-fan-inner { transform: translateY(-18px) scale(1.05); }
+
+/* ── Pages interieures ── */
+@keyframes acc-bob-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.acc-bob-y { animation: acc-bob-y 2.2s ease-in-out infinite; }
+
+.acc-offer {
+  background: #FFFFFF;
+  border: 1px solid var(--rt-line);
+  border-radius: 24px;
+  color: var(--rt-primary);
+  box-shadow: 0 -18px 50px color-mix(in srgb, var(--rt-primary) 10%, transparent);
+  transition: background-color 0.6s, color 0.6s;
+}
+.acc-offer-num { color: var(--rt-line); transition: color 0.6s; }
+.acc-offer-icon { color: var(--rt-primary); transition: color 0.6s; }
+.acc-offer-text { color: var(--rt-muted); transition: color 0.6s; }
+.acc-offer-dot { background: var(--rt-primary); transition: background-color 0.6s; }
+.acc-offer-btn { background: var(--rt-soft); color: var(--rt-primary); }
+.acc-offer:hover { background: var(--rt-primary); color: #FFFFFF; }
+.acc-offer:hover .acc-offer-num { color: rgba(255, 255, 255, 0.3); }
+.acc-offer:hover .acc-offer-icon { color: #FFFFFF; }
+.acc-offer:hover .acc-offer-text { color: rgba(255, 255, 255, 0.85); }
+.acc-offer:hover .acc-offer-dot { background: #FFFFFF; }
+.acc-offer:hover .acc-offer-btn { background: #FFFFFF; }
+
+.acc-contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.6rem 1.8rem;
+  background: #FFFFFF;
+  border: 1px solid var(--rt-line);
+  border-radius: 22px;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s, border-color 0.4s;
+}
+.acc-contact-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--rt-primary);
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--rt-primary) 18%, transparent);
+}
+.acc-contact-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: var(--rt-soft);
+  color: var(--rt-primary);
+  transition: background-color 0.4s, color 0.4s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.acc-contact-card:hover .acc-contact-icon { background: var(--rt-primary); color: #FFFFFF; transform: rotate(-12deg) scale(1.08); }
+.acc-contact-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: var(--rt-primary);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.acc-contact-card:hover .acc-contact-arrow { transform: translate(3px, -3px); }
