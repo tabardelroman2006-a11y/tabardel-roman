@@ -48,11 +48,10 @@ export function Header() {
 
   const visibleLinks = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
 
-  /* Sur l'accueil, tant qu'on est sur la grande photo : barre transparente,
-     textes blancs (facon bellevilles.fr). Des qu'on defile, retour a la barre claire. */
-  const overHero = pathname === '/' && !scrolled && !mobileOpen
-  const inkMain = overHero ? '#FFFFFF' : '#1A1A1A'
-  const inkMuted = overHero ? 'rgba(255,255,255,0.88)' : '#6B6B6B'
+  /* Le site est clair partout : barre claire, textes a l'encre bleue (jamais noirs). */
+  const overHero = false
+  const inkMain = 'var(--rt-ink)'
+  const inkMuted = 'var(--rt-muted)'
 
   return (
     <>

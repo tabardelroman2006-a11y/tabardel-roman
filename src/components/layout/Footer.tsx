@@ -40,9 +40,8 @@ export function Footer() {
   const navVisible = NAV.filter(l => l.href.startsWith('/#') || !hidden.includes(l.href))
 
   return (
-    <footer style={{ position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', inset: 0, backgroundImage: "url('/images/footer-bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', zIndex: 0 }} />
-      <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(10,18,35,0.82)', zIndex: 1 }} />
+    /* Pied de page clair, dans les tons du site (jamais de fond sombre). */
+    <footer style={{ position: 'relative', overflow: 'hidden', backgroundColor: 'var(--rt-bg)', borderTop: '1px solid var(--rt-line)' }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 md:py-20" style={{ position: 'relative', zIndex: 2 }}>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16">
@@ -57,11 +56,11 @@ export function Footer() {
                 height={34}
                 className="object-contain"
               />
-              <span className="font-display font-700 text-sm tracking-wide" style={{ color: '#FFFFFF' }}>
+              <span className="font-display font-700 text-sm tracking-wide" style={{ color: 'var(--rt-ink)' }}>
                 Roman Tabardel
               </span>
             </div>
-            <p className="font-body text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>
+            <p className="font-body text-sm leading-relaxed max-w-xs" style={{ color: 'var(--rt-muted)' }}>
               Création de sites web sur mesure et référencement naturel pour les entreprises
               qui méritent une présence en ligne à la hauteur de leur ambition.
             </p>
@@ -69,12 +68,12 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <p className="font-body text-[10px] tracking-[0.22em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.3)' }}>
+            <p className="font-body text-[10px] tracking-[0.22em] uppercase mb-6" style={{ color: 'var(--rt-muted)', opacity: 0.7 }}>
               Navigation
             </p>
             <nav className="flex flex-col gap-3">
               {navVisible.map(({ href, label }) => (
-                <Link key={label} href={href} className="font-body text-sm link-dim" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                <Link key={label} href={href} className="font-body text-sm link-dim" style={{ color: 'var(--rt-ink)' }}>
                   {label}
                 </Link>
               ))}
@@ -83,16 +82,16 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="font-body text-[10px] tracking-[0.22em] uppercase mb-6" style={{ color: 'rgba(255,255,255,0.3)' }}>
+            <p className="font-body text-[10px] tracking-[0.22em] uppercase mb-6" style={{ color: 'var(--rt-muted)', opacity: 0.7 }}>
               Contact
             </p>
             <div className="flex flex-col gap-3.5">
-              <a href="tel:0618135384" className="flex items-center gap-2.5 font-body text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                <Phone size={13} style={{ color: '#FFFFFF', flexShrink: 0 }} />
+              <a href="tel:0618135384" className="flex items-center gap-2.5 font-body text-sm" style={{ color: 'var(--rt-ink)' }}>
+                <Phone size={13} style={{ color: 'var(--rt-primary)', flexShrink: 0 }} />
                 06 18 13 53 84
               </a>
-              <a href="mailto:contact@tabardel-roman.fr" className="flex items-center gap-2.5 font-body text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                <Mail size={13} style={{ color: '#FFFFFF', flexShrink: 0 }} />
+              <a href="mailto:contact@tabardel-roman.fr" className="flex items-center gap-2.5 font-body text-sm" style={{ color: 'var(--rt-ink)' }}>
+                <Mail size={13} style={{ color: 'var(--rt-primary)', flexShrink: 0 }} />
                 contact@tabardel-roman.fr
               </a>
             </div>
@@ -102,22 +101,25 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <p className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>
+          style={{ borderTop: '1px solid var(--rt-line)' }}>
+          <p className="font-body text-xs" style={{ color: 'var(--rt-muted)' }}>
             ROMAN TABARDEL · Entrepreneur individuel · SIRET&nbsp;10446560400015
           </p>
           <div className="flex flex-wrap items-center gap-5">
             {LEGAL.map(({ href, label }) => (
-              <Link key={label} href={href} className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>
+              <Link key={label} href={href} className="font-body text-xs" style={{ color: 'var(--rt-muted)' }}>
                 {label}
               </Link>
             ))}
-            <p className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>
+            <p className="font-body text-xs" style={{ color: 'var(--rt-muted)' }}>
               © {year} Roman Tabardel
             </p>
           </div>
         </div>
 
+        <p aria-hidden="true" className="mt-14 uppercase text-center select-none whitespace-nowrap acc-outline" style={{ fontFamily: 'var(--font-bricolage), Arial, sans-serif', fontWeight: 700, letterSpacing: '-0.04em', lineHeight: 0.8, fontSize: 'min(8.6vw, 118px)', opacity: 0.5 }}>
+          Roman Tabardel
+        </p>
       </div>
     </footer>
   )

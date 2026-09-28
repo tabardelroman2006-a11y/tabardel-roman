@@ -54,7 +54,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${barlow.variable} ${nunito.variable} ${bricolage.variable}`}>
+    <html lang="fr" className={`${barlow.variable} ${nunito.variable} ${bricolage.variable}`} suppressHydrationWarning>
       <body>
         <ModalProvider>
           <ThemeColors />

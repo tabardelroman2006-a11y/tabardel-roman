@@ -1,9 +1,13 @@
-﻿import type { Metadata } from 'next'
-import { Hero } from '@/components/sections/Hero'
-import { ServicesSection } from '@/components/sections/ServicesSection'
-import { AboutSection } from '@/components/sections/AboutSection'
-import { ProcessSection } from '@/components/sections/ProcessSection'
-import { CTAFinal } from '@/components/sections/CTAFinal'
+import type { Metadata } from 'next'
+import { Preloader } from '@/components/accueil/Preloader'
+import { HeroScan } from '@/components/accueil/HeroScan'
+import { Marquee } from '@/components/accueil/Marquee'
+import { Manifesto } from '@/components/accueil/Manifesto'
+import { Track } from '@/components/accueil/Track'
+import { ServicesSplit } from '@/components/accueil/ServicesSplit'
+import { ProcessLine } from '@/components/accueil/ProcessLine'
+import { AboutFan } from '@/components/accueil/AboutFan'
+import { FinalCallout } from '@/components/accueil/FinalCallout'
 
 export const metadata: Metadata = {
   title: 'Roman Tabardel | Création de sites web & SEO',
@@ -14,11 +18,15 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <ServicesSection />
-      <AboutSection />
-      <ProcessSection />
-      <CTAFinal />
+      <Preloader />
+      <HeroScan />
+      <Marquee />
+      <Manifesto />
+      <Track />
+      <ServicesSplit />
+      <ProcessLine />
+      <AboutFan />
+      <FinalCallout />
     </>
   )
 }

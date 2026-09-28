@@ -39,7 +39,7 @@ const SERVICES_LIST = [
   },
 ]
 
-const PORTFOLIO = [
+export const PORTFOLIO = [
   {
     image:    '/images/sultan-kebab-accueil.jpg',
     alt:      'Sultan Kebab Crest, Application de commande en ligne',
