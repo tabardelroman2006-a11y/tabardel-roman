@@ -349,3 +349,6 @@ button {
 }
 @keyframes acc-spin { to { transform: rotate(360deg); } }
 .acc-spin { animation: acc-spin 18s linear infinite; }
+
+.acc-headline { font-size: 11cqw; }
+@media (max-width: 767px) { .acc-headline { font-size: 7.2cqw; } }
