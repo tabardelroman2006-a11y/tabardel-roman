@@ -5,7 +5,7 @@ import { ContactPanel } from '@/components/accueil/ContactPanel'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Contactez Roman Tabardel pour votre projet de site web ou de référencement. Réponse garantie sous 24 h.',
+  description: 'Contactez Roman Tabardel pour votre projet de site web ou de référencement.',
 }
 
 export default function ContactPage() {
@@ -15,7 +15,7 @@ export default function ContactPage() {
         eyebrow="Travaillons ensemble"
         title="Parlons de votre projet"
         subtitle="Une question, une idée ?"
-        text="Je vous réponds sous 24 h, par téléphone ou par e-mail."
+        text="Par téléphone, par e-mail ou avec le formulaire ci-dessous."
         next="#ecrire"
         aside={
           <RevealPhoto

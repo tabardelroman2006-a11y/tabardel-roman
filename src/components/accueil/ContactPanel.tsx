@@ -43,7 +43,7 @@ export function ContactPanel() {
             <Reveal delay={0.16}>
               <div className="acc-card p-7">
                 <p className="flex items-center gap-2 font-body text-[10px] font-700 tracking-[0.2em] uppercase" style={{ color: 'var(--rt-muted)' }}>
-                  <span className="acc-pulse" /> Réponse sous 24 h
+                  <span className="acc-pulse" /> Appel gratuit
                 </p>
                 <p className="mt-3 font-body text-base leading-relaxed" style={{ color: 'var(--rt-muted)' }}>
                   Vous préférez qu’on en parle de vive voix ? Réservez un appel de 15 minutes, gratuit et sans engagement.

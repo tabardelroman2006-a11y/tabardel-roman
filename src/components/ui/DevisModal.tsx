@@ -183,7 +183,7 @@ export function DevisModal() {
                         C&apos;est noté !
                       </p>
                       <p className="font-body text-sm" style={{ color: '#888888' }}>
-                        Je vous contacte dans les 24 h pour convenir d&apos;un créneau.
+                        Je vous contacte pour convenir d&apos;un créneau.
                       </p>
                     </motion.div>
                   ) : (
@@ -301,7 +301,7 @@ export function DevisModal() {
                       </button>
 
                       <p className="text-center font-body text-xs" style={{ color: '#AAAAAA' }}>
-                        Réponse garantie sous 24 h · Aucun engagement
+                        Aucun engagement
                       </p>
 
                     </motion.form>

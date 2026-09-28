@@ -58,7 +58,7 @@ export function ContactForm() {
           </svg>
         </div>
         <p className="font-display font-700 text-xl mb-2" style={{ color: '#1A1A1A' }}>Message envoyé !</p>
-        <p className="font-body text-sm" style={{ color: '#888888' }}>Je vous réponds sous 24 h.</p>
+        <p className="font-body text-sm" style={{ color: '#888888' }}>Merci, je reviens vers vous très vite.</p>
       </div>
     )
   }
@@ -102,10 +102,6 @@ export function ContactForm() {
         style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}>
         Envoyer
       </button>
-
-      <p className="text-center font-body text-xs" style={{ color: '#AAAAAA' }}>
-        Réponse garantie sous 24 h
-      </p>
     </form>
   )
 }
