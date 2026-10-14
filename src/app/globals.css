@@ -377,7 +377,10 @@ button {
   overflow: hidden;
   transform-origin: 50% 30%;
 }
-.carte__photo-img { object-fit: cover; object-position: 50% 28%; }
+.carte__photo-img { object-fit: cover; object-position: 50% 0%; }
+@media (max-width: 639px) {
+  .carte__photo-img { top: -24% !important; height: 124% !important; }
+}
 .carte__photo-fade {
   position: absolute;
   inset: 0;
