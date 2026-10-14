@@ -575,5 +575,6 @@ button {
     background: var(--rt-bg);
     box-shadow: 0 40px 100px color-mix(in srgb, var(--rt-primary) 22%, transparent);
   }
-  .carte__photo { height: 520px; }
+  .carte__photo { height: 600px; }
+  .carte__photo-img { top: -105px !important; height: calc(100% + 105px) !important; }
 }
