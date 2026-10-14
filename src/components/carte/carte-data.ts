@@ -10,7 +10,7 @@ export const CARTE = {
   google: 'https://share.google/kx5fhdyCvTqWblaST',
   instagram: 'https://www.instagram.com/tabardel_digital/',
   instagramAffiche: '@tabardel_digital',
-  linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Roman%20TABARDEL',
+  linkedin: 'https://www.linkedin.com/in/roman-tabardel/',
   linkedinAffiche: 'Roman Tabardel',
   smsTexte: 'Bonjour Roman, ',
   mailSujet: 'Prise de contact',

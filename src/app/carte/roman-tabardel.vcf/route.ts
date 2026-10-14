@@ -22,6 +22,7 @@ export function GET() {
     `EMAIL;TYPE=INTERNET,WORK:${CARTE.email}`,
     `URL:${CARTE.site}`,
     `X-SOCIALPROFILE;TYPE=instagram:${CARTE.instagram}`,
+    `X-SOCIALPROFILE;TYPE=linkedin:${CARTE.linkedin}`,
     `NOTE:${CARTE.metier}. ${CARTE.site}`,
     `PHOTO;ENCODING=b;TYPE=JPEG:${PHOTO_JPEG_BASE64}`,
     'END:VCARD',
