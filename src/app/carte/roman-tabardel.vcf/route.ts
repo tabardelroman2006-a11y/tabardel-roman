@@ -3,6 +3,13 @@ import { PHOTO_JPEG_BASE64 } from './photo'
 
 export const dynamic = 'force-static'
 
+function plier(ligne: string) {
+  if (ligne.length <= 75) return ligne
+  const morceaux = [ligne.slice(0, 75)]
+  for (let i = 75; i < ligne.length; i += 74) morceaux.push(' ' + ligne.slice(i, i + 74))
+  return morceaux.join('\r\n')
+}
+
 export function GET() {
   const lines = [
     'BEGIN:VCARD',
@@ -20,10 +27,10 @@ export function GET() {
     'END:VCARD',
   ]
 
-  return new Response(lines.join('\r\n') + '\r\n', {
+  return new Response(lines.map(plier).join('\r\n') + '\r\n', {
     headers: {
       'Content-Type': 'text/vcard; charset=utf-8',
-      'Content-Disposition': 'inline; filename="Roman-Tabardel.vcf"',
+      'Content-Disposition': 'attachment; filename="Roman-Tabardel.vcf"',
       'Cache-Control': 'public, max-age=3600',
     },
   })

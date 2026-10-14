@@ -48,7 +48,7 @@ export function CarteVisite() {
   const avant: Row[] = [
     { href: `tel:${CARTE.telInternational}`, icon: <Phone size={20} />, titre: 'M’appeler', detail: CARTE.telAffiche, principal: true },
     { href: `sms:${CARTE.telInternational}?&body=${encodeURIComponent(CARTE.smsTexte)}`, icon: <MessageCircle size={20} />, titre: 'M’envoyer un message', detail: 'Par SMS, sur mon portable' },
-    { href: '/carte/roman-tabardel.vcf', icon: <UserPlus size={20} />, titre: 'Enregistrer mon contact', detail: 'S’ajoute à votre téléphone' },
+    { href: '/carte/roman-tabardel.vcf?v=2', icon: <UserPlus size={20} />, titre: 'Enregistrer mon contact', detail: 'S’ajoute à votre téléphone' },
     { href: `mailto:${CARTE.email}?subject=${encodeURIComponent(CARTE.mailSujet)}`, icon: <Mail size={20} />, titre: 'M’écrire un e-mail', detail: CARTE.email },
   ]
 
