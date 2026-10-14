@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { Phone, Mail } from 'lucide-react'
 
 const NAV = [
@@ -21,6 +22,7 @@ const LEGAL = [
 export function Footer() {
   const year = new Date().getFullYear()
   const [hidden, setHidden] = useState<string[]>([])
+  const pathname = usePathname()
 
   useEffect(() => {
     try {
@@ -36,6 +38,8 @@ export function Footer() {
       })
       .catch(() => {})
   }, [])
+
+  if (pathname === '/carte') return null
 
   const navVisible = NAV.filter(l => l.href.startsWith('/#') || !hidden.includes(l.href))
 

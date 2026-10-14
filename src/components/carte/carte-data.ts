@@ -1,0 +1,17 @@
+export const CARTE = {
+  metier: 'Création de sites web & référencement',
+  accroche: 'Créateur de sites web',
+  lieu: 'Drôme',
+  telAffiche: '06 18 13 53 84',
+  telInternational: '+33618135384',
+  email: 'contact@tabardel-roman.fr',
+  site: 'https://www.tabardel-roman.fr',
+  siteAffiche: 'tabardel-roman.fr',
+  google: 'https://share.google/kx5fhdyCvTqWblaST',
+  instagram: 'https://www.instagram.com/tabardel_digital/',
+  instagramAffiche: '@tabardel_digital',
+  linkedin: 'https://www.linkedin.com/search/results/all/?keywords=Roman%20TABARDEL',
+  linkedinAffiche: 'Roman Tabardel',
+  smsTexte: 'Bonjour Roman, ',
+  mailSujet: 'Prise de contact',
+}

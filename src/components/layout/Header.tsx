@@ -55,6 +55,8 @@ export function Header() {
   const inkMain = 'var(--rt-ink)'
   const inkMuted = 'var(--rt-muted)'
 
+  if (pathname === '/carte') return null
+
   return (
     <>
       <motion.header
