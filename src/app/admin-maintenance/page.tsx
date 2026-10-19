@@ -1,14 +1,14 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut } from 'lucide-react'
+import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Phone } from 'lucide-react'
 import { HIDEABLE_PAGES } from '@/lib/pages-config'
 import { TEXT_GROUPS } from '@/lib/text-fields'
 
 const SESSION_KEY = 'rtAdminSession'
 const NAVY = '#1B3A6B'
 
-type Tab = 'maintenance' | 'pages' | 'textes' | 'couleurs'
+type Tab = 'appels' | 'maintenance' | 'pages' | 'textes' | 'couleurs'
 
 export default function AdminPage() {
   const [token, setToken]               = useState<string | null>(null)
@@ -17,7 +17,7 @@ export default function AdminPage() {
   const [loading, setLoading]           = useState(false)
   const [error, setError]               = useState('')
   const [booting, setBooting]           = useState(true)
-  const [tab, setTab]                   = useState<Tab>('maintenance')
+  const [tab, setTab]                   = useState<Tab>('appels')
 
   // Reprise de session
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function AdminPage() {
   const logout = useCallback(() => {
     localStorage.removeItem(SESSION_KEY)
     setToken(null)
-    setTab('maintenance')
+    setTab('appels')
   }, [])
 
   if (booting) {
@@ -105,6 +105,7 @@ export default function AdminPage() {
 
   // ── Dashboard ───────────────────────────────────────────────────────────────
   const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
+    { id: 'appels',      label: 'Appels',            icon: <Phone size={16} /> },
     { id: 'maintenance', label: 'Maintenance',       icon: <Wrench size={16} /> },
     { id: 'pages',       label: 'Pages',             icon: <PageHide size={16} /> },
     { id: 'textes',      label: 'Textes',            icon: <FileText size={16} /> },
@@ -145,10 +146,174 @@ export default function AdminPage() {
         </div>
 
         {/* Contenu */}
+        {tab === 'appels'      && <AppelsTab token={token} onExpired={logout} />}
         {tab === 'maintenance' && <MaintenanceTab token={token} onExpired={logout} />}
         {tab === 'pages'    && <PagesTab token={token} onExpired={logout} />}
         {tab === 'textes'   && <TextsTab token={token} onExpired={logout} />}
         {tab === 'couleurs' && <ColorsTab token={token} onExpired={logout} />}
+      </div>
+    </div>
+  )
+}
+
+// ── Onglet Appels (agent téléphonique) ────────────────────────────────────────
+type Appel = import('@/app/api/admin/appels/route').Appel
+
+const URGENCE_COULEUR = { urgente: '#dc2626', normale: '#b45309', faible: '#16a34a' } as const
+
+function AppelsTab({ token, onExpired }: { token: string; onExpired: () => void }) {
+  const [appels, setAppels]   = useState<Appel[]>([])
+  const [loaded, setLoaded]   = useState(false)
+  const [error, setError]     = useState('')
+  const [filtre, setFiltre]   = useState<'a_rappeler' | 'tous'>('a_rappeler')
+  const [saving, setSaving]   = useState<string | null>(null)
+  const [ouvert, setOuvert]   = useState<string | null>(null)
+
+  const charger = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/appels', { headers: { 'x-session-token': token }, cache: 'no-store' })
+      if (res.status === 401) { onExpired(); return }
+      const d = await res.json()
+      if (res.ok) { setAppels(d.appels); setError('') } else setError(d.error || 'Erreur de chargement.')
+    } catch {
+      setError('Erreur réseau.')
+    }
+    setLoaded(true)
+  }, [token, onExpired])
+
+  useEffect(() => {
+    charger()
+    const t = setInterval(charger, 30_000)
+    return () => clearInterval(t)
+  }, [charger])
+
+  async function basculer(a: Appel) {
+    const statut = a.statut === 'a_rappeler' ? 'rappele' : 'a_rappeler'
+    setSaving(a.id)
+    try {
+      const res = await fetch('/api/admin/appels', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-session-token': token },
+        body: JSON.stringify({ id: a.id, statut }),
+      })
+      if (res.status === 401) { onExpired(); return }
+      if (res.ok) setAppels(list => list.map(x => x.id === a.id ? { ...x, statut } : x))
+      else setError('Erreur lors de la mise à jour.')
+    } catch {
+      setError('Erreur réseau.')
+    }
+    setSaving(null)
+  }
+
+  const aRappeler = appels.filter(a => a.statut === 'a_rappeler')
+  const visibles  = filtre === 'a_rappeler' ? aRappeler : appels
+
+  return (
+    <div style={card}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+        <div>
+          <h2 style={cardTitle}>Appels reçus par l&apos;assistant</h2>
+          <p style={{ fontSize: '0.85rem', color: '#6B6B6B', marginTop: 4 }}>
+            <strong style={{ color: NAVY }}>{aRappeler.length}</strong> à rappeler · {appels.length} au total
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: '0.4rem' }}>
+          {(['a_rappeler', 'tous'] as const).map(f => (
+            <button
+              key={f}
+              onClick={() => setFiltre(f)}
+              style={{
+                ...toggleBtn, minWidth: 0,
+                background: filtre === f ? NAVY : '#fff',
+                color: filtre === f ? '#fff' : '#1A1A1A',
+                borderColor: filtre === f ? NAVY : '#E5E3E0',
+              }}
+            >
+              {f === 'a_rappeler' ? 'À rappeler' : 'Tous'}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {error && <p style={{ color: '#dc2626', fontSize: '0.875rem', marginTop: '1rem' }}>{error}</p>}
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '1.25rem' }}>
+        {!loaded && <p style={{ color: '#6B6B6B', fontSize: '0.9rem' }}>Chargement…</p>}
+        {loaded && visibles.length === 0 && (
+          <p style={{ ...row, justifyContent: 'center', color: '#6B6B6B', fontSize: '0.9rem' }}>
+            {filtre === 'a_rappeler' ? 'Aucun appel à rappeler. 👌' : 'Aucun appel pour l’instant.'}
+          </p>
+        )}
+        {visibles.map(a => {
+          const mecontent = a.resume?.startsWith('Client mécontent')
+          return (
+            <div key={a.id} style={{
+              ...row, flexDirection: 'column', alignItems: 'stretch', gap: '0.5rem',
+              opacity: a.statut === 'rappele' ? 0.55 : 1,
+              borderColor: mecontent && a.statut === 'a_rappeler' ? '#fecaca' : '#EEEBE7',
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '0.75rem', alignItems: 'flex-start' }}>
+                <div>
+                  <p style={{ fontWeight: 700, color: '#1A1A1A' }}>
+                    {a.nom || 'Appelant inconnu'}
+                    {a.entreprise && <span style={{ fontWeight: 400, color: '#6B6B6B' }}> · {a.entreprise}</span>}
+                  </p>
+                  <p style={{ fontSize: '0.78rem', color: '#6B6B6B', marginTop: 2 }}>
+                    {new Date(a.debut).toLocaleString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                </div>
+                {a.urgence && (
+                  <span style={{
+                    fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase',
+                    color: URGENCE_COULEUR[a.urgence], border: '1px solid currentColor', borderRadius: 99,
+                    padding: '3px 10px', whiteSpace: 'nowrap',
+                  }}>
+                    {a.urgence}
+                  </span>
+                )}
+              </div>
+
+              {a.telephone && (
+                <a href={`tel:${a.telephone.replace(/\s/g, '')}`} style={{ color: NAVY, fontWeight: 700, fontSize: '1.05rem', textDecoration: 'none' }}>
+                  📞 {a.telephone}
+                </a>
+              )}
+              {a.demande && <p style={{ fontWeight: 600, color: '#1A1A1A', fontSize: '0.92rem' }}>{a.demande}</p>}
+              <p style={{ fontSize: '0.9rem', color: mecontent ? '#b91c1c' : '#3F3F46', lineHeight: 1.55 }}>
+                {a.resume || 'Résumé indisponible : voir la transcription.'}
+              </p>
+              {a.rappel && <p style={{ fontSize: '0.82rem', color: '#6B6B6B' }}>Rappeler : {a.rappel}</p>}
+
+              {ouvert === a.id && (
+                <pre style={{
+                  whiteSpace: 'pre-wrap', fontSize: '0.8rem', lineHeight: 1.6, background: '#fff',
+                  border: '1px solid #EEEBE7', borderRadius: 8, padding: '0.75rem', margin: 0, fontFamily: 'inherit',
+                }}>
+                  {a.transcription}
+                </pre>
+              )}
+
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: 4 }}>
+                <button
+                  onClick={() => basculer(a)}
+                  disabled={saving === a.id}
+                  style={{
+                    ...toggleBtn,
+                    background: a.statut === 'a_rappeler' ? '#16a34a' : '#fff',
+                    color: a.statut === 'a_rappeler' ? '#fff' : '#1A1A1A',
+                    borderColor: a.statut === 'a_rappeler' ? '#16a34a' : '#E5E3E0',
+                    opacity: saving === a.id ? 0.6 : 1,
+                  }}
+                >
+                  {saving === a.id ? '…' : a.statut === 'a_rappeler' ? '✓ Rappelé' : 'Remettre à rappeler'}
+                </button>
+                <button onClick={() => setOuvert(o => o === a.id ? null : a.id)} style={ghostBtn}>
+                  {ouvert === a.id ? 'Masquer la transcription' : 'Transcription'}
+                </button>
+              </div>
+            </div>
+          )
+        })}
       </div>
     </div>
   )
