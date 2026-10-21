@@ -113,7 +113,10 @@ export default function PolitiqueConfidentialitePage() {
             <p className="text-sm leading-relaxed">
               Vos données ne sont jamais vendues ni cédées à des tiers. Elles peuvent être
               traitées par des outils techniques (hébergement Vercel, messagerie email) dans
-              le strict cadre de leur mission et sous accord de confidentialité.
+              le strict cadre de leur mission et sous accord de confidentialité. Certains de ces
+              prestataires sont situés aux États-Unis : ces transferts sont encadrés par le cadre de
+              protection des données UE–États-Unis (Data Privacy Framework) ou par les clauses
+              contractuelles types de la Commission européenne.
             </p>
           </section>
 
@@ -169,7 +172,7 @@ export default function PolitiqueConfidentialitePage() {
           </section>
 
           <p className="text-xs pt-4" style={{ color: 'rgba(255,255,255,0.22)' }}>
-            Dernière mise à jour : mai 2025
+            Dernière mise à jour : octobre 2026
           </p>
 
         </div>

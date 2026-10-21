@@ -41,8 +41,13 @@ export default function CGVPage() {
             <p className="text-sm leading-relaxed">
               Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles
               entre ROMAN TABARDEL, entrepreneur individuel (SIRET 104 465 604 00015), ci-après
-              désigné « le Prestataire », et toute personne physique ou morale souhaitant bénéficier
-              de ses services, ci-après désignée « le Client ».
+              désigné « le Prestataire », et ses clients, ci-après désignés « le Client ».
+            </p>
+            <p className="text-sm leading-relaxed mt-3">
+              Les prestations sont réservées aux <strong style={{ color: '#FFFFFF' }}>professionnels</strong> (entreprises,
+              artisans, commerçants, professions libérales, associations) qui les commandent pour les besoins
+              de leur activité. Le Prestataire ne contracte pas avec des consommateurs. Le Client indique sa
+              raison sociale et son numéro SIRET (ou RNA) lors de la commande.
             </p>
             <p className="text-sm leading-relaxed mt-3">
               Toute commande implique l'acceptation pleine et entière des présentes CGV.
@@ -85,7 +90,7 @@ export default function CGVPage() {
             <p className="text-sm leading-relaxed mb-3">
               Toute prestation fait l'objet d'un devis détaillé, établi gratuitement après un échange
               téléphonique ou par email. Le devis précise la nature des travaux, le délai de réalisation
-              et le prix TTC.
+              et le prix net (TVA non applicable).
             </p>
             <p className="text-sm leading-relaxed">
               La commande est confirmée par le retour du devis signé (ou par email) et le versement
@@ -101,7 +106,7 @@ export default function CGVPage() {
               Article 3 : Tarifs
             </h2>
             <p className="text-sm leading-relaxed mb-3">
-              Les tarifs sont exprimés en euros toutes taxes comprises (TTC). En qualité de
+              Les tarifs sont exprimés en euros, nets de taxe. En qualité de
               micro-entrepreneur bénéficiant de la franchise en base de TVA (art. 293 B du CGI),
               le Prestataire ne facture pas la TVA. La mention « TVA non applicable » figure sur
               chaque facture.
@@ -134,9 +139,11 @@ export default function CGVPage() {
               ))}
             </ul>
             <p className="text-sm leading-relaxed">
-              Modes de paiement acceptés : virement bancaire, PayPal. En cas de retard de paiement,
-              des pénalités de 10 % du montant dû par mois de retard seront appliquées, ainsi qu'une
-              indemnité forfaitaire de recouvrement de 40 € (art. L.441-10 du Code de commerce).
+              Modes de paiement acceptés : virement bancaire, PayPal. Les factures sont payables à
+              réception, sans escompte pour paiement anticipé. En cas de retard de paiement, des
+              pénalités de 10 % du montant dû par mois de retard seront appliquées, ainsi qu'une
+              indemnité forfaitaire pour frais de recouvrement de 40 € (art. L.441-10 et D.441-5 du
+              Code de commerce).
             </p>
           </section>
 
@@ -229,11 +236,25 @@ export default function CGVPage() {
             <h2 className="font-display font-semibold text-lg mb-4" style={{ color: '#FFFFFF' }}>
               Article 9 : Rétractation
             </h2>
+            <p className="text-sm leading-relaxed mb-3">
+              Les prestations étant conclues entre professionnels, elles n'ouvrent en principe aucun
+              droit de rétractation.
+            </p>
+            <p className="text-sm leading-relaxed mb-3">
+              Par exception (article L.221-3 du Code de la consommation), le Client professionnel qui
+              emploie <strong style={{ color: '#FFFFFF' }}>5 salariés au plus</strong> dispose d'un délai de
+              rétractation de <strong style={{ color: '#FFFFFF' }}>14 jours</strong> à compter de la signature,
+              lorsque le contrat a été conclu hors établissement (par exemple dans ses locaux) et que la
+              création de site n'entre pas dans le champ de son activité principale. Il exerce ce droit
+              en adressant au Prestataire, avant la fin du délai, une déclaration dénuée d'ambiguïté,
+              par exemple : « Je vous notifie par la présente ma rétractation du contrat portant sur la
+              prestation ci-dessous : [prestation], signé le [date]. Nom, raison sociale, adresse, date,
+              signature. » Les sommes versées sont remboursées dans les 14 jours.
+            </p>
             <p className="text-sm leading-relaxed">
-              Conformément à l'article L.221-28 du Code de la consommation, le droit de rétractation
-              ne peut être exercé pour les prestations de services pleinement exécutées avant la fin
-              du délai de rétractation, dès lors que l'exécution a commencé avec l'accord exprès du
-              Client. Pour les clients professionnels (B2B), aucun droit de rétractation ne s'applique.
+              Si ce Client demande expressément que les travaux commencent avant la fin du délai, il
+              reste redevable, en cas de rétractation, du montant correspondant au travail effectué
+              jusqu'à la communication de sa décision.
             </p>
           </section>
 
@@ -302,7 +323,7 @@ export default function CGVPage() {
           </section>
 
           <p className="text-xs pt-4" style={{ color: 'rgba(255,255,255,0.22)' }}>
-            Dernière mise à jour : mai 2025
+            Dernière mise à jour : octobre 2026
           </p>
 
         </div>
