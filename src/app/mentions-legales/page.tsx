@@ -43,6 +43,7 @@ export default function MentionsLegalesPage() {
               <p><span style={{ color: 'rgba(255,255,255,0.35)' }}>Forme juridique :</span> Entrepreneur individuel (EI)</p>
               <p><span style={{ color: 'rgba(255,255,255,0.35)' }}>SIREN :</span> 104 465 604</p>
               <p><span style={{ color: 'rgba(255,255,255,0.35)' }}>SIRET :</span> 104 465 604 00015</p>
+              <p><span style={{ color: 'rgba(255,255,255,0.35)' }}>Adresse :</span> Chemin des Lauriers, 26400 Allex, France</p>
               <p><span style={{ color: 'rgba(255,255,255,0.35)' }}>Téléphone :</span> 06 18 13 53 84</p>
               <p><span style={{ color: 'rgba(255,255,255,0.35)' }}>Email :</span>{' '}
                 <a href="mailto:contact@tabardel-roman.fr" style={{ color: '#C8FF00' }}>
@@ -171,7 +172,7 @@ export default function MentionsLegalesPage() {
           </section>
 
           <p className="text-xs pt-4" style={{ color: 'rgba(255,255,255,0.22)' }}>
-            Dernière mise à jour : mai 2025
+            Dernière mise à jour : octobre 2026
           </p>
 
         </div>
