@@ -13,13 +13,13 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { password, value } = await request.json()
-
-    // Accepte soit un token de session valide (header), soit le mot de passe (secours)
-    const okToken    = requireAdmin(request)
-    const okPassword = !!password && password === process.env.MAINTENANCE_PASSWORD
-    if (!okToken && !okPassword) {
+    if (!requireAdmin(request)) {
       return NextResponse.json({ error: 'Non autorisé.' }, { status: 401 })
+    }
+
+    const { value } = await request.json()
+    if (typeof value !== 'boolean') {
+      return NextResponse.json({ error: 'Données invalides.' }, { status: 400 })
     }
 
     const edgeConfigId = process.env.EDGE_CONFIG_ID

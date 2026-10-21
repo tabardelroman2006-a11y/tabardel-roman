@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server'
 import { get } from '@vercel/edge-config'
 import { getAvailableDates, generateDaySlots, isValidSlot } from '@/lib/booking'
+import { getClientIP, createIPRateLimiter } from '@/lib/admin-security'
 
 const KEY = 'booked_slots'
+
+// 3 réservations / heure par IP, puis blocage 1 h
+const bookingLimiter = createIPRateLimiter({ maxReq: 3, windowMs: 60 * 60_000, blockMs: 60 * 60_000 })
 
 async function readBooked(): Promise<string[]> {
   try {
@@ -22,6 +26,11 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const ip = getClientIP(request)
+  if (bookingLimiter.check(ip) !== null) {
+    return NextResponse.json({ error: 'Trop de réservations. Réessayez plus tard.' }, { status: 429 })
+  }
+
   let body: { date?: string; time?: string }
   try {
     body = await request.json()
@@ -61,5 +70,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Erreur lors de la réservation.' }, { status: 500 })
   }
 
+  bookingLimiter.record(ip)
   return NextResponse.json({ ok: true, slot: slotId })
 }
