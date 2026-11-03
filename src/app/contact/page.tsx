@@ -6,7 +6,7 @@ import { ContactPanel } from '@/components/accueil/ContactPanel'
 
 export const metadata: Metadata = pageMeta({
   title: 'Contact',
-  description: 'Contactez Roman Tabardel, créateur de sites web dans la Drôme, pour votre projet de site ou de référencement : par téléphone au 06 18 13 53 84, par e-mail ou par formulaire.',
+  description: 'Contactez Roman Tabardel, créateur de sites web dans la Drôme : par téléphone au 06 18 13 53 84, par e-mail ou par formulaire.',
   path: '/contact',
 })
 

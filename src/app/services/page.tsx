@@ -8,7 +8,7 @@ import { ClosingMagnet } from '@/components/accueil/ClosingMagnet'
 export const metadata: Metadata = pageMeta({
   title: 'Services et réalisations',
   description:
-    'Création de sites vitrine et e-commerce sur mesure, refonte, référencement naturel et audit SEO. Découvrez les sites réalisés pour des artisans et commerces de la Drôme.',
+    'Création de sites vitrine et e-commerce sur mesure, refonte, référencement naturel et audit SEO pour les artisans et commerces de la Drôme.',
   path: '/services',
 })
 

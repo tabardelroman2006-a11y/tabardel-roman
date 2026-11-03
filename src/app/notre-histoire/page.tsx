@@ -8,7 +8,7 @@ import { ClosingMagnet } from '@/components/accueil/ClosingMagnet'
 
 export const metadata: Metadata = pageMeta({
   title: 'À propos',
-  description: "Roman Tabardel, créateur de sites web indépendant installé à Allex, dans la Drôme : son parcours et sa façon de travailler. Écouter, comprendre, créer et accompagner.",
+  description: "Roman Tabardel, créateur de sites web indépendant à Allex, dans la Drôme : son parcours et sa façon de travailler.",
   path: '/notre-histoire',
 })
 
