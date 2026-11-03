@@ -1,14 +1,16 @@
 import type { Metadata } from 'next'
+import { pageMeta } from '@/lib/seo'
 import { PageIntro } from '@/components/accueil/PageIntro'
 import { ScanPortrait } from '@/components/accueil/ScanPortrait'
 import { StoryChapters } from '@/components/accueil/StoryChapters'
 import { ValuesFill } from '@/components/accueil/ValuesFill'
 import { ClosingMagnet } from '@/components/accueil/ClosingMagnet'
 
-export const metadata: Metadata = {
-  title: 'À propos | Roman Tabardel',
-  description: "Découvrez qui est Roman Tabardel, créateur de sites web indépendant basé en Drôme.",
-}
+export const metadata: Metadata = pageMeta({
+  title: 'À propos',
+  description: "Roman Tabardel, créateur de sites web indépendant installé à Allex, dans la Drôme : son parcours et sa façon de travailler. Écouter, comprendre, créer et accompagner.",
+  path: '/notre-histoire',
+})
 
 export default function NotreHistoirePage() {
   return (

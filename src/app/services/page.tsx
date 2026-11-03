@@ -1,14 +1,16 @@
 import type { Metadata } from 'next'
+import { pageMeta } from '@/lib/seo'
 import { PageIntro } from '@/components/accueil/PageIntro'
 import { OffersStack } from '@/components/accueil/OffersStack'
 import { CaseStudies } from '@/components/accueil/CaseStudies'
 import { ClosingMagnet } from '@/components/accueil/ClosingMagnet'
 
-export const metadata: Metadata = {
-  title: 'Services & Réalisations | Roman Tabardel',
+export const metadata: Metadata = pageMeta({
+  title: 'Services et réalisations',
   description:
-    'Création de sites web sur mesure, refonte, SEO et audit, découvrez nos réalisations.',
-}
+    'Création de sites vitrine et e-commerce sur mesure, refonte, référencement naturel et audit SEO. Découvrez les sites réalisés pour des artisans et commerces de la Drôme.',
+  path: '/services',
+})
 
 export default function ServicesPage() {
   return (

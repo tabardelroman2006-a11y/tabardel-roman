@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { DevisModal } from '@/components/ui/DevisModal'
 import { ThemeColors } from '@/components/ThemeColors'
+import { SITE_URL, SITE_NAME, OG_IMAGE, JSON_LD } from '@/lib/seo'
 
 const barlow = Barlow_Condensed({
   variable: '--font-barlow',
@@ -35,7 +36,7 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tabardel-roman.fr'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Roman Tabardel | Création de sites web & SEO',
     template: '%s | Roman Tabardel',
@@ -45,17 +46,19 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
-    siteName: 'Roman Tabardel',
+    siteName: SITE_NAME,
     title: 'Roman Tabardel | Création de sites web & SEO',
     description: 'Des sites qui vendent. Pas des sites qui existent.',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+    images: [OG_IMAGE],
   },
+  twitter: { card: 'summary_large_image', images: [OG_IMAGE.url] },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${barlow.variable} ${nunito.variable} ${bricolage.variable}`} suppressHydrationWarning>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
         <ModalProvider>
           <ThemeColors />
           <SmoothScroll>

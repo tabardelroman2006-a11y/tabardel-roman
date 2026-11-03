@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageMeta } from '@/lib/seo'
 import { Preloader } from '@/components/accueil/Preloader'
 import { HeroScan } from '@/components/accueil/HeroScan'
 import { Marquee } from '@/components/accueil/Marquee'
@@ -10,9 +11,14 @@ import { AboutFan } from '@/components/accueil/AboutFan'
 import { FinalCallout } from '@/components/accueil/FinalCallout'
 
 export const metadata: Metadata = {
-  title: 'Roman Tabardel | Création de sites web & SEO',
-  description:
-    'Des sites web sur mesure qui convertissent, pour les artisans, TPE et PME. Création de sites vitrine, e-commerce et référencement naturel partout en France.',
+  ...pageMeta({
+    title: 'Roman Tabardel | Création de sites web & SEO',
+    ogTitle: 'Roman Tabardel | Création de sites web & SEO',
+    description:
+      'Des sites web sur mesure qui convertissent, pour les artisans, TPE et PME. Création de sites vitrine, e-commerce et référencement naturel partout en France.',
+    path: '/',
+  }),
+  title: { absolute: 'Roman Tabardel | Création de sites web & SEO, Drôme' },
 }
 
 export default function HomePage() {

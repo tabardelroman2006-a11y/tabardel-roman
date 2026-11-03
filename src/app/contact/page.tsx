@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
+import { pageMeta } from '@/lib/seo'
 import { PageIntro } from '@/components/accueil/PageIntro'
 import { RevealPhoto } from '@/components/accueil/RevealPhoto'
 import { ContactPanel } from '@/components/accueil/ContactPanel'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'Contact',
-  description: 'Contactez Roman Tabardel pour votre projet de site web ou de référencement.',
-}
+  description: 'Contactez Roman Tabardel, créateur de sites web dans la Drôme, pour votre projet de site ou de référencement : par téléphone au 06 18 13 53 84, par e-mail ou par formulaire.',
+  path: '/contact',
+})
 
 export default function ContactPage() {
   return (

@@ -3,7 +3,8 @@
 export const metadata: Metadata = {
   title: 'Conditions générales de vente',
   description: 'CGV de Roman Tabardel, conditions de prestation de services web.',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
+  alternates: { canonical: '/cgv' },
 }
 
 export default function CGVPage() {

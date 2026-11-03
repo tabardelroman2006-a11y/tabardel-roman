@@ -95,7 +95,7 @@ export function Track() {
           {ITEMS.map((item, i) => (
             <Box key={i} item={item}>
               {item.kind === 'img' && (
-                <a href={item.href} target={item.href ? '_blank' : undefined} rel="noopener noreferrer" className={`group block ${item.href ? '' : 'pointer-events-none'}`}>
+                <MaybeLink href={item.href}>
                   <div data-media className="overflow-hidden" style={{ aspectRatio: item.ratio, borderRadius: 14, boxShadow: '0 25px 60px color-mix(in srgb, var(--rt-primary) 18%, transparent)', backgroundColor: '#FFFFFF' }}>
                     <SafeImg src={item.src!} alt={item.caption} className="w-full h-full object-cover object-top transition-[filter] duration-500 group-hover:brightness-105" />
                   </div>
@@ -103,7 +103,7 @@ export function Track() {
                     <span>{item.caption}</span>
                     {item.href && <ArrowUpRight size={14} className="shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" style={{ color: 'var(--rt-primary)' }} />}
                   </p>
-                </a>
+                </MaybeLink>
               )}
               {item.kind === 'quote' && (
                 <blockquote>
@@ -136,4 +136,10 @@ export function Track() {
       </div>
     </section>
   )
+}
+
+function MaybeLink({ href, children }: { href?: string; children: ReactNode }) {
+  return href
+    ? <a href={href} target="_blank" rel="noopener noreferrer" className="group block">{children}</a>
+    : <div className="group block pointer-events-none">{children}</div>
 }

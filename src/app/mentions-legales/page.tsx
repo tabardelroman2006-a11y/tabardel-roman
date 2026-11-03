@@ -3,7 +3,8 @@
 export const metadata: Metadata = {
   title: 'Mentions légales',
   description: 'Mentions légales de Roman Tabardel, créateur de sites web.',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
+  alternates: { canonical: '/mentions-legales' },
 }
 
 export default function MentionsLegalesPage() {

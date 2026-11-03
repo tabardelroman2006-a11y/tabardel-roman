@@ -43,7 +43,7 @@ export function HeroScan() {
           {t('hero.eyebrow')}
         </p>
         <h1 className="uppercase" style={{ ...DISPLAY_FONT, color: 'var(--rt-primary)', fontWeight: 700, lineHeight: 0.85, letterSpacing: '-0.035em', fontSize: 'clamp(3.2rem, 12vw, 13rem)' }}>
-          <span className="acc-rise-mask"><span className="acc-rise" style={{ animationDelay: '0.15s' }}>{insecable(t('hero.title'))}</span></span>
+          <span className="acc-rise-mask"><span className="acc-rise" style={{ animationDelay: '0.15s' }}>{insecable(t('hero.title'))}</span></span><span className="sr-only"> Roman Tabardel, création de sites web et référencement dans la Drôme</span>
         </h1>
       </div>
 

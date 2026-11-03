@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from 'next'
+import { pageMeta } from '@/lib/seo'
 import { CarteVisite } from '@/components/carte/CarteVisite'
 
 export const metadata: Metadata = {
-  title: 'Carte de visite',
-  description: 'Appeler, écrire ou enregistrer le contact de Roman Tabardel, créateur de sites web dans la Drôme.',
-  openGraph: {
-    title: 'Roman Tabardel | Carte de visite',
-    description: 'Appelez-moi, écrivez-moi ou enregistrez mon contact en un geste.',
-    images: [{ url: '/images/accueil/roman-dehors.jpg', width: 900, height: 1354 }],
-  },
+  ...pageMeta({
+    title: 'Carte de visite',
+    description: 'Appeler, écrire ou enregistrer le contact de Roman Tabardel, créateur de sites web dans la Drôme.',
+    path: '/carte',
+    image: { url: '/images/accueil/roman-dehors.jpg', width: 900, height: 1354, alt: 'Roman Tabardel' },
+  }),
+  robots: { index: false, follow: true },
 }
 
 export const viewport: Viewport = {

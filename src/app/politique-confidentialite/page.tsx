@@ -3,7 +3,8 @@
 export const metadata: Metadata = {
   title: 'Politique de confidentialité',
   description: 'Politique de confidentialité de Roman Tabardel, traitement des données personnelles.',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
+  alternates: { canonical: '/politique-confidentialite' },
 }
 
 export default function PolitiqueConfidentialitePage() {
@@ -116,7 +117,7 @@ export default function PolitiqueConfidentialitePage() {
               traitées par des outils techniques (hébergement Vercel, messagerie email) dans
               le strict cadre de leur mission et sous accord de confidentialité. Certains de ces
               prestataires sont situés aux États-Unis : ces transferts sont encadrés par le cadre de
-              protection des données UE–États-Unis (Data Privacy Framework) ou par les clauses
+              protection des données UE-États-Unis (Data Privacy Framework) ou par les clauses
               contractuelles types de la Commission européenne.
             </p>
           </section>
