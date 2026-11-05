@@ -1,14 +1,15 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Phone } from 'lucide-react'
+import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Phone, Search, Home } from 'lucide-react'
 import { HIDEABLE_PAGES } from '@/lib/pages-config'
 import { TEXT_GROUPS } from '@/lib/text-fields'
+import { extractGoogleCode } from '@/lib/google-verification'
 
 const SESSION_KEY = 'rtAdminSession'
 const NAVY = '#1B3A6B'
 
-type Tab = 'appels' | 'maintenance' | 'pages' | 'textes' | 'couleurs'
+type Tab = 'accueil' | 'appels' | 'maintenance' | 'pages' | 'textes' | 'couleurs' | 'google'
 
 export default function AdminPage() {
   const [token, setToken]               = useState<string | null>(null)
@@ -17,7 +18,7 @@ export default function AdminPage() {
   const [loading, setLoading]           = useState(false)
   const [error, setError]               = useState('')
   const [booting, setBooting]           = useState(true)
-  const [tab, setTab]                   = useState<Tab>('appels')
+  const [tab, setTab]                   = useState<Tab>('accueil')
 
   // Reprise de session
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function AdminPage() {
   const logout = useCallback(() => {
     localStorage.removeItem(SESSION_KEY)
     setToken(null)
-    setTab('appels')
+    setTab('accueil')
   }, [])
 
   if (booting) {
@@ -71,9 +72,11 @@ export default function AdminPage() {
   if (!token) {
     return (
       <div style={shell}>
-        <div style={{ ...card, maxWidth: 400 }}>
-          <p style={eyebrow}>Admin</p>
-          <h1 style={title}>Espace de gestion</h1>
+        <style>{ADMIN_CSS}</style>
+        <div style={{ ...card, maxWidth: 380, textAlign: 'center', borderRadius: 20, padding: '2.4rem', boxShadow: '0 20px 60px -30px rgba(27,58,107,0.35)' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/logo-roman.png" alt="Roman Tabardel" style={{ width: 84, height: 70, objectFit: 'cover', margin: '0 auto 1rem', display: 'block' }} />
+          <h1 style={title}>Espace Roman</h1>
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ position: 'relative' }}>
               <input
@@ -103,58 +106,149 @@ export default function AdminPage() {
     )
   }
 
-  // ── Dashboard ───────────────────────────────────────────────────────────────
-  const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
-    { id: 'appels',      label: 'Appels',            icon: <Phone size={16} /> },
-    { id: 'maintenance', label: 'Maintenance',       icon: <Wrench size={16} /> },
-    { id: 'pages',       label: 'Pages',             icon: <PageHide size={16} /> },
-    { id: 'textes',      label: 'Textes',            icon: <FileText size={16} /> },
-    { id: 'couleurs',    label: 'Couleurs',          icon: <Palette size={16} /> },
-  ]
+  // ── Espace de gestion ───────────────────────────────────────────────────────
+  const current = TABS.find(t => t.id === tab) ?? TABS[0]
 
   return (
-    <div style={{ minHeight: '100vh', background: '#F4F4F4', padding: '2rem 1rem' }}>
-      <div style={{ maxWidth: 880, margin: '0 auto' }}>
-
-        {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <div>
-            <p style={eyebrow}>Admin · Roman Tabardel</p>
-            <h1 style={{ ...title, marginBottom: 0 }}>Espace de gestion</h1>
-          </div>
-          <button onClick={logout} style={ghostBtn}>
-            <LogOut size={15} /> Déconnexion
-          </button>
-        </div>
-
-        {/* Onglets */}
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
+    <div className="adm-app">
+      <style>{ADMIN_CSS}</style>
+      <aside className="adm-side">
+        <a href="/" target="_blank" rel="noreferrer" className="adm-brand">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/logo-roman.png" alt="" />
+          <span>Roman Tabardel</span>
+        </a>
+        <nav className="adm-nav">
           {TABS.map(t => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              style={{
-                ...tabBtn,
-                background: tab === t.id ? NAVY : '#fff',
-                color: tab === t.id ? '#fff' : '#1A1A1A',
-                borderColor: tab === t.id ? NAVY : '#E5E3E0',
-              }}
-            >
-              {t.icon} {t.label}
+            <button key={t.id} onClick={() => setTab(t.id)} className={tab === t.id ? 'is-on' : ''}>
+              {t.icon} <span>{t.label}</span>
             </button>
           ))}
+        </nav>
+        <div className="adm-side__foot">
+          <a href="/" target="_blank" rel="noreferrer">Voir mon site ↗</a>
+          <button onClick={logout}><LogOut size={14} /> Se déconnecter</button>
         </div>
+      </aside>
 
-        {/* Contenu */}
+      <main className="adm-main">
+        <div className="adm-head">
+          <h1 style={title}>{current.label}</h1>
+          <p>{current.hint}</p>
+        </div>
+        {tab === 'accueil'     && <AccueilTab token={token} onExpired={logout} go={setTab} />}
         {tab === 'appels'      && <AppelsTab token={token} onExpired={logout} />}
         {tab === 'maintenance' && <MaintenanceTab token={token} onExpired={logout} />}
-        {tab === 'pages'    && <PagesTab token={token} onExpired={logout} />}
-        {tab === 'textes'   && <TextsTab token={token} onExpired={logout} />}
-        {tab === 'couleurs' && <ColorsTab token={token} onExpired={logout} />}
-      </div>
+        {tab === 'pages'       && <PagesTab token={token} onExpired={logout} />}
+        {tab === 'textes'      && <TextsTab token={token} onExpired={logout} />}
+        {tab === 'couleurs'    && <ColorsTab token={token} onExpired={logout} />}
+        {tab === 'google'      && <GoogleTab token={token} onExpired={logout} />}
+      </main>
     </div>
   )
 }
+
+const TABS: { id: Tab; label: string; hint: string; icon: React.ReactNode }[] = [
+  { id: 'accueil',     label: 'Accueil',     hint: 'Ton site en un coup d’œil.',                         icon: <Home size={17} /> },
+  { id: 'appels',      label: 'Appels',      hint: 'Les appels pris par ton assistant téléphonique.',    icon: <Phone size={17} /> },
+  { id: 'maintenance', label: 'Maintenance', hint: 'Fermer le site le temps de travaux.',                icon: <Wrench size={17} /> },
+  { id: 'pages',       label: 'Pages',       hint: 'Masquer ou réafficher des pages du site.',           icon: <PageHide size={17} /> },
+  { id: 'textes',      label: 'Textes',      hint: 'Modifier les textes de la page d’accueil.',          icon: <FileText size={17} /> },
+  { id: 'couleurs',    label: 'Couleurs',    hint: 'La couleur principale de ton site.',                 icon: <Palette size={17} /> },
+  { id: 'google',      label: 'Google',      hint: 'Faire reconnaître ton site par Google Search Console.', icon: <Search size={17} /> },
+]
+
+// ── Onglet Accueil (récapitulatif) ────────────────────────────────────────────
+function AccueilTab({ token, onExpired, go }: { token: string; onExpired: () => void; go: (t: Tab) => void }) {
+  const [appels, setAppels]           = useState<number | null>(null)
+  const [maintenance, setMaintenance] = useState<boolean | null>(null)
+  const [hidden, setHidden]           = useState<number | null>(null)
+  const [google, setGoogle]           = useState<boolean | null>(null)
+
+  useEffect(() => {
+    fetch('/api/admin/appels', { headers: { 'x-session-token': token }, cache: 'no-store' })
+      .then(r => { if (r.status === 401) { onExpired(); return null } return r.json() })
+      .then(d => { if (d?.appels) setAppels((d.appels as Appel[]).filter(a => a.statut === 'a_rappeler').length) })
+      .catch(() => {})
+    fetch('/api/maintenance').then(r => r.json()).then(d => setMaintenance(d.maintenance === true)).catch(() => {})
+    fetch('/api/admin/content').then(r => r.json()).then(d => {
+      const c = d?.content ?? {}
+      setHidden(Array.isArray(c.hidden_pages) ? c.hidden_pages.length : 0)
+      setGoogle(typeof c.seo?.google_verification === 'string' && c.seo.google_verification !== '')
+    }).catch(() => {})
+  }, [token, onExpired])
+
+  const dash = '…'
+  const kpis: { tab: Tab; value: string; label: string; color: string }[] = [
+    { tab: 'appels',      value: appels === null ? dash : String(appels), label: appels === 1 ? 'appel à rappeler' : 'appels à rappeler', color: NAVY },
+    { tab: 'maintenance', value: maintenance === null ? dash : maintenance ? 'Fermé' : 'En ligne', label: maintenance ? 'site en maintenance' : 'site ouvert au public', color: maintenance ? '#dc2626' : '#16a34a' },
+    { tab: 'pages',       value: hidden === null ? dash : String(hidden), label: hidden === 1 ? 'page masquée' : 'pages masquées', color: '#b45309' },
+    { tab: 'google',      value: google === null ? dash : google ? 'Oui' : 'Non', label: 'balise Google en place', color: google ? '#16a34a' : '#6B6B6B' },
+  ]
+
+  return (
+    <>
+      <div className="adm-kpis">
+        {kpis.map(k => (
+          <button key={k.tab} className="adm-kpi" style={{ borderTopColor: k.color }} onClick={() => go(k.tab)}>
+            <b style={{ color: k.color }}>{k.value}</b>
+            <span>{k.label}</span>
+          </button>
+        ))}
+      </div>
+      <div style={card}>
+        <h2 style={cardTitle}>Raccourcis</h2>
+        <div className="adm-shortcuts">
+          {TABS.filter(t => t.id !== 'accueil').map(t => (
+            <button key={t.id} onClick={() => go(t.id)}>
+              {t.icon}
+              <span><strong>{t.label}</strong><small>{t.hint}</small></span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
+  )
+}
+
+const ADMIN_CSS = `
+body:has(.adm-app) header, body:has(.adm-app) footer { display: none !important; }
+.adm-app { display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); min-height: 100vh; background: #F4F4F4; color: #1A1A1A; font-family: var(--font-nunito, system-ui), sans-serif; }
+.adm-side { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; padding: 1.4rem 1rem; background: #fff; border-right: 1px solid #EBEBEB; }
+.adm-brand { display: flex; align-items: center; gap: 0.7rem; padding: 0 0.6rem 1.6rem; text-decoration: none; color: #1A1A1A; font-weight: 800; font-family: var(--font-barlow, sans-serif); font-size: 1.15rem; letter-spacing: 0.01em; }
+.adm-brand img { width: 2.6rem; height: 2.2rem; object-fit: cover; }
+.adm-nav { display: grid; gap: 0.2rem; }
+.adm-nav button { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.95rem; border-radius: 999px; border: 0; background: none; text-align: left; font: inherit; font-weight: 600; color: #1A1A1A; cursor: pointer; transition: background 0.2s; }
+.adm-nav button:hover { background: #F4F4F4; }
+.adm-nav button.is-on { background: ${NAVY}; color: #fff; }
+.adm-side__foot { margin-top: auto; display: grid; gap: 0.6rem; padding: 0 0.95rem; font-size: 0.88rem; color: #6B6B6B; }
+.adm-side__foot a { color: inherit; text-decoration: none; }
+.adm-side__foot button { display: inline-flex; align-items: center; gap: 0.4rem; border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; }
+.adm-main { padding: 2.2rem clamp(1rem, 3vw, 2.8rem) 5rem; max-width: 64rem; width: 100%; }
+.adm-head { margin-bottom: 1.4rem; }
+.adm-head p { color: #6B6B6B; margin-top: 0.35rem; }
+.adm-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.9rem; margin-bottom: 0.9rem; }
+.adm-kpi { display: grid; gap: 0.3rem; text-align: left; padding: 1.1rem 1.2rem; background: #fff; border: 1px solid #EBEBEB; border-top: 5px solid; border-radius: 14px; font: inherit; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.adm-kpi:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -18px rgba(0,0,0,0.25); }
+.adm-kpi b { font-size: 1.9rem; font-weight: 800; font-family: var(--font-barlow, sans-serif); letter-spacing: -0.01em; }
+.adm-kpi span { color: #6B6B6B; font-size: 0.85rem; }
+.adm-shortcuts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin-top: 1rem; }
+.adm-shortcuts button { display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.9rem 1rem; border-radius: 12px; border: 1px solid #EBEBEB; background: #FAFAFA; text-align: left; font: inherit; color: ${NAVY}; cursor: pointer; transition: border-color 0.2s; }
+.adm-shortcuts button:hover { border-color: ${NAVY}; }
+.adm-shortcuts span { display: grid; gap: 0.15rem; color: #1A1A1A; }
+.adm-shortcuts small { color: #6B6B6B; font-size: 0.8rem; }
+@media (max-width: 860px) {
+  .adm-app { grid-template-columns: minmax(0, 1fr); }
+  .adm-side { min-width: 0; position: sticky; z-index: 5; height: auto; padding: 0.8rem 0.8rem 0.6rem; border-right: 0; border-bottom: 1px solid #EBEBEB; }
+  .adm-brand { padding: 0 0.3rem 0.6rem; }
+  .adm-nav { display: flex; overflow-x: auto; gap: 0.3rem; scrollbar-width: none; }
+  .adm-nav button { flex-shrink: 0; padding: 0.55rem 0.9rem; }
+  .adm-side__foot { display: none; }
+  .adm-main { padding: 1.4rem 1rem 4rem; }
+  .adm-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .adm-shortcuts { grid-template-columns: 1fr; }
+}
+`
 
 // ── Onglet Appels (agent téléphonique) ────────────────────────────────────────
 type Appel = import('@/app/api/admin/appels/route').Appel
@@ -674,21 +768,104 @@ function ColorsTab({ token, onExpired }: { token: string; onExpired: () => void 
   )
 }
 
+// ── Onglet Google (balise de validation Search Console) ──────────────────────
+function GoogleTab({ token, onExpired }: { token: string; onExpired: () => void }) {
+  const [value, setValue]     = useState('')
+  const [saved, setSaved]     = useState<string | null>(null)
+  const [loaded, setLoaded]   = useState(false)
+  const [saving, setSaving]   = useState(false)
+  const [error, setError]     = useState('')
+  const [success, setSuccess] = useState('')
+
+  useEffect(() => {
+    fetch('/api/admin/content')
+      .then(r => r.json())
+      .then(d => {
+        const v = d?.content?.seo?.google_verification
+        if (typeof v === 'string' && v) { setSaved(v); setValue(`<meta name="google-site-verification" content="${v}" />`) }
+      })
+      .catch(() => {})
+      .finally(() => setLoaded(true))
+  }, [])
+
+  async function persist(code: string, msg: string) {
+    setSaving(true); setError(''); setSuccess('')
+    try {
+      const res = await fetch('/api/admin/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-session-token': token },
+        body: JSON.stringify({ patch: { seo: { google_verification: code } } }),
+      })
+      if (res.status === 401) { onExpired(); return }
+      if (res.ok) { setSaved(code || null); setSuccess(msg) }
+      else setError('Erreur lors de l\'enregistrement.')
+    } catch {
+      setError('Erreur réseau.')
+    }
+    setSaving(false)
+  }
+
+  const code = extractGoogleCode(value)
+  const invalid = value.trim() !== '' && !code
+
+  return (
+    <div style={card}>
+      <h2 style={cardTitle}>Validation Google (Search Console)</h2>
+      <p style={{ fontSize: '0.85rem', color: '#6B6B6B', margin: '0.5rem 0 1.5rem', lineHeight: 1.6 }}>
+        Dans Google Search Console, choisis la méthode <strong>Balise HTML</strong>, copie la balise
+        qu&apos;il te donne et colle-la ici. Enregistre, attends une minute, puis clique sur
+        <strong> Valider</strong> chez Google.
+      </p>
+
+      <textarea
+        value={value}
+        onChange={e => { setValue(e.target.value); setSuccess('') }}
+        placeholder={'<meta name="google-site-verification" content="..." />'}
+        disabled={!loaded}
+        rows={3}
+        style={{ ...input, padding: '12px 14px', fontFamily: 'monospace', fontSize: '0.85rem', resize: 'vertical', marginBottom: '0.75rem' }}
+      />
+
+      {saved && !success && (
+        <p style={{ color: '#16a34a', fontSize: '0.85rem', marginBottom: '0.75rem' }}>🟢 Une balise est en place sur le site.</p>
+      )}
+      {invalid && <p style={{ color: '#dc2626', fontSize: '0.8rem', marginBottom: '0.75rem' }}>Balise non reconnue : colle exactement celle donnée par Google.</p>}
+      {error   && <p style={{ color: '#dc2626', fontSize: '0.875rem', marginBottom: '0.75rem' }}>{error}</p>}
+      {success && <p style={{ color: '#16a34a', fontSize: '0.875rem', marginBottom: '0.75rem' }}>{success}</p>}
+
+      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <button
+          onClick={() => code && persist(code, 'Balise enregistrée. Elle sera sur le site d\'ici une minute.')}
+          disabled={saving || !loaded || !code}
+          style={{ ...primaryBtn, width: 'auto', padding: '12px 28px', opacity: (saving || !loaded || !code) ? 0.6 : 1 }}
+        >
+          {saving ? 'Enregistrement…' : 'Enregistrer'}
+        </button>
+        {saved && (
+          <button
+            onClick={() => { setValue(''); persist('', 'Balise retirée du site.') }}
+            disabled={saving}
+            style={{ ...ghostBtn, padding: '12px 20px' }}
+          >
+            Retirer la balise
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ── Styles partagés ───────────────────────────────────────────────────────────
 const shell: React.CSSProperties = {
   minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
   background: '#F4F4F4', padding: '2rem',
 }
 const card: React.CSSProperties = {
-  background: '#fff', borderRadius: 16, padding: '2rem', width: '100%',
-  boxShadow: '0 4px 24px rgba(0,0,0,0.06)', border: '1px solid #EEEBE7',
-}
-const eyebrow: React.CSSProperties = {
-  fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase',
-  color: NAVY, marginBottom: '0.6rem',
+  background: '#fff', borderRadius: 14, padding: '1.5rem', width: '100%', boxSizing: 'border-box',
+  border: '1px solid #EBEBEB',
 }
 const title: React.CSSProperties = {
-  fontSize: '1.6rem', fontWeight: 800, color: '#1A1A1A', marginBottom: '1.5rem',
+  fontSize: 'clamp(1.7rem, 2.6vw, 2.2rem)', fontWeight: 800, color: '#1A1A1A', margin: 0, lineHeight: 1.1,
   fontFamily: 'var(--font-barlow, sans-serif)',
 }
 const cardTitle: React.CSSProperties = {
@@ -696,7 +873,7 @@ const cardTitle: React.CSSProperties = {
   fontFamily: 'var(--font-barlow, sans-serif)',
 }
 const input: React.CSSProperties = {
-  padding: '12px 48px 12px 16px', borderRadius: 8, border: '1px solid #D6D3D1',
+  padding: '12px 48px 12px 16px', borderRadius: 10, border: '1.5px solid #E2E2E2', background: '#fff',
   fontSize: '1rem', outline: 'none', fontFamily: 'inherit', width: '100%', boxSizing: 'border-box',
 }
 const eyeBtn: React.CSSProperties = {
@@ -705,24 +882,19 @@ const eyeBtn: React.CSSProperties = {
   display: 'flex', alignItems: 'center',
 }
 const primaryBtn: React.CSSProperties = {
-  background: NAVY, color: '#fff', border: 'none', borderRadius: 10, padding: '13px',
+  background: NAVY, color: '#fff', border: 'none', borderRadius: 999, padding: '13px',
   fontSize: '1rem', fontWeight: 700, cursor: 'pointer', width: '100%', fontFamily: 'inherit',
 }
 const ghostBtn: React.CSSProperties = {
   display: 'inline-flex', alignItems: 'center', gap: 6, background: '#fff',
-  border: '1px solid #E5E3E0', borderRadius: 8, padding: '8px 14px', fontSize: '0.85rem',
+  border: '1.5px solid #E2E2E2', borderRadius: 999, padding: '8px 14px', fontSize: '0.85rem',
   fontWeight: 600, color: '#6B6B6B', cursor: 'pointer', fontFamily: 'inherit',
-}
-const tabBtn: React.CSSProperties = {
-  display: 'inline-flex', alignItems: 'center', gap: 7, border: '1px solid',
-  borderRadius: 10, padding: '10px 16px', fontSize: '0.9rem', fontWeight: 700,
-  cursor: 'pointer', fontFamily: 'inherit',
 }
 const row: React.CSSProperties = {
   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-  padding: '1rem 1.25rem', borderRadius: 12, background: '#F8F7F5', border: '1px solid #EEEBE7',
+  padding: '1rem 1.25rem', borderRadius: 12, background: '#FAFAFA', border: '1px solid #EBEBEB',
 }
 const toggleBtn: React.CSSProperties = {
-  border: '1px solid', borderRadius: 8, padding: '8px 18px', fontSize: '0.875rem',
+  border: '1.5px solid', borderRadius: 999, padding: '8px 18px', fontSize: '0.875rem',
   fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', minWidth: 90,
 }

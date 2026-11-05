@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { get } from '@vercel/edge-config'
 import { requireAdmin } from '@/lib/admin-security'
 
@@ -8,6 +9,7 @@ type SiteContent = {
   hidden_pages?: string[]
   texts?: Record<string, unknown>
   colors?: Record<string, string>
+  seo?: { google_verification?: string }
 }
 
 async function readContent(): Promise<SiteContent> {
@@ -66,6 +68,8 @@ export async function POST(request: Request) {
   if (!res.ok) {
     return NextResponse.json({ error: 'Erreur lors de l\'enregistrement.' }, { status: 500 })
   }
+
+  if (patch.seo) revalidateTag('site-content', { expire: 0 })
 
   return NextResponse.json({ ok: true, content: next })
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { pageMeta } from '@/lib/seo'
+import { readGoogleCode } from '@/lib/google-verification'
 import { Preloader } from '@/components/accueil/Preloader'
 import { HeroScan } from '@/components/accueil/HeroScan'
 import { Marquee } from '@/components/accueil/Marquee'
@@ -10,7 +11,12 @@ import { ProcessLine } from '@/components/accueil/ProcessLine'
 import { AboutFan } from '@/components/accueil/AboutFan'
 import { FinalCallout } from '@/components/accueil/FinalCallout'
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const google = await readGoogleCode()
+  return { ...metadata, ...(google ? { verification: { google } } : {}) }
+}
+
+const metadata: Metadata = {
   ...pageMeta({
     title: 'Roman Tabardel | Création de sites web & SEO',
     ogTitle: 'Roman Tabardel | Création de sites web & SEO',
