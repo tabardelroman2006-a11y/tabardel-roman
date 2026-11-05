@@ -24,7 +24,11 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     }
     rafId = requestAnimationFrame(raf)
 
+    const onMenu = (e: Event) => { if ((e as CustomEvent<boolean>).detail) lenis.stop(); else lenis.start() }
+    window.addEventListener('rt-menu', onMenu)
+
     return () => {
+      window.removeEventListener('rt-menu', onMenu)
       cancelAnimationFrame(rafId)
       lenis.destroy()
       lenisRef.current = null

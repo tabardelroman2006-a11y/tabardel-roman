@@ -1,30 +1,42 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Phone } from 'lucide-react'
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
+import { CARTE } from '@/components/carte/carte-data'
+import { OFFRES } from '@/lib/offres'
+import { REALISATIONS } from '@/lib/realisations'
+import { VILLES } from '@/lib/villes'
 
 const navLinks = [
-  { href: '/',               label: 'Accueil'   },
-  { href: '/services',       label: 'Services'  },
-  { href: '/realisations',   label: 'Réalisations' },
-  { href: '/notre-histoire', label: 'À propos'  },
-  { href: '/contact',        label: 'Contact'   },
+  { href: '/',               label: 'Accueil',      hint: 'Retour au début' },
+  { href: '/services',       label: 'Services',     hint: 'Ce que je fais' },
+  { href: '/realisations',   label: 'Réalisations', hint: 'Les sites en ligne' },
+  { href: '/notre-histoire', label: 'À propos',     hint: 'Qui je suis' },
+  { href: '/contact',        label: 'Contact',      hint: 'On en parle' },
+]
+
+const LEGAL = [
+  { href: '/mentions-legales', label: 'Mentions légales' },
+  { href: '/cgv', label: 'CGV' },
+  { href: '/politique-confidentialite', label: 'Confidentialité' },
 ]
 
 export function Header() {
-  const [scrolled,   setScrolled]   = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [hidden,     setHidden]     = useState<string[]>([])
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen]         = useState(false)
+  const [hidden, setHidden]     = useState<string[]>([])
   const pathname = usePathname()
   const { openDevis } = useModal()
+  const burgerRef = useRef<HTMLButtonElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -45,155 +57,138 @@ export function Header() {
       .catch(() => {})
   }, [])
 
-  useEffect(() => { setMobileOpen(false) }, [pathname])
+  useEffect(() => { setOpen(false) }, [pathname])
 
-  const visibleLinks = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
+  // Menu ouvert : page figée, Échap pour fermer, focus dans le menu
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('rt-menu', { detail: open }))
+    document.documentElement.classList.toggle('rt-menu-open', open)
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { setOpen(false); burgerRef.current?.focus() } }
+    window.addEventListener('keydown', onKey)
+    const t = setTimeout(() => panelRef.current?.querySelector<HTMLElement>('a, button')?.focus({ preventScroll: true }), 350)
+    return () => { window.removeEventListener('keydown', onKey); clearTimeout(t) }
+  }, [open])
 
-  /* Le site est clair partout : barre claire, textes a l'encre bleue (jamais noirs). */
-  const overHero = false
-  /* Tout en haut de l'accueil, la barre est transparente (on voit le fond). */
-  const clearTop = pathname === '/' && !scrolled && !mobileOpen
-  const inkMain = 'var(--rt-ink)'
-  const inkMuted = 'var(--rt-muted)'
+  if (pathname === '/carte' || pathname?.startsWith('/admin')) return null
 
-  if (pathname === '/carte') return null
+  const visible = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
+  const clearTop = pathname === '/' && !scrolled && !open
+  const showServices = !hidden.includes('/services')
+  const showRealisations = !hidden.includes('/realisations')
+  const vedette = REALISATIONS[0]
 
   return (
     <>
-      <motion.header
-        className="fixed top-0 left-0 right-0 z-50"
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+      <header className="rt-bar fixed top-0 left-0 right-0 z-[60]" data-clear={clearTop || undefined} data-open={open || undefined}>
+        <div className="flex items-center justify-between h-16 md:h-20 px-5 md:px-12 lg:px-20">
+          <Link href="/" className="rt-brand group flex items-center gap-3" aria-label="Roman Tabardel, accueil">
+            <Image src="/images/logo-rt.png" alt="" width={50} height={40} className="rt-brand-mark" priority />
+            <span className="rt-brand-name hidden sm:block">Roman Tabardel</span>
+          </Link>
+
+          <div className="flex items-center gap-3 md:gap-4">
+            <button onClick={openDevis} className="rt-bar-cta hidden md:inline-flex">
+              <Phone size={13} /> Appel gratuit
+            </button>
+            <button
+              ref={burgerRef}
+              onClick={() => setOpen(v => !v)}
+              className="rt-burger"
+              aria-expanded={open}
+              aria-controls="rt-menu"
+              aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+            >
+              <span className="rt-burger-label hidden sm:block">{open ? 'Fermer' : 'Menu'}</span>
+              <span className="rt-burger-lines" aria-hidden="true"><i /><i /><i /></span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div
+        id="rt-menu"
+        ref={panelRef}
+        className="rt-menu"
+        data-open={open || undefined}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu du site"
+        inert={!open}
+        data-lenis-prevent
       >
-        <div
-          className="transition-all duration-400 px-6 md:px-12 lg:px-20"
-          style={{
-            backdropFilter:  overHero || clearTop ? 'none' : 'blur(16px)',
-            backgroundColor: overHero || clearTop
-              ? 'transparent'
-              : scrolled
-                ? 'rgba(255,255,255,0.95)'
-                : 'rgba(244,244,244,0.80)',
-            borderBottom: overHero || clearTop ? '1px solid transparent' : '1px solid rgba(0,0,0,0.07)',
-          }}
-        >
-          <div className="flex items-center justify-between h-16 md:h-20 w-full">
+        <div className="rt-menu-inner">
+          <nav className="rt-menu-main" aria-label="Pages principales">
+            {visible.map((l, i) => {
+              const active = pathname === l.href
+              return (
+                <Link key={l.href} href={l.href} className="rt-menu-link" data-active={active || undefined} style={{ ['--i' as string]: i }}>
+                  <span className="rt-menu-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="rt-menu-word">
+                    <span className="rt-menu-fill">{l.label}</span>
+                    <span className="rt-menu-ghost" aria-hidden="true">{l.label}</span>
+                  </span>
+                  <span className="rt-menu-hint">{l.hint}</span>
+                </Link>
+              )
+            })}
+          </nav>
 
-            {/* Logo */}
-            <Link href="/" className="group flex items-center gap-3">
-              <div className="w-9 h-9 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-60">
-                <Image
-                  src="/images/logo-roman.png"
-                  alt="Logo Roman Tabardel"
-                  width={36}
-                  height={36}
-                  className="object-contain"
-                  style={{ filter: overHero ? 'brightness(0) invert(1)' : 'none', transition: 'filter 0.3s' }}
-                  priority
-                />
+          <div className="rt-menu-cols">
+            {showServices && (
+              <div className="rt-menu-col" style={{ ['--i' as string]: 2 }}>
+                <p className="rt-menu-title">Services</p>
+                <ul>
+                  {OFFRES.map(o => (
+                    <li key={o.slug}><Link href={`/services/${o.slug}`} className="rt-menu-sub">{o.nom}<ArrowUpRight size={14} /></Link></li>
+                  ))}
+                </ul>
               </div>
-              <span
-                className="hidden md:block font-display font-700 text-sm tracking-wide group-hover:opacity-60 transition-opacity duration-300"
-                style={{ color: inkMain }}
-              >
-                Roman Tabardel
-              </span>
-            </Link>
+            )}
+            <div className="rt-menu-col" style={{ ['--i' as string]: 3 }}>
+              <p className="rt-menu-title">Près de chez vous</p>
+              <ul>
+                {VILLES.map(v => (
+                  <li key={v.slug}><Link href={`/creation-site-internet/${v.slug}`} className="rt-menu-sub">{v.nom}<ArrowUpRight size={14} /></Link></li>
+                ))}
+              </ul>
+            </div>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
-              {visibleLinks.map(({ href, label }) => {
-                const active = pathname === href
-                return (
-                  <Link
-                    key={label}
-                    href={href}
-                    className="font-body text-sm font-500 tracking-wide transition-colors duration-200 relative group"
-                    style={{ color: overHero ? inkMain : active ? 'var(--rt-primary)' : inkMuted }}
-                  >
-                    {label}
-                    <span
-                      className="absolute -bottom-0.5 left-0 h-px transition-all duration-300"
-                      style={{
-                        width: active ? '100%' : '0',
-                        backgroundColor: overHero ? '#FFFFFF' : 'var(--rt-primary)',
-                      }}
-                    />
-                  </Link>
-                )
-              })}
-            </nav>
+            {showRealisations && vedette && (
+              <Link href={`/realisations/${vedette.slug}`} className="rt-menu-feature" style={{ ['--i' as string]: 4 }}>
+                <span className="rt-menu-feature-img">
+                  <Image src={vedette.desk} alt={`Site ${vedette.nom}`} fill sizes="(max-width: 1024px) 90vw, 26vw" className="object-cover object-top" />
+                </span>
+                <span className="rt-menu-title">Dernière réalisation</span>
+                <span className="rt-menu-feature-name">{vedette.nom}<ArrowUpRight size={16} /></span>
+                <span className="rt-menu-feature-txt">{vedette.categorie} · {vedette.ville}</span>
+              </Link>
+            )}
 
-            {/* Right */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={openDevis}
-                className="hidden md:flex items-center gap-2 font-body font-700 text-xs px-5 py-2.5 tracking-wide uppercase transition-opacity duration-200 hover:opacity-80"
-                style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}
-              >
-                <Phone size={12} />
-                Appel gratuit
+            <div className="rt-menu-col rt-menu-contact" style={{ ['--i' as string]: 5 }}>
+              <p className="rt-menu-title">Me joindre</p>
+              <a href={`tel:${CARTE.telInternational}`} className="rt-menu-sub"><Phone size={15} />{CARTE.telAffiche}</a>
+              <a href={`mailto:${CARTE.email}`} className="rt-menu-sub"><Mail size={15} />{CARTE.email}</a>
+              <span className="rt-menu-sub rt-menu-plain"><MapPin size={15} />Allex, Drôme</span>
+              <button onClick={() => { setOpen(false); openDevis() }} className="acc-btn acc-btn-solid mt-4 self-start">
+                Appel gratuit de 15 min <ArrowUpRight size={15} />
               </button>
+              <div className="rt-menu-social">
+                <a href={CARTE.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href={CARTE.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href={CARTE.google} target="_blank" rel="noopener noreferrer">Fiche Google</a>
+              </div>
+            </div>
+          </div>
 
-              <button
-                className="md:hidden p-1.5"
-                style={{ color: inkMain }}
-                onClick={() => setMobileOpen(v => !v)}
-                aria-label="Menu"
-              >
-                {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-              </button>
+          <div className="rt-menu-foot">
+            <Image src="/images/logo-rt-complet.png" alt="Roman Tabardel" width={90} height={83} className="rt-menu-logo" />
+            <div className="rt-menu-legal">
+              {LEGAL.map(l => <Link key={l.href} href={l.href}>{l.label}</Link>)}
             </div>
           </div>
         </div>
-      </motion.header>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            className="fixed inset-0 z-40 flex flex-col justify-center items-center"
-            style={{ backgroundColor: '#FFFFFF' }}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
-          >
-            <nav className="flex flex-col items-center gap-8">
-              {visibleLinks.map(({ href, label }, i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07, duration: 0.4 }}
-                >
-                  <Link
-                    href={href}
-                    className="font-display font-700 text-4xl tracking-tight"
-                    style={{ color: '#1A1A1A' }}
-                  >
-                    {label}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.32, duration: 0.4 }}
-              >
-                <button
-                  onClick={() => { setMobileOpen(false); openDevis() }}
-                  className="mt-6 font-body font-700 text-sm px-10 py-4 tracking-wide uppercase"
-                  style={{ backgroundColor: 'var(--rt-primary)', color: '#FFFFFF' }}
-                >
-                  Appel gratuit (15 min)
-                </button>
-              </motion.div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </div>
     </>
   )
 }

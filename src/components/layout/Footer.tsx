@@ -55,15 +55,12 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-5">
               <Image
-                src="/images/logo-roman.png"
-                alt="Logo Roman Tabardel"
-                width={34}
-                height={34}
+                src="/images/logo-rt-complet.png"
+                alt="Roman Tabardel"
+                width={130}
+                height={120}
                 className="object-contain"
               />
-              <span className="font-display font-700 text-sm tracking-wide" style={{ color: 'var(--rt-ink)' }}>
-                Roman Tabardel
-              </span>
             </div>
             <p className="font-body text-sm leading-relaxed max-w-xs" style={{ color: 'var(--rt-muted)' }}>
               Création de sites web sur mesure et référencement naturel pour les entreprises

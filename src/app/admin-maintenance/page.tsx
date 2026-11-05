@@ -75,7 +75,7 @@ export default function AdminPage() {
         <style>{ADMIN_CSS}</style>
         <div style={{ ...card, maxWidth: 380, textAlign: 'center', borderRadius: 20, padding: '2.4rem', boxShadow: '0 20px 60px -30px rgba(27,58,107,0.35)' }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo-roman.png" alt="Roman Tabardel" style={{ width: 84, height: 70, objectFit: 'cover', margin: '0 auto 1rem', display: 'block' }} />
+          <img src="/images/logo-rt-complet.png" alt="Roman Tabardel" style={{ width: 120, height: 'auto', margin: '0 auto 1.2rem', display: 'block' }} />
           <h1 style={title}>Espace Roman</h1>
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ position: 'relative' }}>
@@ -115,7 +115,7 @@ export default function AdminPage() {
       <aside className="adm-side">
         <a href="/" target="_blank" rel="noreferrer" className="adm-brand">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/logo-roman.png" alt="" />
+          <img src="/images/logo-rt.png" alt="" />
           <span>Roman Tabardel</span>
         </a>
         <nav className="adm-nav">
@@ -216,7 +216,7 @@ body:has(.adm-app) header, body:has(.adm-app) footer { display: none !important;
 .adm-app { display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); min-height: 100vh; background: #F4F4F4; color: #1A1A1A; font-family: var(--font-nunito, system-ui), sans-serif; }
 .adm-side { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; padding: 1.4rem 1rem; background: #fff; border-right: 1px solid #EBEBEB; }
 .adm-brand { display: flex; align-items: center; gap: 0.7rem; padding: 0 0.6rem 1.6rem; text-decoration: none; color: #1A1A1A; font-weight: 800; font-family: var(--font-barlow, sans-serif); font-size: 1.15rem; letter-spacing: 0.01em; }
-.adm-brand img { width: 2.6rem; height: 2.2rem; object-fit: cover; }
+.adm-brand img { width: 2.7rem; height: auto; }
 .adm-nav { display: grid; gap: 0.2rem; }
 .adm-nav button { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 0.95rem; border-radius: 999px; border: 0; background: none; text-align: left; font: inherit; font-weight: 600; color: #1A1A1A; cursor: pointer; transition: background 0.2s; }
 .adm-nav button:hover { background: #F4F4F4; }

@@ -52,7 +52,7 @@ export const JSON_LD = {
       description: 'Création de sites web sur mesure et référencement naturel pour les artisans, TPE et PME.',
       url: SITE_URL,
       image: `${SITE_URL}${OG_IMAGE.url}`,
-      logo: `${SITE_URL}/images/logo-roman.png`,
+      logo: `${SITE_URL}/images/logo-rt-carre.png`,
       telephone: CARTE.telInternational,
       email: CARTE.email,
       address: {
