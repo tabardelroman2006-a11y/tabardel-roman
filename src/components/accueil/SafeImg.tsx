@@ -14,6 +14,7 @@ export function SafeImg({ src, alt = '', ref, ...rest }: ImgHTMLAttributes<HTMLI
       src={src}
       alt={alt}
       decoding="async"
+      loading={rest.loading ?? 'lazy'}
       onError={e => {
         const img = e.currentTarget
         if (tries.current >= 3) return

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, type CSSProperties } from 'react'
-import { accentColor, reducedMotion } from './anim'
+import { accentColor, introRunning, liteDevice, reducedMotion } from './anim'
 
 /* Portrait detoure de Roman : sous la souris apparait le « scan » de son
    visage (ses courbes de niveau en bleu), comme le casque sous le visage de
@@ -40,7 +40,9 @@ export function ScanPortrait({ className = '', style, priority = false, seeThrou
 
     let w = 0
     let h = 0
-    const dpr = Math.min(window.devicePixelRatio, 2)
+    const lite = liteDevice()
+    const dpr = Math.min(window.devicePixelRatio, lite ? 1.25 : 2)
+    let last = 0
     const pointer = { x: 0.5, y: 0.4, tx: 0.5, ty: 0.4, last: -9999, inside: false }
     let raf = 0
     let visible = true
@@ -100,18 +102,22 @@ export function ScanPortrait({ className = '', style, priority = false, seeThrou
 
     const tick = (now: number) => {
       raf = requestAnimationFrame(tick)
-      if (!visible || !ready) return
+      if (!visible || !ready || document.hidden || introRunning(box)) return
       const idle = now - pointer.last > 2200
+      if ((idle || lite) && now - last < 32) return
+      const f = last ? Math.min(4, (now - last) / 16.67) : 1
+      last = now
+      const ease = (k: number) => 1 - Math.pow(1 - k, f)
       if (idle) {
         const s = now / 1000
         pointer.tx = 0.5 + Math.sin(s * 0.9) * 0.26 + Math.sin(s * 2.1) * 0.05
         pointer.ty = 0.42 + Math.sin(s * 0.63 + 1) * 0.22
       }
-      pointer.x += (pointer.tx - pointer.x) * (idle ? 0.06 : 0.18)
-      pointer.y += (pointer.ty - pointer.y) * (idle ? 0.06 : 0.18)
+      pointer.x += (pointer.tx - pointer.x) * ease(idle ? 0.06 : 0.18)
+      pointer.y += (pointer.ty - pointer.y) * ease(idle ? 0.06 : 0.18)
 
       tctx.globalCompositeOperation = 'destination-out'
-      tctx.fillStyle = 'rgba(0,0,0,0.045)'
+      tctx.fillStyle = `rgba(0,0,0,${ease(0.045).toFixed(4)})`
       tctx.fillRect(0, 0, trail.width, trail.height)
       tctx.globalCompositeOperation = 'source-over'
       const px = pointer.x * trail.width

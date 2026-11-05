@@ -22,8 +22,11 @@ export function HeroScan() {
     if (reducedMotion()) return
     const root = rootRef.current!
     let raf = 0
+    let lastY = NaN
     const tick = () => {
       raf = requestAnimationFrame(tick)
+      if (window.scrollY === lastY) return
+      lastY = window.scrollY
       const r = root.getBoundingClientRect()
       if (r.bottom < 0) return
       const out = clamp(-r.top / r.height)

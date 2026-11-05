@@ -14,7 +14,8 @@ const HIDE = `try{if(sessionStorage.getItem('${KEY}')||matchMedia('(prefers-redu
 
 export function Preloader() {
   const ref = useRef<HTMLDivElement>(null)
-  const [count, setCount] = useState(0)
+  const numRef = useRef<HTMLParagraphElement>(null)
+  const barRef = useRef<HTMLDivElement>(null)
   const [leaving, setLeaving] = useState(false)
   const [gone, setGone] = useState(false)
 
@@ -26,11 +27,13 @@ export function Preloader() {
     }
     try { sessionStorage.setItem(KEY, '1') } catch {}
     const start = performance.now()
-    const DURATION = 1700
+    const DURATION = 1300
     let raf = 0
     const tick = (now: number) => {
       const k = Math.min(1, (now - start) / DURATION)
-      setCount(Math.round((1 - Math.pow(1 - k, 3)) * 100))
+      const n = Math.round((1 - Math.pow(1 - k, 3)) * 100)
+      if (numRef.current) numRef.current.textContent = String(n)
+      if (barRef.current) barRef.current.style.transform = `scaleX(${n / 100})`
       if (k < 1) raf = requestAnimationFrame(tick)
       else {
         setLeaving(true)
@@ -62,12 +65,12 @@ export function Preloader() {
         <TopoField opacity={0.18} />
         <div className="relative flex flex-col items-center">
           <Image src="/images/logo-rt.png" alt="" width={74} height={60} priority />
-          <p className="mt-8 tabular-nums" style={{ ...DISPLAY_FONT, color: 'var(--rt-primary)', fontWeight: 700, lineHeight: 0.8, letterSpacing: '-0.04em', fontSize: 'clamp(5rem, 16vw, 13rem)' }}>
-            {count}
+          <p ref={numRef} className="mt-8 tabular-nums" style={{ ...DISPLAY_FONT, color: 'var(--rt-primary)', fontWeight: 700, lineHeight: 0.8, letterSpacing: '-0.04em', fontSize: 'clamp(5rem, 16vw, 13rem)' }}>
+            0
           </p>
           <p className="mt-6 font-body text-[11px] font-700 tracking-[0.35em] uppercase" style={{ color: 'var(--rt-muted)' }}>Roman Tabardel · Création web</p>
           <div className="mt-6 w-40 h-[2px] overflow-hidden" style={{ backgroundColor: 'var(--rt-line)' }}>
-            <div className="h-full origin-left" style={{ backgroundColor: 'var(--rt-primary)', transform: `scaleX(${count / 100})` }} />
+            <div ref={barRef} className="h-full origin-left" style={{ backgroundColor: 'var(--rt-primary)', transform: 'scaleX(0)' }} />
           </div>
         </div>
       </div>

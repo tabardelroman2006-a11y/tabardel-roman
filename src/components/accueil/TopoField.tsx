@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { accentColor, reducedMotion } from './anim'
+import { accentColor, introRunning, liteDevice, reducedMotion } from './anim'
 
 /* Fond de courbes de niveau (carte topographique) qui ondulent lentement.
    La souris souleve une petite colline : les lignes s'enroulent autour. */
@@ -31,10 +31,13 @@ export function TopoField({ opacity = 0.16, levels = 14, className = '' }: { opa
     const canvas = ref.current!
     const ctx = canvas.getContext('2d')!
     const still = reducedMotion()
+    const lite = liteDevice()
+    const INTERVAL = lite ? 80 : 33
+    let drawn = false
     let w = 0
     let h = 0
     let dpr = 1
-    const STEP = 16
+    const STEP = lite ? 24 : 16
     let cols = 0
     let rows = 0
     let field = new Float32Array(0)
@@ -46,7 +49,7 @@ export function TopoField({ opacity = 0.16, levels = 14, className = '' }: { opa
 
     const resize = () => {
       const r = canvas.getBoundingClientRect()
-      dpr = Math.min(window.devicePixelRatio, 1.5)
+      dpr = Math.min(window.devicePixelRatio, lite ? 1 : 1.5)
       w = r.width
       h = r.height
       canvas.width = Math.round(w * dpr)
@@ -116,8 +119,10 @@ export function TopoField({ opacity = 0.16, levels = 14, className = '' }: { opa
 
     const tick = (now: number) => {
       raf = requestAnimationFrame(tick)
-      if (!visible || now - last < 33) return
+      if (!visible || document.hidden || now - last < INTERVAL) return
+      if (drawn && introRunning(canvas)) return
       last = now
+      drawn = true
       mouse.s += ((mouse.tx > -9000 ? 1 : 0) - mouse.s) * 0.05
       draw(now / 1000)
     }

@@ -10,6 +10,15 @@ export const smoothstep = (a: number, b: number, v: number) => {
 export const reducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+/* Telephones et petites machines : memes animations, mais moins d'images par
+   seconde et une resolution reduite, pour garder la page fluide. */
+export const liteDevice = () =>
+  typeof window !== 'undefined' && (window.matchMedia('(pointer: coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4)
+
+/* L'ecran d'ouverture couvre la page : inutile d'animer ce qu'il cache. */
+export const introRunning = (el: Element) =>
+  document.documentElement.classList.contains('rt-intro') && !el.closest('#rt-intro')
+
 /* Avancee (0 a 1) dans une section haute dont le contenu est colle a l'ecran. */
 export function pinnedProgress(el: HTMLElement) {
   const r = el.getBoundingClientRect()
