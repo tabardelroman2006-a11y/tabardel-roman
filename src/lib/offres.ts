@@ -167,44 +167,7 @@ export const OFFRES: Offre[] = [
       { q: 'Vous pouvez reprendre un site fait par quelqu’un d’autre ?', a: 'Oui, après un état des lieux pour vérifier dans quel état il se trouve et ce qu’il faut corriger en priorité.' },
       { q: 'Combien de temps pour une modification ?', a: 'Les petites modifications sont faites rapidement, selon leur nature. On en parle ensemble au moment de la demande.' },
     ],
-  },
-  {
-    slug: 'assistant-telephonique',
-    nom: 'Assistant téléphonique',
-    seoTitre: 'Assistant téléphonique intelligent pour artisans : ne ratez plus un appel',
-    seoDescription:
-      'Un assistant téléphonique intelligent qui répond quand vous êtes sur un chantier : il prend le nom, le numéro et la demande du client, et vous envoie un résumé clair.',
-    eyebrow: 'Assistant téléphonique',
-    titre: 'Ne ratez plus un appel',
-    accroche: 'Quand vous êtes sur un chantier, il répond à votre place.',
-    intro:
-      'Un client qui tombe sur une messagerie appelle souvent le suivant. Mon assistant téléphonique répond à votre place avec une voix naturelle, comprend la demande, note les coordonnées et vous laisse un résumé clair, prêt à être rappelé.',
-    pourQui: [
-      'Les artisans qui ne peuvent pas décrocher pendant leurs chantiers',
-      'Les petites entreprises sans secrétariat',
-      'Ceux qui reçoivent des appels le soir ou le week-end',
-    ],
-    inclus: [
-      { titre: 'Répond comme vous le feriez', texte: 'Il présente votre entreprise et répond aux questions simples avec vos informations.' },
-      { titre: 'Ne laisse partir personne sans numéro', texte: 'Il demande toujours le nom et le numéro pour que vous puissiez rappeler.' },
-      { titre: 'Résumé de chaque appel', texte: 'La demande, l’urgence et le moment conseillé pour rappeler, en quelques lignes.' },
-      { titre: 'Clients mécontents signalés', texte: 'Un appel tendu est mis en avant pour que vous le traitiez en premier.' },
-      { titre: 'Tout dans votre espace', texte: 'Les appels arrivent dans votre espace de gestion, avec la transcription complète.' },
-      { titre: 'Réglé pour vous', texte: 'Son nom, son accueil et ce qu’il peut dire sont réglés selon votre activité.' },
-    ],
-    etapes: [
-      { titre: 'On définit ce qu’il doit dire', texte: 'Votre activité, vos horaires, les questions fréquentes de vos clients.' },
-      { titre: 'Je le règle', texte: 'Voix, accueil, consignes : il parle de votre entreprise comme vous.' },
-      { titre: 'Renvoi d’appel', texte: 'Vos appels non décrochés lui sont renvoyés, votre numéro ne change pas.' },
-      { titre: 'Vous rappelez', texte: 'Chaque appel vous attend avec son résumé, il ne reste qu’à rappeler.' },
-    ],
-    realisations: [],
-    faq: [
-      { q: 'Est-ce que je garde mon numéro ?', a: 'Oui. Ce sont seulement les appels que vous ne prenez pas qui sont renvoyés vers l’assistant.' },
-      { q: 'Il peut donner des prix ?', a: 'Non, il est réglé pour ne pas en donner : il note la demande et c’est vous qui rappelez pour chiffrer.' },
-      { q: 'Les appelants savent-ils qu’ils parlent à un assistant ?', a: 'Oui. L’assistant se présente comme l’assistant de votre entreprise, en toute transparence.' },
-    ],
-  },
+  }
 ]
 
 export const offre = (slug: string) => OFFRES.find(o => o.slug === slug)
