@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { get, list, put } from '@vercel/blob'
+import { del, get, list, put } from '@vercel/blob'
 import { requireAdmin } from '@/lib/admin-security'
 
 export const dynamic = 'force-dynamic'
@@ -65,4 +65,23 @@ export async function POST(request: Request) {
     access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true,
   })
   return NextResponse.json({ ok: true, appel: maj })
+}
+
+// ── Supprimer définitivement un ou plusieurs appels ──────────────────────────
+export async function DELETE(request: Request) {
+  if (!requireAdmin(request)) {
+    return NextResponse.json({ error: 'Non autorisé. Reconnectez-vous.' }, { status: 401 })
+  }
+  let ids: string[] = []
+  try {
+    const body = await request.json()
+    ids = Array.isArray(body?.ids) ? body.ids : []
+  } catch {
+    return NextResponse.json({ error: 'Requête invalide.' }, { status: 400 })
+  }
+  if (ids.length === 0 || ids.length > 1000 || !ids.every(id => typeof id === 'string' && /^[\w-]+$/.test(id))) {
+    return NextResponse.json({ error: 'Données invalides.' }, { status: 400 })
+  }
+  await del(ids.map(chemin))
+  return NextResponse.json({ ok: true, supprimes: ids.length })
 }

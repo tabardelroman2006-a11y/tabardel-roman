@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Phone, Search, Home } from 'lucide-react'
+import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Phone, Search, Home, Trash2 } from 'lucide-react'
 import { HIDEABLE_PAGES } from '@/lib/pages-config'
 import { TEXT_GROUPS } from '@/lib/text-fields'
 import { extractGoogleCode } from '@/lib/google-verification'
@@ -299,7 +299,26 @@ function AppelsTab({ token, onExpired }: { token: string; onExpired: () => void 
     setSaving(null)
   }
 
+  async function supprimer(ids: string[], question: string) {
+    if (ids.length === 0 || !window.confirm(question)) return
+    setSaving(ids.length === 1 ? ids[0] : 'lot')
+    try {
+      const res = await fetch('/api/admin/appels', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'x-session-token': token },
+        body: JSON.stringify({ ids }),
+      })
+      if (res.status === 401) { onExpired(); return }
+      if (res.ok) setAppels(list => list.filter(x => !ids.includes(x.id)))
+      else setError('Erreur lors de la suppression.')
+    } catch {
+      setError('Erreur réseau.')
+    }
+    setSaving(null)
+  }
+
   const aRappeler = appels.filter(a => a.statut === 'a_rappeler')
+  const rappeles  = appels.filter(a => a.statut === 'rappele')
   const visibles  = filtre === 'a_rappeler' ? aRappeler : appels
 
   return (
@@ -328,6 +347,16 @@ function AppelsTab({ token, onExpired }: { token: string; onExpired: () => void 
           ))}
         </div>
       </div>
+
+      {rappeles.length > 0 && (
+        <button
+          onClick={() => supprimer(rappeles.map(a => a.id), `Supprimer définitivement les ${rappeles.length} appel(s) déjà rappelé(s) ?`)}
+          disabled={saving === 'lot'}
+          style={{ ...ghostBtn, marginTop: '1rem', color: '#dc2626', borderColor: '#fecaca', opacity: saving === 'lot' ? 0.6 : 1 }}
+        >
+          <Trash2 size={14} /> {saving === 'lot' ? 'Suppression…' : `Supprimer les appels déjà rappelés (${rappeles.length})`}
+        </button>
+      )}
 
       {error && <p style={{ color: '#dc2626', fontSize: '0.875rem', marginTop: '1rem' }}>{error}</p>}
 
@@ -403,6 +432,14 @@ function AppelsTab({ token, onExpired }: { token: string; onExpired: () => void 
                 </button>
                 <button onClick={() => setOuvert(o => o === a.id ? null : a.id)} style={ghostBtn}>
                   {ouvert === a.id ? 'Masquer la transcription' : 'Transcription'}
+                </button>
+                <button
+                  onClick={() => supprimer([a.id], `Supprimer définitivement l’appel de ${a.nom || 'cet appelant'} ?`)}
+                  disabled={saving === a.id}
+                  aria-label="Supprimer cet appel"
+                  style={{ ...ghostBtn, marginLeft: 'auto', color: '#dc2626', borderColor: '#fecaca' }}
+                >
+                  <Trash2 size={14} /> Supprimer
                 </button>
               </div>
             </div>
