@@ -7,7 +7,7 @@ import { ModalProvider } from '@/context/ModalContext'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
-import { DevisModal } from '@/components/ui/DevisModal'
+import { DevisModalLazy } from '@/components/ui/DevisModalLazy'
 import { ThemeColors } from '@/components/ThemeColors'
 import { SITE_URL, SITE_NAME, OG_IMAGE, JSON_LD } from '@/lib/seo'
 
@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Header />
             <main>{children}</main>
             <Footer />
-            <DevisModal />
+            <DevisModalLazy />
           </SmoothScroll>
         </ModalProvider>
       </body>

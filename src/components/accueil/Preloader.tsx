@@ -27,7 +27,7 @@ export function Preloader() {
     }
     try { sessionStorage.setItem(KEY, '1') } catch {}
     const start = performance.now()
-    const DURATION = 1300
+    const DURATION = 800
     let raf = 0
     const tick = (now: number) => {
       const k = Math.min(1, (now - start) / DURATION)
@@ -38,7 +38,7 @@ export function Preloader() {
       else {
         setLeaving(true)
         document.documentElement.classList.remove('rt-intro')
-        setTimeout(() => setGone(true), 1100)
+        setTimeout(() => setGone(true), 750)
       }
     }
     raf = requestAnimationFrame(tick)
@@ -59,7 +59,7 @@ export function Preloader() {
           zIndex: 100,
           backgroundColor: 'var(--rt-bg)',
           clipPath: leaving ? 'inset(0 0 100% 0)' : 'inset(0 0 0 0)',
-          transition: 'clip-path 1s cubic-bezier(0.76, 0, 0.24, 1)',
+          transition: 'clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1)',
         }}
       >
         <TopoField opacity={0.18} />
