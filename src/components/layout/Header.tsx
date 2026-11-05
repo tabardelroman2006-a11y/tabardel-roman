@@ -19,6 +19,13 @@ const navLinks = [
   { href: '/contact',        label: 'Contact',      hint: 'On en parle' },
 ]
 
+const SOUS_MENU: Record<string, string> = {
+  'site-vitrine': 'Site vitrine',
+  'site-e-commerce': 'Boutique en ligne',
+  'referencement-naturel': 'Référencement',
+  'maintenance': 'Maintenance',
+}
+
 const LEGAL = [
   { href: '/mentions-legales', label: 'Mentions légales' },
   { href: '/cgv', label: 'CGV' },
@@ -122,29 +129,32 @@ export function Header() {
             {visible.map((l, i) => {
               const active = pathname === l.href
               return (
-                <Link key={l.href} href={l.href} className="rt-menu-link" data-active={active || undefined} style={{ ['--i' as string]: i }}>
-                  <span className="rt-menu-num">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="rt-menu-word">
-                    <span className="rt-menu-fill">{l.label}</span>
-                    <span className="rt-menu-ghost" aria-hidden="true">{l.label}</span>
-                  </span>
-                  <span className="rt-menu-hint">{l.hint}</span>
-                </Link>
+                <div key={l.href} className="rt-menu-item" style={{ ['--i' as string]: i }}>
+                  <Link href={l.href} className="rt-menu-link" data-active={active || undefined}>
+                    <span className="rt-menu-num">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="rt-menu-word">
+                      <span className="rt-menu-fill">{l.label}</span>
+                      <span className="rt-menu-ghost" aria-hidden="true">{l.label}</span>
+                    </span>
+                    <span className="rt-menu-hint">{l.hint}</span>
+                  </Link>
+                  {l.href === '/services' && showServices && (
+                    <ul className="rt-menu-subnav">
+                      {OFFRES.map(o => (
+                        <li key={o.slug}>
+                          <Link href={`/services/${o.slug}`} data-active={pathname === `/services/${o.slug}` || undefined}>
+                            {SOUS_MENU[o.slug] ?? o.nom}<ArrowUpRight size={13} />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               )
             })}
           </nav>
 
           <div className="rt-menu-cols">
-            {showServices && (
-              <div className="rt-menu-col" style={{ ['--i' as string]: 2 }}>
-                <p className="rt-menu-title">Services</p>
-                <ul>
-                  {OFFRES.map(o => (
-                    <li key={o.slug}><Link href={`/services/${o.slug}`} className="rt-menu-sub">{o.nom}<ArrowUpRight size={14} /></Link></li>
-                  ))}
-                </ul>
-              </div>
-            )}
             <div className="rt-menu-col" style={{ ['--i' as string]: 3 }}>
               <p className="rt-menu-title">Près de chez vous</p>
               <ul>
