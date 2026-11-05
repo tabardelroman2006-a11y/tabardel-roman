@@ -10,6 +10,7 @@ import { CARTE } from '@/components/carte/carte-data'
 import { OFFRES } from '@/lib/offres'
 import { REALISATIONS } from '@/lib/realisations'
 import { VILLES } from '@/lib/villes'
+import { CONSEILS } from '@/lib/conseils'
 
 const navLinks = [
   { href: '/',               label: 'Accueil',      hint: 'Retour au début' },
@@ -160,6 +161,15 @@ export function Header() {
               <ul>
                 {VILLES.map(v => (
                   <li key={v.slug}><Link href={`/creation-site-internet/${v.slug}`} className="rt-menu-sub">{v.nom}<ArrowUpRight size={14} /></Link></li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rt-menu-col" style={{ ['--i' as string]: 3 }}>
+              <p className="rt-menu-title"><Link href="/conseils" className="rt-menu-title-link">Conseils</Link></p>
+              <ul>
+                {CONSEILS.map(c => (
+                  <li key={c.slug}><Link href={`/conseils/${c.slug}`} className="rt-menu-sub rt-menu-sub-long">{c.titre}<ArrowUpRight size={14} /></Link></li>
                 ))}
               </ul>
             </div>

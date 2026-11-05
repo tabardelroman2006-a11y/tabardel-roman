@@ -55,6 +55,10 @@ a.rt-menu-sub:hover { color: var(--rt-primary); transform: translateX(4px); }
 .rt-menu-col ul .rt-menu-sub svg { opacity: 0.35; transition: opacity 0.3s; }
 .rt-menu-col ul .rt-menu-sub:hover svg { opacity: 1; }
 .rt-menu-plain { color: var(--rt-muted); }
+.rt-menu-sub-long { align-items: flex-start; font-size: 0.92rem; line-height: 1.35; }
+.rt-menu-sub-long svg { margin-top: 0.2rem; }
+.rt-menu-title-link { color: inherit; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rt-line); }
+.rt-menu-title-link:hover { color: var(--rt-primary); }
 .rt-menu-contact { display: flex; flex-direction: column; }
 .rt-menu-social { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin-top: 1.2rem; }
 .rt-menu-social a { font-family: var(--font-nunito), sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--rt-primary); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rt-line); transition: text-decoration-color 0.3s; }

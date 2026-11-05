@@ -9,6 +9,7 @@ import { Phone, Mail } from 'lucide-react'
 const NAV = [
   { href: '/services',       label: 'Services'  },
   { href: '/realisations',   label: 'Réalisations' },
+  { href: '/conseils',       label: 'Conseils' },
   { href: '/contact#questions', label: 'FAQ'    },
   { href: '/notre-histoire', label: 'À propos'  },
   { href: '/contact',        label: 'Contact'   },

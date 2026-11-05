@@ -1,0 +1,7 @@
+/* Texte des articles Conseils */
+.pg-prose { font-family: var(--font-nunito), sans-serif; color: var(--rt-muted); font-size: 1.075rem; line-height: 1.8; }
+.pg-prose > * + * { margin-top: 1.15rem; }
+.pg-prose h2 { margin-top: 2.6rem; font-family: var(--font-bricolage), Arial, sans-serif; font-variation-settings: 'opsz' 48; font-weight: 700; font-size: clamp(1.4rem, 2.2vw, 1.75rem); line-height: 1.15; letter-spacing: -0.015em; color: var(--rt-primary); }
+.pg-prose ul { display: grid; gap: 0.6rem; padding: 0; list-style: none; }
+.pg-prose li { position: relative; padding-left: 1.6rem; }
+.pg-prose li::before { content: ''; position: absolute; left: 0.2rem; top: 0.72em; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--rt-primary); }

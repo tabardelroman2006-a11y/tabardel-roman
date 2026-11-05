@@ -2,6 +2,7 @@
 import { Barlow_Condensed, Bricolage_Grotesque, Nunito } from 'next/font/google'
 import './globals.css'
 import '@/styles/menu.css'
+import '@/styles/pages.css'
 import { ModalProvider } from '@/context/ModalContext'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
