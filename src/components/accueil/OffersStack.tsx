@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { useModal } from '@/context/ModalContext'
 import { SERVICES_LIST } from '@/components/sections/ServicesPageContent'
@@ -53,7 +54,7 @@ export function OffersStack() {
         </Reveal>
 
         <div ref={listRef} className="flex flex-col gap-8">
-          {SERVICES_LIST.map(({ icon: Icon, title, description, details }, i) => (
+          {SERVICES_LIST.map(({ icon: Icon, slug, title, description, details }, i) => (
             <div key={title} data-card className="sticky" style={{ top: TOP + i * STEP }}>
               <article
                 className="acc-offer grid grid-cols-1 md:grid-cols-[auto_minmax(0,1fr)_minmax(0,0.8fr)] gap-6 md:gap-12 p-7 md:p-12 origin-top"
@@ -66,10 +67,15 @@ export function OffersStack() {
                   <Icon size={24} className="acc-offer-icon" />
                   <h3 className="uppercase mt-5" style={{ ...DISPLAY_FONT, fontWeight: 700, fontSize: 'clamp(1.8rem, 3.2vw, 2.9rem)', lineHeight: 0.95, letterSpacing: '-0.02em' }}>{title}</h3>
                   <p className="acc-offer-text font-body text-base md:text-lg leading-relaxed mt-5">{description}</p>
-                  <button onClick={openDevis} className="acc-offer-btn acc-btn mt-7">
-                    On en parle
-                    <ArrowUpRight size={15} />
-                  </button>
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-7">
+                    <button onClick={openDevis} className="acc-offer-btn acc-btn">
+                      On en parle
+                      <ArrowUpRight size={15} />
+                    </button>
+                    <Link href={`/services/${slug}`} className="acc-offer-text font-body text-sm font-700 uppercase tracking-wider underline underline-offset-4">
+                      Voir le détail
+                    </Link>
+                  </div>
                 </div>
                 <ul className="space-y-3 md:pt-16">
                   {details.map(d => (

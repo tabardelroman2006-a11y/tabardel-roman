@@ -8,7 +8,8 @@ import { Phone, Mail } from 'lucide-react'
 
 const NAV = [
   { href: '/services',       label: 'Services'  },
-  { href: '/#faq',           label: 'FAQ'       },
+  { href: '/realisations',   label: 'Réalisations' },
+  { href: '/contact#questions', label: 'FAQ'    },
   { href: '/notre-histoire', label: 'À propos'  },
   { href: '/contact',        label: 'Contact'   },
 ]
@@ -41,7 +42,7 @@ export function Footer() {
 
   if (pathname === '/carte') return null
 
-  const navVisible = NAV.filter(l => l.href.startsWith('/#') || !hidden.includes(l.href))
+  const navVisible = NAV.filter(l => l.href.includes('#') || !hidden.includes(l.href))
 
   return (
     /* Pied de page clair, dans les tons du site (jamais de fond sombre). */

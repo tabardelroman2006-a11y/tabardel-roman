@@ -578,3 +578,9 @@ button {
   .carte__photo { height: 600px; }
   .carte__photo-img { top: -105px !important; height: calc(100% + 105px) !important; }
 }
+
+.pg-card { transition: border-color 0.4s, box-shadow 0.4s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.pg-card:hover { border-color: color-mix(in srgb, var(--rt-primary) 35%, transparent); box-shadow: 0 24px 60px -30px color-mix(in srgb, var(--rt-primary) 45%, transparent); transform: translateY(-3px); }
+.pg-card-img { transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.pg-card:hover .pg-card-img { transform: scale(1.03); }
+@media (prefers-reduced-motion: reduce) { .pg-card, .pg-card-img { transition: none; } .pg-card:hover, .pg-card:hover .pg-card-img { transform: none; } }

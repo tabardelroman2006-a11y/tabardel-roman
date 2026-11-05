@@ -11,6 +11,7 @@ import { useModal } from '@/context/ModalContext'
 const navLinks = [
   { href: '/',               label: 'Accueil'   },
   { href: '/services',       label: 'Services'  },
+  { href: '/realisations',   label: 'Réalisations' },
   { href: '/notre-histoire', label: 'À propos'  },
   { href: '/contact',        label: 'Contact'   },
 ]

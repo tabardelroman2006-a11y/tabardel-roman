@@ -3,6 +3,9 @@ import { pageMeta } from '@/lib/seo'
 import { PageIntro } from '@/components/accueil/PageIntro'
 import { RevealPhoto } from '@/components/accueil/RevealPhoto'
 import { ContactPanel } from '@/components/accueil/ContactPanel'
+import { FaqBlock } from '@/components/pages/FaqBlock'
+import { JsonLd, faqLd } from '@/components/pages/Blocks'
+import { FAQS } from '@/lib/faq'
 
 export const metadata: Metadata = pageMeta({
   title: 'Contact',
@@ -30,6 +33,8 @@ export default function ContactPage() {
         }
       />
       <ContactPanel />
+      <FaqBlock items={FAQS} />
+      <JsonLd data={faqLd(FAQS)} />
     </>
   )
 }

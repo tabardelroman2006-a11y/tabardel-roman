@@ -5,6 +5,7 @@
  */
 export const HIDEABLE_PAGES = [
   { path: '/services',       label: 'Services' },
+  { path: '/realisations',   label: 'Réalisations' },
   { path: '/notre-histoire', label: 'À propos' },
   { path: '/contact',        label: 'Contact'  },
 ] as const

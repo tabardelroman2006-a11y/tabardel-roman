@@ -9,30 +9,35 @@ import { useModal } from '@/context/ModalContext'
 export const SERVICES_LIST = [
   {
     icon: Monitor,
+    slug: 'site-vitrine',
     title: 'Site vitrine',
     description: 'Un site sur mesure qui reflète votre identité professionnelle. Design élégant, responsive, optimisé pour la conversion et le référencement.',
     details: ['Design personnalisé', 'Responsive mobile', 'Optimisé SEO', 'Formation incluse'],
   },
   {
     icon: ShoppingBag,
+    slug: 'site-e-commerce',
     title: 'Site e-commerce',
     description: "Votre boutique en ligne professionnelle avec paiement sécurisé, gestion des stocks et expérience d'achat optimisée.",
     details: ['Paiement sécurisé', 'Gestion catalogue', "Tunnel d'achat optimisé", 'Tableau de bord'],
   },
   {
     icon: RefreshCw,
+    slug: 'site-vitrine',
     title: 'Refonte de site',
     description: "Votre site actuel mérite mieux. Modernisation complète du design, amélioration des performances et de l'expérience utilisateur.",
     details: ['Audit complet', 'Nouveau design', 'Migration sécurisée', 'Performance +60%'],
   },
   {
     icon: Search,
+    slug: 'referencement-naturel',
     title: 'Référencement naturel (SEO)',
     description: 'Apparaître en première page de Google pour vos clients. Stratégie SEO sur mesure, durable et efficace.',
     details: ['Recherche mots-clés', 'Optimisation on-page', 'Contenu optimisé', 'Suivi mensuel'],
   },
   {
     icon: BarChart2,
+    slug: 'referencement-naturel',
     title: 'Audit SEO',
     description: "Analyse complète de votre site web : points forts, points faibles, opportunités et plan d'action prioritaire.",
     details: ['Analyse technique', 'Analyse sémantique', 'Rapport détaillé', "Plan d'action"],
