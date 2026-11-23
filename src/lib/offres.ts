@@ -23,7 +23,7 @@ export const OFFRES: Offre[] = [
   {
     slug: 'site-vitrine',
     nom: 'Site vitrine',
-    seoTitre: 'Création de site vitrine sur mesure pour artisans et TPE',
+    seoTitre: 'Site vitrine sur mesure pour artisans et TPE',
     seoDescription:
       'Création de site vitrine sur mesure pour artisans, commerces et TPE dans la Drôme : design unique, rapide sur téléphone, pensé pour Google et pour faire venir des demandes de devis.',
     eyebrow: 'Site vitrine',
@@ -60,7 +60,7 @@ export const OFFRES: Offre[] = [
   {
     slug: 'site-e-commerce',
     nom: 'Boutique en ligne',
-    seoTitre: 'Création de boutique en ligne et site e-commerce sur mesure',
+    seoTitre: 'Création de boutique en ligne sur mesure',
     seoDescription:
       'Création de boutique en ligne sur mesure : paiement par carte sécurisé, gestion des commandes et du stock, espace de gestion simple. Sans abonnement à une plateforme.',
     eyebrow: 'Boutique en ligne',
@@ -97,7 +97,7 @@ export const OFFRES: Offre[] = [
   {
     slug: 'referencement-naturel',
     nom: 'Référencement Google',
-    seoTitre: 'Référencement naturel (SEO) et audit pour être trouvé sur Google',
+    seoTitre: 'Référencement naturel (SEO) et audit Google',
     seoDescription:
       'Référencement naturel pour artisans et TPE : audit, optimisation technique, contenus et fiche Google. Pour être trouvé par vos clients près de chez vous.',
     eyebrow: 'Référencement naturel',
@@ -134,7 +134,7 @@ export const OFFRES: Offre[] = [
   {
     slug: 'maintenance',
     nom: 'Maintenance et suivi',
-    seoTitre: 'Maintenance de site internet : mises à jour, sécurité et modifications',
+    seoTitre: 'Maintenance de site internet et mises à jour',
     seoDescription:
       'Maintenance de site internet pour artisans et TPE : hébergement, sécurité, sauvegardes, petites modifications et contrôle régulier. Votre site reste à jour sans que vous ayez à y penser.',
     eyebrow: 'Maintenance et suivi',

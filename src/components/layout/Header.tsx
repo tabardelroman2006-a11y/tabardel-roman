@@ -91,7 +91,7 @@ export function Header() {
       <header className="rt-bar fixed top-0 left-0 right-0 z-[60]" data-clear={clearTop || undefined} data-open={open || undefined}>
         <div className="flex items-center justify-between h-16 md:h-20 px-5 md:px-12 lg:px-20">
           <Link href="/" className="rt-brand group flex items-center gap-3" aria-label="Roman Tabardel, accueil">
-            <Image src="/images/logo-rt.png" alt="" width={50} height={40} className="rt-brand-mark" priority />
+            <Image src="/images/logo-rt.png" alt="Logo Roman Tabardel" width={50} height={40} className="rt-brand-mark" priority />
             <span className="rt-brand-name hidden sm:block">Roman Tabardel</span>
           </Link>
 

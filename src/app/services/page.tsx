@@ -8,7 +8,7 @@ import { LiensPages, RealisationsGrid } from '@/components/pages/Blocks'
 import { ClosingMagnet } from '@/components/accueil/ClosingMagnet'
 
 export const metadata: Metadata = pageMeta({
-  title: 'Services : sites vitrine, boutiques en ligne, référencement',
+  title: 'Services : site vitrine, e-commerce, SEO',
   description:
     'Création de sites vitrine et e-commerce sur mesure, refonte, référencement naturel et audit SEO pour les artisans et commerces de la Drôme.',
   path: '/services',

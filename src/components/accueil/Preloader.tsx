@@ -64,7 +64,7 @@ export function Preloader() {
       >
         <TopoField opacity={0.18} />
         <div className="relative flex flex-col items-center">
-          <Image src="/images/logo-rt.png" alt="" width={74} height={60} priority />
+          <Image src="/images/logo-rt.png" alt="Logo Roman Tabardel" width={74} height={60} priority />
           <p ref={numRef} className="mt-8 tabular-nums" style={{ ...DISPLAY_FONT, color: 'var(--rt-primary)', fontWeight: 700, lineHeight: 0.8, letterSpacing: '-0.04em', fontSize: 'clamp(5rem, 16vw, 13rem)' }}>
             0
           </p>

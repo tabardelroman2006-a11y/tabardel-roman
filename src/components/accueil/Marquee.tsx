@@ -74,7 +74,7 @@ export function Marquee() {
         className="hidden md:block absolute left-1/2 top-1/2 overflow-hidden pointer-events-none"
         style={{ width: 'clamp(160px, 16vw, 260px)', aspectRatio: '3 / 4', borderRadius: 18, transform: 'translate(-50%, -50%)', boxShadow: '0 30px 70px color-mix(in srgb, var(--rt-primary) 30%, transparent)', border: '6px solid #FFFFFF' }}
       >
-        <SafeImg src="/images/accueil/roman-dehors.jpg" alt="" className="w-full h-full object-cover" />
+        <SafeImg src="/images/accueil/roman-dehors.jpg" alt="Roman Tabardel, créateur de sites web" className="w-full h-full object-cover" />
       </div>
     </section>
   )

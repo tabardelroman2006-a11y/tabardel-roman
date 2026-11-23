@@ -91,7 +91,7 @@ export function CarteVisite() {
   return (
     <div className="carte">
       <div className="carte__backdrop" aria-hidden="true">
-        <Image src="/images/accueil/roman-dehors.jpg" alt="" fill sizes="100vw" className="carte__backdrop-img" priority />
+        <Image src="/images/accueil/roman-dehors.jpg" alt="Roman Tabardel, créateur de sites web" fill sizes="100vw" className="carte__backdrop-img" priority />
       </div>
 
       <div className="carte__col">

@@ -22,7 +22,7 @@ export const CONSEILS: Conseil[] = [
   {
     slug: 'fiche-google-artisan',
     titre: 'Fiche Google : les réglages qui font venir des clients',
-    seoTitre: 'Fiche Google pour artisan : les réglages pour être trouvé près de chez vous',
+    seoTitre: 'Fiche Google : les bons réglages pour artisans',
     description:
       'Votre fiche d’établissement Google est souvent la première chose qu’un client voit. Voici les réglages simples pour qu’elle vous amène des appels.',
     date: '2026-11-05',
@@ -47,7 +47,7 @@ export const CONSEILS: Conseil[] = [
   {
     slug: 'site-internet-ou-page-facebook',
     titre: 'Site internet ou page Facebook : que choisir quand on est artisan ?',
-    seoTitre: 'Site internet ou page Facebook pour un artisan : que choisir ?',
+    seoTitre: 'Site internet ou page Facebook : que choisir ?',
     description:
       'Une page Facebook est gratuite, un site internet demande un investissement. Les deux n’ont pas le même rôle : voici comment choisir selon votre activité.',
     date: '2026-11-05',
@@ -69,7 +69,7 @@ export const CONSEILS: Conseil[] = [
   {
     slug: 'temps-pour-apparaitre-sur-google',
     titre: 'Combien de temps pour apparaître sur Google ?',
-    seoTitre: 'Combien de temps pour qu’un nouveau site apparaisse sur Google ?',
+    seoTitre: 'Combien de temps pour apparaître sur Google ?',
     description:
       'Votre nouveau site est en ligne mais introuvable sur Google ? C’est normal au début. Voici comment cela se passe et ce qui accélère les choses.',
     date: '2026-11-05',

@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const r = realisation((await params).slug)
   if (!r) return {}
   return pageMeta({
-    title: `${r.nom} : ${r.categorie.toLowerCase()} à ${r.ville}`,
+    title: `${r.nom} : ${r.categorie.toLowerCase()}${r.nom.includes(r.ville) ? '' : ` à ${r.ville}`}`,
     description: `${r.resume} Projet réalisé par Roman Tabardel, créateur de sites web dans la Drôme.`,
     path: `/realisations/${r.slug}`,
   })

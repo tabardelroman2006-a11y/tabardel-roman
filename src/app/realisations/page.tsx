@@ -8,7 +8,7 @@ import { JsonLd, RealisationCard, Section, breadcrumbLd } from '@/components/pag
 import { Reveal } from '@/components/accueil/Reveal'
 
 export const metadata: Metadata = pageMeta({
-  title: 'Réalisations : sites créés pour des artisans et commerces',
+  title: 'Réalisations : sites d’artisans et commerces',
   description:
     'Découvrez les sites que j’ai créés pour des entreprises de la Drôme : site de commande en ligne pour Sultan Kebab à Crest, site vitrine pour JR Maçonnerie à Allex.',
   path: '/realisations',
