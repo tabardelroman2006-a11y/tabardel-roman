@@ -60,15 +60,15 @@ export function SuiviParrain() {
       })
       const d = await res.json().catch(() => ({}))
       if (!res.ok) { setErreurForm(d.error || 'Une erreur est survenue.'); setEnvoi(false); return }
-      if (!d.mail) prevenirRoman(`Parrainage : ${vue?.parrain.prenom ?? 'un parrain'} recommande ${form.nom}`, {
-        'Parrain': vue?.parrain.prenom ?? '',
-        'Personne recommandée': form.nom,
-        'Entreprise': form.entreprise || 'non précisée',
-        'Téléphone': form.telephone,
-        'Email': form.email || 'non précisé',
-        'Ville': form.ville || 'non précisée',
-        'Projet': form.projet,
-        'Suivi': 'Admin, onglet Parrainage',
+      if (!d.mail) prevenirRoman(`À rappeler : ${form.nom}, recommandé par ${vue?.parrain.prenom ?? 'un parrain'}`, {
+        'En bref': `${vue?.parrain.prenom ?? 'Un parrain'} vous recommande ${form.nom}. Cette personne est d’accord pour que vous l’appeliez de sa part.`,
+        'À appeler': `${form.nom}, ${form.telephone}`,
+        'Entreprise': form.entreprise || 'Non précisée',
+        'Ville': form.ville || 'Non précisée',
+        'E-mail': form.email || 'Non précisé',
+        'Son projet': form.projet,
+        'Recommandé par': vue?.parrain.prenom ?? '',
+        'Voir dans mon admin': 'https://www.tabardel-roman.fr/admin-maintenance',
       })
       setVue(d)
       setMerci(`Merci ! Je contacte ${form.nom} très bientôt de votre part.`)

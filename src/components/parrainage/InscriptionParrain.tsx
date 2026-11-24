@@ -30,11 +30,12 @@ export function InscriptionParrain({ voirReglement }: { voirReglement: () => voi
         setEnvoi(false)
         return
       }
-      if (!d.mail) prevenirRoman(`Parrainage : nouveau parrain, ${form.prenom} ${form.nom}`, {
-        'Parrain': `${form.prenom} ${form.nom}`,
-        'Email': form.email,
+      if (!d.mail) prevenirRoman(`Nouveau parrain : ${form.prenom} ${form.nom}`, {
+        'En bref': `${form.prenom} ${form.nom} vient de s’inscrire au parrainage. Cette personne peut maintenant vous recommander des clients.`,
+        'Nom': `${form.prenom} ${form.nom}`,
         'Téléphone': form.telephone,
-        'Suivi': 'Admin, onglet Parrainage',
+        'E-mail': form.email,
+        'Voir dans mon admin': 'https://www.tabardel-roman.fr/admin-maintenance',
       })
       window.location.assign(new URL(`/parrainage/suivi?bienvenue=1#${d.id}`, window.location.origin))
     } catch {

@@ -40,13 +40,12 @@ export function QuestionParrainage({ onFini }: { onFini: () => void }) {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: cle,
-          subject: `Parrainage : question de ${form.prenom} ${form.nom}`,
-          from_name: `${form.prenom} ${form.nom}`,
+          subject: `Question sur le parrainage : ${form.prenom} ${form.nom}`,
+          from_name: 'Parrainage tabardel-roman.fr',
           ...(email ? { replyto: email } : {}),
-          'Prénom': form.prenom,
-          'Nom': form.nom,
-          'Pour répondre': form.contact,
-          'Question': form.question,
+          'En bref': `${form.prenom} ${form.nom} vous pose une question depuis la page parrainage.${email ? ' Répondez directement à ce mail pour lui écrire.' : ''}`,
+          'Sa question': form.question,
+          'Pour lui répondre': form.contact,
         }),
       })
       const d = await res.json().catch(() => ({}))
