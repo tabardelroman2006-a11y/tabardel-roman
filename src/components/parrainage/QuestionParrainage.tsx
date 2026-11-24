@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Check, Send } from 'lucide-react'
 import { Champ, Piege } from './champs'
+import { CaseHumain, caseHumainActive } from './CaseHumain'
 
 /* « Une question ? » : envoie la question par e-mail a Roman (Web3Forms). */
 export function QuestionParrainage({ onFini }: { onFini: () => void }) {
@@ -11,11 +12,14 @@ export function QuestionParrainage({ onFini }: { onFini: () => void }) {
   const [envoi, setEnvoi] = useState(false)
   const [envoye, setEnvoye] = useState(false)
   const [erreur, setErreur] = useState('')
+  const [jeton, setJeton] = useState('')
+  const [remise, setRemise] = useState(0)
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm(f => ({ ...f, [k]: e.target.value }))
 
   async function envoyer(e: React.FormEvent) {
     e.preventDefault()
+    if (caseHumainActive && !jeton) { setErreur('Merci de cocher la case « Vérifiez que vous êtes humain ».'); return }
     setEnvoi(true)
     setErreur('')
     try {
@@ -23,10 +27,10 @@ export function QuestionParrainage({ onFini }: { onFini: () => void }) {
       const r = await fetch('/api/parrainage/question', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, site: piege }),
+        body: JSON.stringify({ ...form, site: piege, turnstile: jeton }),
       })
       const s = await r.json().catch(() => ({}))
-      if (!r.ok) { setErreur(s.error || 'L’envoi n’a pas marché. Réessayez.'); setEnvoi(false); return }
+      if (!r.ok) { setErreur(s.error || 'L’envoi n’a pas marché. Réessayez.'); setRemise(n => n + 1); setEnvoi(false); return }
       if (s.mail) { setEnvoye(true); setEnvoi(false); return }
     } catch {}
 
@@ -81,6 +85,7 @@ export function QuestionParrainage({ onFini }: { onFini: () => void }) {
       <Champ label="Votre question">
         <textarea className="pr-input" required rows={4} maxLength={1500} value={form.question} onChange={set('question')} />
       </Champ>
+      <CaseHumain onJeton={setJeton} remise={remise} />
       {erreur && <p role="alert" className="pr-error">{erreur}</p>}
       <button type="submit" disabled={envoi} className="pr-btn">
         <Send size={17} /> {envoi ? 'Envoi…' : 'Envoyer ma question'}

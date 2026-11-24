@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Check, Copy, Phone, Plus, Send } from 'lucide-react'
 import { PRIME, STATUTS, type EtatRecompense, type Statut } from '@/lib/parrainage'
 import { Cadre, Case, Champ, Panneau, Piege, prevenirRoman } from './champs'
+import { CaseHumain, caseHumainActive } from './CaseHumain'
 
 type Vue = {
   parrain: { prenom: string }
@@ -25,6 +26,8 @@ export function SuiviParrain() {
   const [envoi, setEnvoi] = useState(false)
   const [ouvert, setOuvert] = useState(false)
   const [erreurForm, setErreurForm] = useState('')
+  const [jeton, setJeton] = useState('')
+  const [remise, setRemise] = useState(0)
   const [merci, setMerci] = useState('')
   const [copie, setCopie] = useState(false)
   const fermer = useCallback(() => setOuvert(false), [])
@@ -50,16 +53,17 @@ export function SuiviParrain() {
   async function recommander(e: React.FormEvent) {
     e.preventDefault()
     if (!accord) { setErreurForm('Merci de confirmer que cette personne est d’accord pour être contactée.'); return }
+    if (caseHumainActive && !jeton) { setErreurForm('Merci de cocher la case « Vérifiez que vous êtes humain ».'); return }
     setEnvoi(true)
     setErreurForm('')
     try {
       const res = await fetch('/api/parrainage/suivi', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: idRef.current, filleul: { ...form, accord, site: piege } }),
+        body: JSON.stringify({ id: idRef.current, filleul: { ...form, accord, site: piege }, turnstile: jeton }),
       })
       const d = await res.json().catch(() => ({}))
-      if (!res.ok) { setErreurForm(d.error || 'Une erreur est survenue.'); setEnvoi(false); return }
+      if (!res.ok) { setErreurForm(d.error || 'Une erreur est survenue.'); setRemise(n => n + 1); setEnvoi(false); return }
       if (!d.mail) prevenirRoman(`À rappeler : ${form.nom}, recommandé par ${vue?.parrain.prenom ?? 'un parrain'}`, {
         'En bref': `${vue?.parrain.prenom ?? 'Un parrain'} vous recommande ${form.nom}. Cette personne est d’accord pour que vous l’appeliez de sa part.`,
         'À appeler': `${form.nom}, ${form.telephone}`,
@@ -201,6 +205,7 @@ export function SuiviParrain() {
               <textarea className="pr-input" required rows={4} value={form.projet} onChange={set('projet')} />
             </Champ>
             <Case checked={accord} onChange={setAccord}>Cette personne est d’accord pour que Roman la contacte de ma part.</Case>
+            <CaseHumain onJeton={setJeton} remise={remise} />
             {erreurForm && <p role="alert" className="pr-error">{erreurForm}</p>}
             <button type="submit" disabled={envoi} className="pr-btn">
               <Send size={17} /> {envoi ? 'Envoi…' : 'Envoyer la recommandation'}

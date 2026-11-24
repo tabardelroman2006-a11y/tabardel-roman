@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { MESSAGE_TURNSTILE, turnstileValide } from '@/lib/turnstile'
 import { createIPRateLimiter, getClientIP } from '@/lib/admin-security'
 import { mailQuestion } from '@/lib/parrainage-mail'
 
@@ -31,6 +32,9 @@ export async function POST(request: Request) {
   }
   if (!q.prenom || !q.nom || !q.contact || !q.question) {
     return NextResponse.json({ error: 'Merci de remplir tous les champs.' }, { status: 400 })
+  }
+  if (!(await turnstileValide(body.turnstile, ip))) {
+    return NextResponse.json({ error: MESSAGE_TURNSTILE }, { status: 400 })
   }
   limiteur.record(ip)
   return NextResponse.json({ ok: true, mail: await mailQuestion(q) })

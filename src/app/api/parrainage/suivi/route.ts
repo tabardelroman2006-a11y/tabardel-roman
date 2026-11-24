@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { MESSAGE_TURNSTILE, turnstileValide } from '@/lib/turnstile'
 import { createIPRateLimiter, getClientIP } from '@/lib/admin-security'
 import { etatRecompense, normaliserEmail, type Filleul, type Parrain } from '@/lib/parrainage'
 import { ecrireFilleul, filleulsDe, idValide, lireParrain, nouvelId } from '@/lib/parrainage-store'
@@ -81,6 +82,9 @@ export async function POST(request: Request) {
     }
     if (f.accord !== true) {
       return NextResponse.json({ error: 'Merci de confirmer que cette personne est d’accord pour être contactée.' }, { status: 400 })
+    }
+    if (!(await turnstileValide(body.turnstile, ip))) {
+      return NextResponse.json({ error: MESSAGE_TURNSTILE }, { status: 400 })
     }
     ajouts.record(ip)
     await ecrireFilleul(filleul)

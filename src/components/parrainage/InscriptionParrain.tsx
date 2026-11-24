@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Case, Champ, Piege, prevenirRoman } from './champs'
+import { CaseHumain, caseHumainActive } from './CaseHumain'
 
 export function InscriptionParrain({ voirReglement }: { voirReglement: () => void }) {
   const [form, setForm] = useState({ prenom: '', nom: '', email: '', telephone: '' })
@@ -10,23 +11,27 @@ export function InscriptionParrain({ voirReglement }: { voirReglement: () => voi
   const [piege, setPiege] = useState('')
   const [envoi, setEnvoi] = useState(false)
   const [erreur, setErreur] = useState('')
+  const [jeton, setJeton] = useState('')
+  const [remise, setRemise] = useState(0)
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm(f => ({ ...f, [k]: e.target.value }))
 
   async function envoyer(e: React.FormEvent) {
     e.preventDefault()
     if (!reglement) { setErreur('Merci d’accepter le règlement du parrainage.'); return }
+    if (caseHumainActive && !jeton) { setErreur('Merci de cocher la case « Vérifiez que vous êtes humain ».'); return }
     setEnvoi(true)
     setErreur('')
     try {
       const res = await fetch('/api/parrainage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, reglement, site: piege }),
+        body: JSON.stringify({ ...form, reglement, site: piege, turnstile: jeton }),
       })
       const d = await res.json().catch(() => ({}))
       if (!res.ok || !d.id) {
         setErreur(d.error || 'Une erreur est survenue. Réessayez.')
+        setRemise(n => n + 1)
         setEnvoi(false)
         return
       }
@@ -56,6 +61,7 @@ export function InscriptionParrain({ voirReglement }: { voirReglement: () => voi
       <Case checked={reglement} onChange={setReglement}>
         J’accepte le <a href="#reglement" onClick={e => { e.preventDefault(); voirReglement() }}>règlement du parrainage</a>. Mes coordonnées servent uniquement au parrainage.
       </Case>
+      <CaseHumain onJeton={setJeton} remise={remise} />
       {erreur && <p role="alert" className="pr-error">{erreur}</p>}
       <button type="submit" disabled={envoi} className="pr-btn">
         {envoi ? 'Création de votre espace…' : 'Créer mon espace parrain'} {!envoi && <ArrowRight size={18} />}

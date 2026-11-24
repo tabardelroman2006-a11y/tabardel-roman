@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { MESSAGE_TURNSTILE, turnstileValide } from '@/lib/turnstile'
 import { createIPRateLimiter, getClientIP } from '@/lib/admin-security'
 import { normaliserEmail, type Parrain } from '@/lib/parrainage'
 import { ecrireParrain, nouvelId, tousLesParrains } from '@/lib/parrainage-store'
@@ -39,6 +40,9 @@ export async function POST(request: Request) {
   }
   if (body.reglement !== true) {
     return NextResponse.json({ error: 'Merci d’accepter le règlement du parrainage.' }, { status: 400 })
+  }
+  if (!(await turnstileValide(body.turnstile, ip))) {
+    return NextResponse.json({ error: MESSAGE_TURNSTILE }, { status: 400 })
   }
 
   limiteur.record(ip)
