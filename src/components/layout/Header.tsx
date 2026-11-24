@@ -78,7 +78,7 @@ export function Header() {
     return () => { window.removeEventListener('keydown', onKey); clearTimeout(t) }
   }, [open])
 
-  if (pathname === '/carte' || pathname?.startsWith('/admin')) return null
+  if (pathname === '/carte' || pathname?.startsWith('/admin') || pathname?.startsWith('/parrainage')) return null
 
   const visible = navLinks.filter(l => l.href === '/' || !hidden.includes(l.href))
   const clearTop = pathname === '/' && !scrolled && !open

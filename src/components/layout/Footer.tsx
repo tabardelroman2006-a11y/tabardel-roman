@@ -11,7 +11,6 @@ const NAV = [
   { href: '/realisations',   label: 'Réalisations' },
   { href: '/conseils',       label: 'Conseils' },
   { href: '/contact#questions', label: 'FAQ'    },
-  { href: '/parrainage',     label: 'Parrainage' },
   { href: '/notre-histoire', label: 'À propos'  },
   { href: '/contact',        label: 'Contact'   },
 ]
@@ -42,7 +41,7 @@ export function Footer() {
       .catch(() => {})
   }, [])
 
-  if (pathname === '/carte') return null
+  if (pathname === '/carte' || pathname?.startsWith('/parrainage')) return null
 
   const navVisible = NAV.filter(l => l.href.includes('#') || !hidden.includes(l.href))
 

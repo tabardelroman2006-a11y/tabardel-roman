@@ -1,11 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { Case, Champ, Piege, champStyle, prevenirRoman } from './champs'
+import { Case, Champ, Piege, prevenirRoman } from './champs'
 
-export function InscriptionParrain() {
+export function InscriptionParrain({ voirReglement }: { voirReglement: () => void }) {
   const [form, setForm] = useState({ prenom: '', nom: '', email: '', telephone: '' })
   const [reglement, setReglement] = useState(false)
   const [piege, setPiege] = useState('')
@@ -37,7 +36,7 @@ export function InscriptionParrain() {
         'Téléphone': form.telephone,
         'Suivi': 'Admin, onglet Parrainage',
       })
-      window.location.assign(new URL(`/parrainage/suivi#${d.id}`, window.location.origin))
+      window.location.assign(new URL(`/parrainage/suivi?bienvenue=1#${d.id}`, window.location.origin))
     } catch {
       setErreur('Erreur réseau. Réessayez.')
       setEnvoi(false)
@@ -45,20 +44,20 @@ export function InscriptionParrain() {
   }
 
   return (
-    <form onSubmit={envoyer} className="relative grid gap-5">
+    <form onSubmit={envoyer} className="pr-form relative">
       <Piege value={piege} onChange={setPiege} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Champ label="Prénom"><input required autoComplete="given-name" value={form.prenom} onChange={set('prenom')} style={champStyle} /></Champ>
-        <Champ label="Nom"><input required autoComplete="family-name" value={form.nom} onChange={set('nom')} style={champStyle} /></Champ>
+      <div className="pr-row2">
+        <Champ label="Prénom"><input className="pr-input" required autoComplete="given-name" value={form.prenom} onChange={set('prenom')} /></Champ>
+        <Champ label="Nom"><input className="pr-input" required autoComplete="family-name" value={form.nom} onChange={set('nom')} /></Champ>
       </div>
-      <Champ label="E-mail"><input required type="email" autoComplete="email" value={form.email} onChange={set('email')} style={champStyle} /></Champ>
-      <Champ label="Téléphone" aide="Pour vous prévenir quand votre récompense est prête."><input required type="tel" autoComplete="tel" value={form.telephone} onChange={set('telephone')} style={champStyle} /></Champ>
+      <Champ label="E-mail"><input className="pr-input" required type="email" inputMode="email" autoComplete="email" value={form.email} onChange={set('email')} /></Champ>
+      <Champ label="Téléphone" aide="Pour vous prévenir quand vos 100 € sont prêts."><input className="pr-input" required type="tel" inputMode="tel" autoComplete="tel" value={form.telephone} onChange={set('telephone')} /></Champ>
       <Case checked={reglement} onChange={setReglement}>
-        J’ai lu et j’accepte le <a href="#reglement" className="underline" style={{ color: 'var(--rt-primary)' }}>règlement du parrainage</a>. Mes coordonnées servent uniquement au suivi du parrainage (<Link href="/politique-confidentialite" className="underline">confidentialité</Link>).
+        J’accepte le <a href="#reglement" onClick={e => { e.preventDefault(); voirReglement() }}>règlement du parrainage</a>. Mes coordonnées servent uniquement au parrainage.
       </Case>
-      {erreur && <p role="alert" className="font-body text-sm" style={{ color: '#b91c1c' }}>{erreur}</p>}
-      <button type="submit" disabled={envoi} className="acc-btn acc-btn-solid justify-center" style={{ opacity: envoi ? 0.7 : 1 }}>
-        {envoi ? 'Inscription…' : 'Devenir parrain'} <ArrowRight size={16} />
+      {erreur && <p role="alert" className="pr-error">{erreur}</p>}
+      <button type="submit" disabled={envoi} className="pr-btn">
+        {envoi ? 'Création de votre espace…' : 'Créer mon espace parrain'} {!envoi && <ArrowRight size={18} />}
       </button>
     </form>
   )

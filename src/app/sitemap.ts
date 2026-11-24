@@ -14,7 +14,6 @@ const PAGES: { path: string; priority: number }[] = [
   ...VILLES.map(v => ({ path: `/creation-site-internet/${v.slug}`, priority: 0.7 })),
   { path: '/conseils', priority: 0.7 },
   ...CONSEILS.map(c => ({ path: `/conseils/${c.slug}`, priority: 0.6 })),
-  { path: '/parrainage', priority: 0.6 },
   { path: '/notre-histoire', priority: 0.7 },
   { path: '/contact', priority: 0.8 },
 ]

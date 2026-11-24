@@ -1,29 +1,83 @@
 'use client'
 
-import type { CSSProperties, ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
+import Image from 'next/image'
+import { X } from 'lucide-react'
+import '@/styles/parrainage.css'
 
-/* Champs de formulaire communs a l'inscription et au suivi du parrainage. */
+/* Briques communes de l'appli de parrainage. */
 
-export const champStyle: CSSProperties = {
-  width: '100%', padding: '12px 14px', borderRadius: 10,
-  backgroundColor: 'var(--rt-soft)', border: '1px solid var(--rt-line)',
-  color: 'var(--rt-ink)', fontSize: 15, outline: 'none', fontFamily: 'inherit',
+const PHOTO = '/images/accueil/roman-dehors.jpg'
+
+/* Cadre facon appli : photo en tete, colonne de telephone, fond flou sur ordinateur. */
+export function Cadre({ top, children }: { top?: ReactNode; children: ReactNode }) {
+  return (
+    <div className="pr">
+      <div className="pr__backdrop" aria-hidden="true">
+        <Image src={PHOTO} alt="" fill sizes="100vw" className="pr__backdrop-img" />
+      </div>
+      <div className="pr__col">
+        <div className="pr__hero">
+          <Image src={PHOTO} alt="Roman Tabardel, créateur de sites web" fill priority sizes="(max-width: 520px) 100vw, 480px" className="pr__hero-img" />
+          <div className="pr__hero-fade" />
+          <div className="pr__top">
+            <a href="https://www.tabardel-roman.fr" className="pr__brand">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/logo-rt.png" alt="" />
+              Roman Tabardel
+            </a>
+            {top}
+          </div>
+        </div>
+        {children}
+        <p className="pr__foot">
+          Roman Tabardel · Sites web sur mesure · <a href="https://www.tabardel-roman.fr/politique-confidentialite">Confidentialité</a>
+        </p>
+      </div>
+    </div>
+  )
+}
+
+/* Panneau qui monte du bas de l'ecran. */
+export function Panneau({ titre, intro, onClose, children }: { titre: string; intro?: string; onClose: () => void; children: ReactNode }) {
+  useEffect(() => {
+    const echap = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    const avant = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', echap)
+    return () => { document.body.style.overflow = avant; window.removeEventListener('keydown', echap) }
+  }, [onClose])
+
+  return (
+    <>
+      <div className="pr-sheet-bg" onClick={onClose} aria-hidden="true" />
+      <div className="pr-sheet" role="dialog" aria-modal="true" aria-label={titre} data-lenis-prevent>
+        <div className="pr-sheet__grab" />
+        <div className="pr-sheet__head">
+          <h2 className="pr-sheet__title">{titre}</h2>
+          <button type="button" className="pr-sheet__close" onClick={onClose} aria-label="Fermer"><X size={18} /></button>
+        </div>
+        {intro && <p className="pr-sheet__lead">{intro}</p>}
+        {children}
+      </div>
+    </>
+  )
 }
 
 export function Champ({ label, children, aide }: { label: string; children: ReactNode; aide?: string }) {
   return (
-    <label className="block">
-      <span className="block font-body text-[10px] font-700 tracking-[0.18em] uppercase mb-1.5" style={{ color: 'var(--rt-muted)' }}>{label}</span>
+    <label className="pr-field">
+      <span className="pr-field__label">{label}</span>
       {children}
-      {aide && <span className="block mt-1.5 font-body text-xs" style={{ color: 'var(--rt-muted)' }}>{aide}</span>}
+      {aide && <span className="pr-field__help">{aide}</span>}
     </label>
   )
 }
 
 export function Case({ checked, onChange, children }: { checked: boolean; onChange: (v: boolean) => void; children: ReactNode }) {
   return (
-    <label className="flex gap-3 items-start cursor-pointer font-body text-sm leading-relaxed" style={{ color: 'var(--rt-ink)' }}>
-      <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)} className="mt-1 shrink-0" style={{ width: 18, height: 18, accentColor: 'var(--rt-primary)' }} />
+    <label className="pr-tick">
+      <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)} />
       <span>{children}</span>
     </label>
   )
