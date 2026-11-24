@@ -83,11 +83,13 @@ export function Case({ checked, onChange, children }: { checked: boolean; onChan
   )
 }
 
-/* Champ piege : cache aux humains, rempli par les robots. */
+/* Champ piege rempli par les robots seulement. En display:none et sans nom
+   reconnaissable : la saisie automatique du navigateur ne le touche pas
+   (hors ecran, Chrome le remplissait et l'inscription etait ignoree). */
 export function Piege({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   return (
-    <div aria-hidden="true" style={{ position: 'absolute', left: -9999, width: 1, height: 1, overflow: 'hidden' }}>
-      <input tabIndex={-1} autoComplete="off" name="site" value={value} onChange={e => onChange(e.target.value)} />
+    <div aria-hidden="true" style={{ display: 'none' }}>
+      <input type="text" tabIndex={-1} autoComplete="off" name="rt_controle_x7" value={value} onChange={e => onChange(e.target.value)} />
     </div>
   )
 }

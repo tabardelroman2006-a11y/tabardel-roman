@@ -24,7 +24,10 @@ export async function POST(request: Request) {
   }
 
   // Champ piege invisible : un robot le remplit, un humain non.
-  if (texte(body.site, 200)) return NextResponse.json({ ok: true, id: nouvelId(18) })
+  if (texte(body.site, 200)) {
+    console.warn('parrainage: inscription ignoree (champ piege rempli)')
+    return NextResponse.json({ ok: true, id: nouvelId(18) })
+  }
 
   const prenom = texte(body.prenom, 60)
   const nom = texte(body.nom, 60)

@@ -52,7 +52,10 @@ export async function POST(request: Request) {
     if (ajouts.check(ip) !== null) {
       return NextResponse.json({ error: 'Trop de recommandations d’un coup. Réessayez dans une heure.' }, { status: 429 })
     }
-    if (texte(f.site, 200)) return NextResponse.json(vuePublique(parrain, await filleulsDe(parrain.id)))
+    if (texte(f.site, 200)) {
+      console.warn('parrainage: recommandation ignoree (champ piege rempli)')
+      return NextResponse.json(vuePublique(parrain, await filleulsDe(parrain.id)))
+    }
 
     const filleul: Filleul = {
       id: nouvelId(9),
