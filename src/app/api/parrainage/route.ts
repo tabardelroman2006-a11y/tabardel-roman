@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { createIPRateLimiter, getClientIP } from '@/lib/admin-security'
 import { normaliserEmail, type Parrain } from '@/lib/parrainage'
 import { ecrireParrain, nouvelId, tousLesParrains } from '@/lib/parrainage-store'
+import { mailNouveauParrain } from '@/lib/parrainage-mail'
 
 export const dynamic = 'force-dynamic'
 
@@ -26,7 +27,7 @@ export async function POST(request: Request) {
   // Champ piege invisible : un robot le remplit, un humain non.
   if (texte(body.site, 200)) {
     console.warn('parrainage: inscription ignoree (champ piege rempli)')
-    return NextResponse.json({ ok: true, id: nouvelId(18) })
+    return NextResponse.json({ ok: true, id: nouvelId(18), mail: true })
   }
 
   const prenom = texte(body.prenom, 60)
@@ -55,5 +56,6 @@ export async function POST(request: Request) {
     creeLe: new Date().toISOString(),
   }
   await ecrireParrain(parrain)
-  return NextResponse.json({ ok: true, id: parrain.id })
+  const mail = await mailNouveauParrain(parrain)
+  return NextResponse.json({ ok: true, id: parrain.id, mail })
 }

@@ -60,7 +60,7 @@ export function SuiviParrain() {
       })
       const d = await res.json().catch(() => ({}))
       if (!res.ok) { setErreurForm(d.error || 'Une erreur est survenue.'); setEnvoi(false); return }
-      prevenirRoman(`Parrainage : ${vue?.parrain.prenom ?? 'un parrain'} recommande ${form.nom}`, {
+      if (!d.mail) prevenirRoman(`Parrainage : ${vue?.parrain.prenom ?? 'un parrain'} recommande ${form.nom}`, {
         'Parrain': vue?.parrain.prenom ?? '',
         'Personne recommandée': form.nom,
         'Entreprise': form.entreprise || 'non précisée',

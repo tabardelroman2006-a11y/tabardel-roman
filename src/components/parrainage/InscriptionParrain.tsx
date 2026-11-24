@@ -30,7 +30,7 @@ export function InscriptionParrain({ voirReglement }: { voirReglement: () => voi
         setEnvoi(false)
         return
       }
-      prevenirRoman(`Parrainage : nouveau parrain, ${form.prenom} ${form.nom}`, {
+      if (!d.mail) prevenirRoman(`Parrainage : nouveau parrain, ${form.prenom} ${form.nom}`, {
         'Parrain': `${form.prenom} ${form.nom}`,
         'Email': form.email,
         'Téléphone': form.telephone,

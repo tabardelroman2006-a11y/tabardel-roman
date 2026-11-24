@@ -16,13 +16,25 @@ export function QuestionParrainage({ onFini }: { onFini: () => void }) {
 
   async function envoyer(e: React.FormEvent) {
     e.preventDefault()
-    if (piege) { setEnvoye(true); return }
-    const cle = process.env.NEXT_PUBLIC_WEB3FORMS_KEY
-    if (!cle) { setErreur('Envoi indisponible pour le moment. Appelez-moi au 06 18 13 53 84.'); return }
     setEnvoi(true)
     setErreur('')
+    try {
+      /* 1) Mail en francais envoye par le serveur. */
+      const r = await fetch('/api/parrainage/question', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, site: piege }),
+      })
+      const s = await r.json().catch(() => ({}))
+      if (!r.ok) { setErreur(s.error || 'L’envoi n’a pas marché. Réessayez.'); setEnvoi(false); return }
+      if (s.mail) { setEnvoye(true); setEnvoi(false); return }
+    } catch {}
+
+    /* 2) Secours si le serveur n'a pas pu envoyer : ancien service. */
+    const cle = process.env.NEXT_PUBLIC_WEB3FORMS_KEY
     const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.contact.trim()) ? form.contact.trim() : undefined
     try {
+      if (!cle) throw new Error()
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },

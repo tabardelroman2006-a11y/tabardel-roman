@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { createIPRateLimiter, getClientIP } from '@/lib/admin-security'
 import { etatRecompense, normaliserEmail, type Filleul, type Parrain } from '@/lib/parrainage'
 import { ecrireFilleul, filleulsDe, idValide, lireParrain, nouvelId } from '@/lib/parrainage-store'
+import { mailRecommandation } from '@/lib/parrainage-mail'
 
 export const dynamic = 'force-dynamic'
 
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
     }
     if (texte(f.site, 200)) {
       console.warn('parrainage: recommandation ignoree (champ piege rempli)')
-      return NextResponse.json(vuePublique(parrain, await filleulsDe(parrain.id)))
+      return NextResponse.json({ ...vuePublique(parrain, await filleulsDe(parrain.id)), mail: true })
     }
 
     const filleul: Filleul = {
@@ -83,9 +84,10 @@ export async function POST(request: Request) {
     }
     ajouts.record(ip)
     await ecrireFilleul(filleul)
+    const mail = await mailRecommandation(parrain, filleul)
     const liste = await filleulsDe(parrain.id)
     if (!liste.some(x => x.id === filleul.id)) liste.push(filleul)
-    return NextResponse.json(vuePublique(parrain, liste), { headers: { 'Cache-Control': 'no-store' } })
+    return NextResponse.json({ ...vuePublique(parrain, liste), mail }, { headers: { 'Cache-Control': 'no-store' } })
   }
 
   return NextResponse.json(vuePublique(parrain, await filleulsDe(parrain.id)), { headers: { 'Cache-Control': 'no-store' } })
