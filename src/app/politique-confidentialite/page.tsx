@@ -71,6 +71,14 @@ export default function PolitiqueConfidentialitePage() {
               Ces données sont collectées sur la base de votre consentement (art. 6.1.a du RGPD)
               et dans le cadre de mesures précontractuelles (art. 6.1.b du RGPD).
             </p>
+            <p className="text-sm leading-relaxed mt-3">
+              Parrainage : les coordonnées du parrain (nom, prénom, email, téléphone) et celles
+              de la personne qu’il recommande (nom, entreprise, téléphone, email facultatif, ville,
+              projet) servent uniquement à contacter la personne recommandée et à verser la récompense.
+              Le parrain s’engage à avoir obtenu l’accord de la personne avant de la recommander.
+              Ces données sont conservées le temps du parrainage, puis 3 ans au plus, et peuvent
+              être supprimées sur simple demande.
+            </p>
           </section>
 
           <div style={{ height: 1, backgroundColor: 'rgba(255,255,255,0.06)' }} />

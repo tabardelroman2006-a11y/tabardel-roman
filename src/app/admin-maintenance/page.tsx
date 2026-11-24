@@ -1,15 +1,16 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Phone, Search, Home, Trash2 } from 'lucide-react'
+import { Eye, EyeOff, Wrench, FileText, Palette, EyeOff as PageHide, LogOut, Phone, Search, Home, Trash2, Gift } from 'lucide-react'
 import { HIDEABLE_PAGES } from '@/lib/pages-config'
 import { TEXT_GROUPS } from '@/lib/text-fields'
 import { extractGoogleCode } from '@/lib/google-verification'
+import { ParrainageTab } from './ParrainageTab'
 
 const SESSION_KEY = 'rtAdminSession'
 const NAVY = '#1B3A6B'
 
-type Tab = 'accueil' | 'appels' | 'maintenance' | 'pages' | 'textes' | 'couleurs' | 'google'
+type Tab = 'accueil' | 'appels' | 'parrainage' | 'maintenance' | 'pages' | 'textes' | 'couleurs' | 'google'
 
 export default function AdminPage() {
   const [token, setToken]               = useState<string | null>(null)
@@ -138,6 +139,7 @@ export default function AdminPage() {
         </div>
         {tab === 'accueil'     && <AccueilTab token={token} onExpired={logout} go={setTab} />}
         {tab === 'appels'      && <AppelsTab token={token} onExpired={logout} />}
+        {tab === 'parrainage'  && <ParrainageTab token={token} onExpired={logout} />}
         {tab === 'maintenance' && <MaintenanceTab token={token} onExpired={logout} />}
         {tab === 'pages'       && <PagesTab token={token} onExpired={logout} />}
         {tab === 'textes'      && <TextsTab token={token} onExpired={logout} />}
@@ -151,6 +153,7 @@ export default function AdminPage() {
 const TABS: { id: Tab; label: string; hint: string; icon: React.ReactNode }[] = [
   { id: 'accueil',     label: 'Accueil',     hint: 'Ton site en un coup d’œil.',                         icon: <Home size={17} /> },
   { id: 'appels',      label: 'Appels',      hint: 'Les appels pris par ton assistant téléphonique.',    icon: <Phone size={17} /> },
+  { id: 'parrainage',  label: 'Parrainage',  hint: 'Tes parrains, leurs recommandations et les récompenses à régler.', icon: <Gift size={17} /> },
   { id: 'maintenance', label: 'Maintenance', hint: 'Fermer le site le temps de travaux.',                icon: <Wrench size={17} /> },
   { id: 'pages',       label: 'Pages',       hint: 'Masquer ou réafficher des pages du site.',           icon: <PageHide size={17} /> },
   { id: 'textes',      label: 'Textes',      hint: 'Modifier les textes de la page d’accueil.',          icon: <FileText size={17} /> },
