@@ -125,7 +125,7 @@ export function AccueilParrainage() {
         </button>
       </section>
 
-      <div style={{ margin: '18px 14px 0' }}>
+      <div className="pr-cta">
         <button type="button" className="pr-btn" onClick={() => setPanneau('inscription')}>
           Devenir parrain <ArrowRight size={18} />
         </button>
