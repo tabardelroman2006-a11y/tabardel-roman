@@ -25,7 +25,7 @@
   min-height: 300px;
   overflow: hidden;
 }
-.pr__hero-img { object-fit: cover; object-position: 50% 12%; animation: pr-zoom 1.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.pr__hero-img { top: -16% !important; height: 116% !important; object-fit: cover; object-position: 50% 50%; animation: pr-zoom 1.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .pr__hero-fade {
   position: absolute;
   inset: 0;
@@ -398,3 +398,21 @@ textarea.pr-input { resize: vertical; min-height: 104px; }
 @media (prefers-reduced-motion: reduce) {
   .pr *, .pr-sheet, .pr-sheet-bg { animation: none !important; transition: none !important; }
 }
+
+.pr-ask {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px 12px;
+  border: 1.5px solid color-mix(in srgb, var(--rt-primary) 22%, transparent);
+  border-radius: 20px;
+  background: var(--rt-bg);
+  font-family: var(--font-nunito), sans-serif;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.3s, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pr-ask:hover { border-color: var(--rt-primary); }
+.pr-ask:active { transform: scale(0.98); }

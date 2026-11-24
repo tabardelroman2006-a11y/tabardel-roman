@@ -7,7 +7,7 @@ import '@/styles/parrainage.css'
 
 /* Briques communes de l'appli de parrainage. */
 
-const PHOTO = '/images/accueil/roman-dehors.jpg'
+const PHOTO = '/images/accueil/jardin.jpg'
 
 /* Cadre facon appli : photo en tete, colonne de telephone, fond flou sur ordinateur. */
 export function Cadre({ top, children }: { top?: ReactNode; children: ReactNode }) {
@@ -18,7 +18,7 @@ export function Cadre({ top, children }: { top?: ReactNode; children: ReactNode 
       </div>
       <div className="pr__col">
         <div className="pr__hero">
-          <Image src={PHOTO} alt="Roman Tabardel, créateur de sites web" fill priority sizes="(max-width: 520px) 100vw, 480px" className="pr__hero-img" />
+          <Image src={PHOTO} alt="Le bureau de Roman Tabardel en plein air, dans la Drôme" fill priority sizes="(max-width: 520px) 100vw, 480px" className="pr__hero-img" />
           <div className="pr__hero-fade" />
           <div className="pr__top">
             <a href="https://www.tabardel-roman.fr" className="pr__brand">

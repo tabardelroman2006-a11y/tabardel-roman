@@ -26,17 +26,9 @@ export const COMPTE_PAS = [
 ]
 
 export const FAQ = [
-  { q: 'Qui peut devenir parrain ?', a: 'Tout le monde, à partir de 18 ans : un client, un ami, un commerçant, un artisan… Pas besoin d’avoir travaillé avec moi. L’inscription est gratuite et ne vous engage à rien.' },
   { q: `Quand est-ce que je reçois les ${PRIME} € ?`, a: 'Quand le site de la personne recommandée est livré et entièrement payé. Je vous appelle pour votre RIB et je fais le virement dans les 30 jours. Vos coordonnées bancaires ne sont jamais demandées ici.' },
-  { q: 'Pourquoi attendre que le site soit livré et payé ?', a: 'Un projet peut changer ou s’arrêter en route. En attendant la fin, je suis sûr de vous récompenser pour un vrai projet abouti, et vous suivez chaque étape depuis votre espace.' },
   { q: 'Combien de personnes puis-je recommander ?', a: `Autant que vous voulez : ${PRIME} € pour chaque projet abouti, sans limite.` },
-  { q: 'Que se passe-t-il après ma recommandation ?', a: 'Je contacte la personne de votre part pour comprendre son projet et, si elle le souhaite, je lui envoie un devis. Vous suivez chaque étape dans votre espace parrain.' },
   { q: 'Dois-je prévenir la personne avant ?', a: 'Oui, c’est obligatoire : elle doit être d’accord pour que je l’appelle.' },
-  { q: 'Et si quelqu’un l’a déjà recommandée ?', a: 'C’est la première recommandation enregistrée qui compte. Une personne déjà en contact avec moi avant votre recommandation ne compte pas non plus.' },
-  { q: 'Je suis déjà client, ça marche aussi ?', a: `Oui, exactement pareil : ${PRIME} € par virement pour chaque projet abouti grâce à vous.` },
-  { q: 'Voyez-vous le prix des projets ?', a: 'Non. Dans votre espace, vous voyez seulement l’étape où en est chaque projet, jamais son prix.' },
-  { q: 'J’ai perdu le lien de mon espace', a: 'Appelez-moi au 06 18 13 53 84 ou écrivez à contact@tabardel-roman.fr, je vous le renvoie. Pensez à ajouter la page à vos favoris ou à votre écran d’accueil.' },
-  { q: 'Dois-je déclarer cette somme aux impôts ?', a: 'Selon votre situation, les sommes reçues peuvent être à déclarer. En cas de doute, renseignez-vous auprès de votre centre des impôts.' },
 ]
 
 export const REGLEMENT = [

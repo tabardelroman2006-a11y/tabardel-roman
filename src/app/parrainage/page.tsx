@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description: `Un proche a besoin d’un site internet ? Recommandez-le à Roman Tabardel et recevez ${PRIME} € par virement quand son site est livré. Client ou non, sans limite.`,
     path: '/parrainage',
     ogTitle: `Parrainage Roman Tabardel : ${PRIME} € offerts`,
-    image: { url: '/images/accueil/roman-dehors.jpg', width: 900, height: 1354, alt: 'Roman Tabardel' },
+    image: { url: '/images/accueil/jardin.jpg', width: 1000, height: 1000, alt: 'Parrainage Roman Tabardel' },
   }),
   robots: { index: false, follow: true },
 }

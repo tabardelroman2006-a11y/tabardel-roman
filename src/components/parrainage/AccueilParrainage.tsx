@@ -1,16 +1,17 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowRight, Banknote, Check, Eye, Phone, Plus, Send, Share2, UserPlus, X } from 'lucide-react'
+import { ArrowRight, Banknote, Check, Eye, MessageCircle, Phone, Plus, Send, Share2, UserPlus, X } from 'lucide-react'
 import { MONTANT_MINIMUM, PRIME } from '@/lib/parrainage'
 import { COMPTE, COMPTE_PAS, ETAPES, FAQ, REGLEMENT } from '@/lib/parrainage-textes'
 import { Cadre, Panneau } from './champs'
 import { InscriptionParrain } from './InscriptionParrain'
+import { QuestionParrainage } from './QuestionParrainage'
 
 const ICONES = [UserPlus, Send, Eye, Banknote]
 
 export function AccueilParrainage() {
-  const [panneau, setPanneau] = useState<'inscription' | 'retrouver' | null>(null)
+  const [panneau, setPanneau] = useState<'inscription' | 'retrouver' | 'question' | null>(null)
   const [copie, setCopie] = useState(false)
   const reglementRef = useRef<HTMLDetailsElement>(null)
   const fermer = useCallback(() => setPanneau(null), [])
@@ -101,7 +102,7 @@ export function AccueilParrainage() {
       </section>
 
       <section className="pr-block" style={{ animationDelay: '0.45s' }}>
-        <h2 className="pr-block__title">Vos questions</h2>
+        <h2 className="pr-block__title">Questions fréquentes</h2>
         {FAQ.map(f => (
           <details key={f.q} className="pr-faq">
             <summary>{f.q}<Plus size={18} /></summary>
@@ -114,6 +115,14 @@ export function AccueilParrainage() {
             {REGLEMENT.map((r, i) => <li key={i}>{r}</li>)}
           </ol>
         </details>
+        <button type="button" className="pr-ask" onClick={() => setPanneau('question')}>
+          <span className="pr-step__icon"><MessageCircle size={20} /></span>
+          <span style={{ flex: 1, textAlign: 'left' }}>
+            <span className="pr-step__title">Vous avez une question ?</span>
+            <span className="pr-step__text" style={{ display: 'block' }}>N’hésitez pas, je vous réponds personnellement.</span>
+          </span>
+          <ArrowRight size={18} style={{ color: 'var(--rt-primary)', flex: 'none' }} />
+        </button>
       </section>
 
       <div style={{ margin: '18px 14px 0' }}>
@@ -125,6 +134,12 @@ export function AccueilParrainage() {
       {panneau === 'inscription' && (
         <Panneau titre="Devenir parrain" intro="Gratuit et sans engagement. Votre espace est créé tout de suite, vous pourrez recommander quelqu’un juste après." onClose={fermer}>
           <InscriptionParrain voirReglement={voirReglement} />
+        </Panneau>
+      )}
+
+      {panneau === 'question' && (
+        <Panneau titre="Votre question" intro="Posez-la ici, elle m’arrive directement par e-mail." onClose={fermer}>
+          <QuestionParrainage onFini={fermer} />
         </Panneau>
       )}
 
