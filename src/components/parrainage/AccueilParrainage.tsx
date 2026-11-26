@@ -1,12 +1,13 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowRight, Banknote, Check, Eye, MessageCircle, Phone, Plus, Send, Share2, UserPlus, X } from 'lucide-react'
+import { ArrowRight, Banknote, Check, Eye, MessageCircle, Plus, Send, Share2, UserPlus, X } from 'lucide-react'
 import { MONTANT_MINIMUM, PRIME } from '@/lib/parrainage'
 import { COMPTE, COMPTE_PAS, ETAPES, FAQ, REGLEMENT } from '@/lib/parrainage-textes'
 import { Cadre, Panneau } from './champs'
 import { InscriptionParrain } from './InscriptionParrain'
 import { QuestionParrainage } from './QuestionParrainage'
+import { RetrouverEspace } from './RetrouverEspace'
 
 const ICONES = [UserPlus, Send, Eye, Banknote]
 
@@ -17,6 +18,7 @@ export function AccueilParrainage() {
   const fermer = useCallback(() => setPanneau(null), [])
 
   useEffect(() => {
+    if (window.location.hash === '#retrouver') setPanneau('retrouver')
     if (window.location.hash !== '#reglement' || !reglementRef.current) return
     reglementRef.current.open = true
     reglementRef.current.scrollIntoView({ block: 'start' })
@@ -144,13 +146,8 @@ export function AccueilParrainage() {
       )}
 
       {panneau === 'retrouver' && (
-        <Panneau titre="Retrouver mon espace" onClose={fermer}>
-          <p className="pr-sheet__lead">
-            Votre espace parrain s’ouvre avec le lien personnel reçu à l’inscription (gardé dans vos favoris ou sur votre écran d’accueil).
-            Vous l’avez perdu ? Appelez-moi, je vous le renvoie tout de suite.
-          </p>
-          <a href="tel:+33618135384" className="pr-btn" style={{ textDecoration: 'none' }}><Phone size={18} /> 06 18 13 53 84</a>
-          <a href="mailto:contact@tabardel-roman.fr?subject=Mon%20lien%20de%20parrainage" className="pr-btn pr-btn--ghost" style={{ textDecoration: 'none', marginTop: 10 }}>Écrire un e-mail</a>
+        <Panneau titre="Retrouver mon espace" intro="Entrez votre nom et votre numéro de téléphone : votre espace s’ouvre tout de suite." onClose={fermer}>
+          <RetrouverEspace />
         </Panneau>
       )}
     </Cadre>

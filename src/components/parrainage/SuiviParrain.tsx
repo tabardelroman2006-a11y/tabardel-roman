@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Check, Copy, Phone, Plus, Send } from 'lucide-react'
-import { PRIME, STATUTS, type EtatRecompense, type Statut } from '@/lib/parrainage'
+import { CLE_LIEN_PARRAIN, PRIME, STATUTS, type EtatRecompense, type Statut } from '@/lib/parrainage'
 import { Cadre, Case, Champ, Panneau, Piege, prevenirRoman } from './champs'
 import { CaseHumain, caseHumainActive } from './CaseHumain'
+import { EcranAccueil } from './EcranAccueil'
 
 type Vue = {
   parrain: { prenom: string }
@@ -33,17 +34,32 @@ export function SuiviParrain() {
   const fermer = useCallback(() => setOuvert(false), [])
 
   useEffect(() => {
-    const lien = window.location.hash.slice(1)
+    const recharger = () => window.location.reload()
+    window.addEventListener('hashchange', recharger)
+    return () => window.removeEventListener('hashchange', recharger)
+  }, [])
+
+  useEffect(() => {
+    let memoire = ''
+    try { memoire = localStorage.getItem(CLE_LIEN_PARRAIN) || '' } catch {}
+    const lien = window.location.hash.slice(1) || memoire
     idRef.current = lien
     const nouveau = new URLSearchParams(window.location.search).has('bienvenue')
-    if (nouveau) history.replaceState(null, '', `/parrainage/suivi#${lien}`)
+    if (lien && (nouveau || !window.location.hash)) history.replaceState(null, '', `/parrainage/suivi#${lien}`)
     const requete = lien
       ? fetch('/api/parrainage/suivi', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: lien }) })
         .then(async r => ({ ok: r.ok, d: await r.json().catch(() => ({})) }))
       : Promise.resolve({ ok: false, d: { error: 'Ce lien est incomplet.' } })
     requete
       .then(({ ok, d }) => {
-        if (ok) { setVue(d); setBienvenue(nouveau) } else setErreur(d.error || 'Ce lien ne correspond à aucun espace parrain.')
+        if (ok) {
+          try { localStorage.setItem(CLE_LIEN_PARRAIN, lien) } catch {}
+          setVue(d)
+          setBienvenue(nouveau)
+          return
+        }
+        if (lien === memoire) try { localStorage.removeItem(CLE_LIEN_PARRAIN) } catch {}
+        setErreur(d.error || 'Ce lien ne correspond à aucun espace parrain.')
       })
       .catch(() => setErreur('Erreur réseau. Rechargez la page.'))
   }, [])
@@ -100,9 +116,10 @@ export function SuiviParrain() {
         <section className="pr__card">
           <p className="pr__eyebrow"><span className="pr__dot" />Espace parrain</p>
           <h1 className="pr__title">Lien introuvable</h1>
-          <p className="pr__lead">{erreur} Vérifiez que le lien est complet, ou appelez-moi : je vous renvoie le bon.</p>
+          <p className="pr__lead">{erreur} Retrouvez votre espace avec votre nom et votre numéro de téléphone.</p>
           <div style={{ marginTop: 18 }}>
-            <a href="tel:+33618135384" className="pr-btn" style={{ textDecoration: 'none' }}><Phone size={18} /> 06 18 13 53 84</a>
+            <a href="/parrainage#retrouver" className="pr-btn" style={{ textDecoration: 'none', marginBottom: 10 }}>Retrouver mon espace</a>
+            <a href="tel:+33618135384" className="pr-btn pr-btn--ghost" style={{ textDecoration: 'none' }}><Phone size={18} /> 06 18 13 53 84</a>
             <a href="/parrainage" className="pr-link">Pas encore parrain ? <strong>Découvrir le parrainage</strong></a>
           </div>
         </section>
@@ -146,10 +163,11 @@ export function SuiviParrain() {
 
         <div className="pr-keep">
           <span style={{ flex: 1 }}>
-            {bienvenue && <><strong>Votre espace est prêt !</strong> </>}<strong>Gardez ce lien</strong> dans vos favoris ou sur votre écran d’accueil : c’est votre accès personnel, sans mot de passe.
+            {bienvenue && <><strong>Votre espace est prêt !</strong> </>}Pour revenir : ajoutez l’espace à votre écran d’accueil, ou entrez simplement votre nom et votre téléphone sur la page du parrainage.
           </span>
           <button type="button" onClick={copierLien}>{copie ? <><Check size={14} /> Copié</> : <><Copy size={14} /> Copier</>}</button>
         </div>
+        <EcranAccueil />
       </section>
 
       {merci && <p role="status" className="pr-success">{merci}</p>}

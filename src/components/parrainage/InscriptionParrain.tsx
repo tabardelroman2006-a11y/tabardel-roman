@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Case, Champ, Piege, prevenirRoman } from './champs'
 import { CaseHumain, caseHumainActive } from './CaseHumain'
+import { ouvrirEspace } from './RetrouverEspace'
 
 export function InscriptionParrain({ voirReglement }: { voirReglement: () => void }) {
   const [form, setForm] = useState({ prenom: '', nom: '', email: '', telephone: '' })
@@ -35,6 +36,7 @@ export function InscriptionParrain({ voirReglement }: { voirReglement: () => voi
         setEnvoi(false)
         return
       }
+      if (d.deja) { ouvrirEspace(d.id); return }
       if (!d.mail) prevenirRoman(`Nouveau parrain : ${form.prenom} ${form.nom}`, {
         'En bref': `${form.prenom} ${form.nom} vient de s’inscrire au parrainage. Cette personne peut maintenant vous recommander des clients.`,
         'Nom': `${form.prenom} ${form.nom}`,
@@ -42,7 +44,7 @@ export function InscriptionParrain({ voirReglement }: { voirReglement: () => voi
         'E-mail': form.email,
         'Voir dans mon admin': 'https://www.tabardel-roman.fr/admin-maintenance',
       })
-      window.location.assign(new URL(`/parrainage/suivi?bienvenue=1#${d.id}`, window.location.origin))
+      ouvrirEspace(d.id, true)
     } catch {
       setErreur('Erreur réseau. Réessayez.')
       setEnvoi(false)

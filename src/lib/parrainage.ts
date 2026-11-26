@@ -55,3 +55,17 @@ export function etatRecompense(f: Pick<Filleul, 'statut' | 'montant' | 'recompen
 
 export const normaliserTel = (t: string) => t.replace(/[^\d+]/g, '').replace(/^\+33/, '0')
 export const normaliserEmail = (e: string) => e.trim().toLowerCase()
+
+const sansAccents = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z]+/g, ' ').trim()
+const finTel = (t: string) => normaliserTel(t).replace(/\D/g, '').slice(-9)
+
+/* Retrouver un parrain par son nom (ou prenom + nom) et son telephone. */
+export function memePersonne(p: Pick<Parrain, 'prenom' | 'nom' | 'telephone'>, nom: string, telephone: string) {
+  const tel = finTel(telephone)
+  if (tel.length < 9 || finTel(p.telephone) !== tel) return false
+  const saisi = sansAccents(nom)
+  const n = sansAccents(p.nom), pr = sansAccents(p.prenom)
+  return saisi.length > 0 && [n, `${pr} ${n}`, `${n} ${pr}`].includes(saisi)
+}
+
+export const CLE_LIEN_PARRAIN = 'rtParrainLien'

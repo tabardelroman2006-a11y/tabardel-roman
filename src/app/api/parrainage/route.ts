@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { MESSAGE_TURNSTILE, turnstileValide } from '@/lib/turnstile'
 import { createIPRateLimiter, getClientIP } from '@/lib/admin-security'
-import { normaliserEmail, type Parrain } from '@/lib/parrainage'
+import { memePersonne, normaliserEmail, type Parrain } from '@/lib/parrainage'
 import { ecrireParrain, nouvelId, tousLesParrains } from '@/lib/parrainage-store'
 import { mailNouveauParrain } from '@/lib/parrainage-mail'
 
@@ -48,9 +48,11 @@ export async function POST(request: Request) {
   limiteur.record(ip)
 
   const existants = await tousLesParrains()
+  const deja = existants.find(p => memePersonne(p, `${prenom} ${nom}`, telephone) || memePersonne(p, nom, telephone))
+  if (deja) return NextResponse.json({ ok: true, id: deja.id, deja: true, mail: true })
   if (existants.some(p => p.email === email)) {
     return NextResponse.json({
-      error: 'Cette adresse e-mail est déjà inscrite. Retrouvez votre lien de suivi dans vos favoris, ou appelez Roman au 06 18 13 53 84 pour le recevoir à nouveau.',
+      error: 'Cette adresse e-mail est déjà inscrite avec un autre numéro. Touchez « Retrouver mon espace » et entrez votre nom et le numéro donné à l’inscription, ou appelez Roman au 06 18 13 53 84.',
     }, { status: 409 })
   }
 

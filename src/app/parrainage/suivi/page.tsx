@@ -5,6 +5,8 @@ export const metadata: Metadata = {
   title: 'Mon espace parrain',
   robots: { index: false, follow: false },
   referrer: 'no-referrer',
+  appleWebApp: { capable: true, title: 'Parrainage', statusBarStyle: 'default' },
+  icons: { apple: '/images/logo-rt-carre.png' },
 }
 
 export const viewport: Viewport = {
